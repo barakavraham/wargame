@@ -1,0 +1,12 @@
+.log_title {
+    display: flex;
+    justify-content: space-around;
+    font-weight: bold;
+}
+
+.account_message {
+    text-align: center;
+    background-color: rgb(6, 255, 6);
+    font-size: 15px;
+    font-weight: bold;
+}

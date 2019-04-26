@@ -1,0 +1,136 @@
+
+
+.main_container {
+    display: flex;
+    justify-content: space-between;
+    height: 100vh;
+}
+
+.table_container {
+    display: flex;
+    width: 90%;
+    flex-direction: column;
+    align-items: center;
+}
+
+table {
+    border-radius: 3px;
+    border: 2px solid #000080;
+    margin-top: 20px;
+    background-color: #87CEFA;
+    width: 60%;
+    justify-content: space-around;
+    border-collapse: collapse;
+}
+
+table th {
+    display: inline;
+    justify-content: space-between;
+    border-right: 1px solid black;
+    padding-right: 60px;
+}
+
+#weapon {
+    margin-left: 10px;
+    color: rgb(0, 0, 0);
+}
+
+#cost {
+    margin-left: 3em;
+    color: rgb(0, 0, 0);
+}
+
+#power {
+    margin-left: 3em;
+    color: rgb(0, 0, 0);
+}
+
+#shop_cat {
+    width: 100%;
+    border: 2px solid black;
+    background-color: rgb(51, 190, 255);
+}
+
+.buy-btn {
+    font-size: 12px;
+    margin: 10px 15px 15px 0;
+    color: white;
+    background-color: green;
+    border: 1px solid black;
+}
+
+.buy-btn:hover {
+    background-color: blue;
+    transition: 0.4s;
+}
+
+.shop_item, .last_item {
+    font-size: 13px;
+    padding: 20px 0 10px 15px;
+    font-weight: bold;
+    color: rgb(12, 1, 31);
+    width: 19%;
+}
+
+
+.tr_item {
+    display: flex;
+    border-bottom: 2px solid #000080;
+    justify-content: flex-start;
+}
+
+.last_tr_item {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.td_item_cost {
+    width: 22%;
+    margin: 0;
+    padding: 0;
+}
+
+.td_item_power {
+    width: 40%;
+    padding: 25px 0 10px 0;
+}
+
+.item_power {
+    padding-left: 3em;
+}
+
+
+.item_cost {
+    padding: 15px 0 5px 40px;
+    margin-right: 10px;
+    font-size: 13px;
+}
+
+.amount {
+    border-radius: 2px;
+    border: 1px solid white;
+    background: -moz-linear-gradient(top, #1e5799 0%, #207cca 99%, #7db9e8 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, #1e5799 0%,#207cca 99%,#7db9e8 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, #1e5799 0%,#207cca 99%,#7db9e8 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    width: 30px;
+    margin-right: 5px;
+}
+
+.tr_item h5, .last_tr_item h5 {
+    margin: 0;
+}
+
+.img {
+    margin-left: 4px;
+    height: 15px;
+    width: 15px;
+}
+
+.td_button {
+    padding-top: 35px;
+}
+
+.wep_img {
+    height: 60px;
+    width: 60px;
+}
