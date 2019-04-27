@@ -1,4 +1,4 @@
-.username, .password, .email, .pass_con {
+.form-input {
     margin-top: 10px;
     margin-left: 10px;
     display: flex;
@@ -36,7 +36,8 @@
 
 .form_div, .form_container {
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
+    justify-content: flex-start;
     padding-bottom: 10px;
 }
 
