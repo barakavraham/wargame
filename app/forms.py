@@ -14,17 +14,18 @@ class RegistrationForm(FlaskForm):
     army_name = StringField('Army Name', 
                         validators=[DataRequired(), Length(min = 3, max = 24)])
     submit = SubmitField('Sign up')
-    
-    def validate_army_name(self, army_name):
+
+    @staticmethod
+    def validate_army_name(army_name):
         user = User.query.filter_by(army_name=army_name.data).first()
         if user:
             raise ValidationError('This army name is already taken')
 
-    def validate_email(self, email):
+    @staticmethod
+    def validate_email(email):
         user = User.query.filter_by(email=email.data).first()
         if user:
             raise ValidationError('This email is already taken')
-
 
 
 class LoginForm(FlaskForm):

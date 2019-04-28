@@ -10,6 +10,7 @@ db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
 
+
 @login_manager.unauthorized_handler
 def unauthorized_callback():
     flash('You must login to view this page')
