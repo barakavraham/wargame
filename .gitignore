@@ -5,3 +5,4 @@
 .idea/
 site.db
 .env
+*/__pycache__
