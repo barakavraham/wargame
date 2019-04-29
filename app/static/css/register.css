@@ -7,7 +7,7 @@
 
 .submit {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     margin-top: 2em;
     margin-bottom: 1em;
     
@@ -70,4 +70,17 @@ span a {
     font-family: Ariel;
     font-size: 14px;
     color: red;
+}
+
+.google-login-button {
+    height: 35px;
+    width: 10.5rem;
+    border-radius: 3px;
+    border: 1px solid black;
+    align-items: center;
+}
+
+.google-login-button:hover {
+    height: 40px;
+    width: 11rem;
 }
