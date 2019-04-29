@@ -10,3 +10,23 @@
     font-size: 15px;
     font-weight: bold;
 }
+
+
+.google-login-button {
+    height: 35px;
+    width: 10.5rem;
+    border-radius: 3px;
+    border: 1px solid black;
+    align-items: center;
+}
+
+.google-button-div {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+}
+
+.google-login-button:hover {
+    height: 40px;
+    width: 11rem;
+}
