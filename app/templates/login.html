@@ -44,10 +44,10 @@
                         {{ form.password(class="input") }}
                     {% endif %}
                 </div>
-                <div><span class="al_reg"><a href="{{ url_for('auth.register') }}"> Forgot password?</a></span></div>
+                <span class="al_reg"><a href="{{ url_for('auth.register') }}"> Forgot password?</a></span>
                 <div class="google-button-div"><a href="http://localhost:5000/google/login"><img class="google-login-button" src="{{ url_for('static', filename='images/google.png') }}"></a></div>
                 <div class="submit">
-                {{ form.submit(class="btn3") }}
+                    {{ form.submit(class="btn3") }}
                 </div>
             </fieldset>
             <span class="al_reg">Dont have an account? <a href="{{ url_for('auth.register') }}"> Register now!</a></span>

@@ -7,6 +7,7 @@ certifi==2019.3.9
 cffi==1.12.3
 chardet==3.0.4
 Click==7.0
+colorama==0.4.1
 cryptography==2.6.1
 entrypoints==0.3
 flake8==3.7.7
