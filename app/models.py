@@ -1,6 +1,6 @@
 from app import db, login_manager
 from flask_login import UserMixin
-
+from sqlalchemy.orm import backref
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -33,7 +33,7 @@ class Army(db.Model, UserMixin):
     tanks = db.Column(db.Integer, nullable=False, default=0)
     bombs = db.Column(db.Integer, nullable=False, default=0)
 
-    user = db.relationship("User", backref='army', uselist=False)
+    user = db.relationship("User", backref=backref("army", uselist=False))
 
     def __repr__(self):
         return f'<Army {self.army_name}>'

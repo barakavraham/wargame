@@ -19,7 +19,7 @@ def register():
         user = User(email=form.email.data, password=hashed_password)
         db.session.add(user)
         db.session.commit()
-        army = Army(user_id=user.id)
+        army = Army(user_id=user.id, army_name=form.army_name.data)
         db.session.add(army)
         db.session.commit()
         login_user(user, remember=False)
