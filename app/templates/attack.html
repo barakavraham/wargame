@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/attack.css') }}">
+{% endblock styles %}
+{% block content %}
+   <div class="main-table-container">
+        <div class="semi-table-container">
+            <table class="table">
+                <thead>
+                    <tr id="shop-cat">
+                        <th id="weapon">Army</th>
+                        <th id="cost">Field</th>
+                        <th id="power">Clan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users_lists[page_num] %}
+                        <tr class="tr0">
+                            {% if user == current_user %}
+                                <td><a class="army-name-current" href="{{ url_for('profile.index', army_name=user.army.army_name) }}">{{ user.army.army_name }}</a></td>
+                            {% else %}
+                                <td><a class="army-name" href="{{ url_for('profile.index', army_name=user.army.army_name) }}">{{ user.army.army_name }}</a></td>
+                            {% endif %}
+                            <td>{{ user.army.field }}</td>
+                            <td>{{ user.army.clan }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="next-previous-buttons">
+                <div class="p-page">
+                    {% if page_num >= 1 %}
+                    <a href="{{ url_for('attack.index', page_num=page_num - 1) }}">Previous page</a>
+                    {% endif %}
+                </div>
+                <div class="n-page">
+                    {% if page_num < num_lists %}
+                        <a href="{{ url_for('attack.index', page_num=page_num + 1) }}">Next Page</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+   </div>
+{% endblock content %}
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/attack.js') }}"></script>
+{% endblock scripts %}

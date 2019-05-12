@@ -5,6 +5,20 @@
 {% block content %}
     <div class="table-container">
         <div class="table-div">
+        <div
+                id="user-resources"
+                data-army-gold="{{ current_user.army.gold }}"
+                data-army-metal="{{ current_user.army.metal }}"
+        >
+            <div>
+                <span>gold: <span id="current-gold-amount">{{ current_user.army.gold }}</span></span>
+                <img class="img" src="{{ url_for('static', filename='images/gold.png') }}">
+            </div>
+            <div>
+                <span>metal: <span id="current-metal-amount">{{ current_user.army.metal }}</span></span>
+                <img class="img" src="{{ url_for('static', filename='images/metal.png') }}">
+            </div>
+        </div>
             <table class="table">
                 <thead>
                     <tr id="shop-cat">
@@ -15,172 +29,48 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="tr-item">
-                        <td class="shop-item">
-                            <img class="wep-img" src="{{ url_for('static', filename='images/pistol.png') }}">
-                        </td>
-                        <td class="td-item-cost">
-                            <div>
-                                <h5 class="item-cost">200</h5>
-                                <img class="img" src="{{ url_for('static', filename='images/gold.png') }}">
-                            </div>
-                            <div>
-                                <h5 class="item-cost">50</h5>
-                                <img class="img" src="{{ url_for('static', filename='images/metal.png') }}">
-                            </div>
-                        </td>
-                        <td class="td-item-power">
-                            <span class="item-power">1,000</span>
-                            <img class="img" src="{{ url_for('static', filename='images/power.png') }}">
-                        </td>
-                        <td class="td-button">
-                            <input  class="amount" placeholder="0" />
-                            <button class="buy-btn">Buy</button>
-                        </td>
-                    </tr>
-                    <tr class="tr-item">
-                        <td class="shop-item">
-                            <img class="wep-img" src="{{ url_for('static', filename='images/rifle.png') }}">
-                        </td>
-                        <td class="td-item-cost">
-                            <div>
-                                <h5 class="item-cost">400</h5> 
-                                <img class="img" src="{{ url_for('static', filename='images/gold.png') }}">
-                            </div>
-                            <div>
-                                <h5 class="item-cost">100</h5>
-                                <img class="img" src="{{ url_for('static', filename='images/metal.png') }}">
-                            </div>
-                        </td>
-                        <td class="td-item-power">
-                            <span class="item-power">2,000</span>
-                            <img class="img" src="{{ url_for('static', filename='images/power.png') }}">
-                        </td>
-                        <td class="td-button">
-                            <input  class="amount" placeholder="0" >
-                            <button class="buy-btn">Buy</button>
-                        </td>
-                    </tr>
-                    <tr class="tr-item">
-                        <td class="shop-item">
-                            <img class="wep-img" src="{{ url_for('static', filename='images/tank.png') }}">
-                        </td>
-                        <td class="td-item-cost">
-                            <div>
-                                <h5 class="item-cost">850</h5>
-                                <img class="img" src="{{ url_for('static', filename='images/gold.png') }}">
-                            </div>
-                            <div>
-                                <h5 class="item-cost">200</h5>
-                                <img class="img" src="{{ url_for('static', filename='images/metal.png') }}">
-                            </div>
-                        </td>
-                        <td class="td-item-power">
-                            <span class="item-power">4,500</span>
-                            <img class="img" src="{{ url_for('static', filename='images/power.png') }}">
-                        </td>
-                        <td class="td-button">
-                            <input  class="amount" placeholder="0" />
-                            <button class="buy-btn">Buy</button>
-                        </td>
-                    </tr>
-                    <tr class="tr-item">
-                        <td class="shop-item">
-                            <img class="wep-img" src="{{ url_for('static', filename='images/missle1.png') }}">
-                        </td>
-                        <td class="td-item-cost">
-                            <div>
-                                <h5 class="item-cost">1,500</h5>
-                                <img class="img" src="{{ url_for('static', filename='images/gold.png') }}">
-                            </div>
-                            <div>
-                                <h5 class="item-cost">320</h5>
-                                <img class="img" src="{{ url_for('static', filename='images/metal.png') }}">
-                            </div>
-                        </td>
-                        <td class="td-item-power">
-                            <span class="item-power">9,000</span>
-                            <img class="img" src="{{ url_for('static', filename='images/power.png') }}">
-                        </td>
-                        <td class="td-button">
-                            <input  class="amount" placeholder="0" />
-                            <button class="buy-btn">Buy</button>
-                        </td>
-                    </tr>
-                    <tr class="tr-item">
-                        <td class="shop-item">
-                            <img class="wep-img" src="{{ url_for('static', filename='images/missle2.png') }}">
-                        </td>
-                        <td class="td-item-cost">
-                            <div>
-                                <h5 class="item-cost">3,200</h5>
-                                <img class="img" src="{{ url_for('static', filename='images/gold.png') }}">
-                            </div>
-                            <div>
-                                <h5 class="item-cost">700</h5>
-                                <img class="img" src="{{ url_for('static', filename='images/metal.png') }}">
-                            </div>
-                        </td>
-                        <td class="td-item-power">
-                            <span class="item-power">19,000</span>
-                            <img class="img" src="{{ url_for('static', filename='images/power.png') }}">
-                        </td>
-                        <td class="td-button">
-                            <input  class="amount" placeholder="0" />
-                            <button class="buy-btn">Buy</button>
-                        </td>
-                    </tr>
-                    <tr class="tr-item">
-                        <td class="shop-item">
-                            <img class="wep-img" src="{{ url_for('static', filename='images/missle3.png') }}">
-                        </td>
-                        <td class="td-item-cost">
-                            <div>
-                                <h5 class="item-cost">7,000</h5>
-                                <img class="img" src="{{ url_for('static', filename='images/gold.png') }}">
-                            </div>
-                            <div>
-                                <h5 class="item-cost">1,500</h5>
-                                <img class="img" src="{{ url_for('static', filename='images/metal.png') }}">
-                            </div>
-                        </td>
-                        <td class="td-item-power">
-                            <span class="item-power">50,000</span>
-                            <img class="img" src="{{ url_for('static', filename='images/power.png') }}">
-                        </td>
-                        <td class="td-button">
-                            <input  class="amount" placeholder="0" />
-                            <button class="buy-btn">Buy</button>
-                        </td>
-                    </tr>
-                    <tr class="tr-item">
-                        <td class="shop-item">
-                            <img class="wep-img" src="{{ url_for('static', filename='images/jet.png') }}">
-                        </td>
-                        <td class="td-item-cost">
-                            <div>
-                                <h5 class="item-cost">25,000</h5>
-                                <img class="img" src="{{ url_for('static', filename='images/gold.png') }}">
-                            </div>
-                            <div>
-                                <h5 class="item-cost">4,000</h5>
-                                <img class="img" src="{{ url_for('static', filename='images/metal.png') }}">
-                            </div>
-                        </td>
-                        <td class="td-item-power">
-                            <span class="item-power">130,000</span>
-                            <img class="img" src="{{ url_for('static', filename='images/power.png') }}">
-                        </td>
-                        <td class="td-button">
-                            <input  class="amount" placeholder="0" />
-                            <button class="buy-btn">Buy</button>
-                        </td>
-                    </tr>
+                    {% for item in shop_items %}
+                        <tr class="tr-item">
+                            <td class="shop-item">
+                                <img class="wep-img" src="{{ url_for('static', filename='images/'+shop_items[item].picture_name+'.png') }}">
+                            </td>
+                            <td class="td-item-cost">
+                                <div>
+                                    <h5 class="item-cost">{{ shop_items[item].gold }}</h5>
+                                    <img class="img" src="{{ url_for('static', filename='images/gold.png') }}">
+                                </div>
+                                <div>
+                                    <h5 class="item-cost">{{ shop_items[item].metal }}</h5>
+                                    <img class="img" src="{{ url_for('static', filename='images/metal.png') }}">
+                                </div>
+                            </td>
+                            <td class="td-item-power">
+                                <span class="item-power">{{ shop_items[item].power }}</span>
+                                <img class="img" src="{{ url_for('static', filename='images/power.png') }}">
+                            </td>
+                            <td class="td-button">
+                                <div class="item-amount">
+                                    you own: <span class="current-amount">{{ current_user.army.get_item_amount(item) }}</span>
+                                </div>
+                                <input  class="amount" placeholder="0" type="text">
+                                <button
+                                        class="buy-btn"
+                                        data-item="{{ item }}"
+                                        data-cost-gold="{{ shop_items[item].gold }}"
+                                        data-cost-metal="{{ shop_items[item].metal }}"
+                                >Buy</button>
+                                <div class="purchase-result"></div>
+                            </td>
+                        </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
     </div>
 {% endblock content %}
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/shop.js') }}"></script>
+{% endblock scripts %}
 
 
  
