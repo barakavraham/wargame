@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+{% endblock styles %}
+
+{% block content %}
+    <div class="big-profile-container">
+        <div class="profile-container">
+            <div class="avatar">
+                <div class="avatar-box">
+                    <span>Avatar</span>
+                </div>
+            </div>
+            <div class="army">
+                <div class="army-box">
+                    <div>
+                        <span class="army-name">{{ army_name }}</span>
+                    </div>
+                    <div class="army-box-div">
+                        <span>Field: </span>
+                        {{ field }}
+                    </div>
+                    <div class="army-box-div">
+                        <span>Clan: </span>
+                        {{ clan }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block scripts %}
+{% endblock scripts%}

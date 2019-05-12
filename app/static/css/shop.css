@@ -46,30 +46,6 @@
     align-items: center;
 }
 
-/* table {
-    border-radius: 3px;
-    border: 1px solid #000080;
-    margin-top: 20px;
-    background-color: #87CEFA;
-    width: 60%;
-    border-collapse: collapse;
-} */
-
-/* thead tr {
-    display: flex;
-    justify-content: space-between;
-}
-
-tr th {
-    display: inline;
-    border-right: 1px solid black;
-}
-
-tbody tr {
-    display: flex;
-    justify-content: space-between;
-} */
-
 #weapon {
     color: rgb(0, 0, 0);
 }
@@ -130,9 +106,29 @@ tbody tr {
     height: 60px;
     width: 60px;
 }
-/* 
-td {
+
+.item-amount {
+    font-size: 0.9rem;
+}
+
+.td-button {
+    padding: 0;
+}
+
+#user-resources {
     display: flex;
-    justify-content: space-between;
-    align-content: center;
-} */
+    width: 50%;
+    justify-content: space-evenly;
+}
+
+.success, .fail {
+    font-size: 0.8rem;
+}
+
+.success {
+    color: green;
+}
+
+.fail {
+    color: red;
+}
