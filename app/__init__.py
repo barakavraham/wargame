@@ -23,3 +23,4 @@ app.register_blueprint(base.base, url_prefix="/base")
 app.register_blueprint(shop.shop, url_prefix="/shop")
 app.register_blueprint(auth.auth, url_prefix="/auth")
 app.register_blueprint(google_auth.google_auth, url_prefix="/google")
+

@@ -11,19 +11,19 @@
                     <div class="army-resources attack">
                     <div class="user-resource">
                         <span>gold</span>
-                        <span>*number*</span>
+                        <span>{{ current_user.army.gold }}</span>
                     </div>
                     <div class="user-resource">
                         <span>wood</span>
-                        <span>*number*</span>
+                        <span>{{ current_user.army.wood }}</span>
                     </div>
                     <div class="user-resource">
                         <span>metal</span>
-                        <span>*number*</span>
+                        <span>{{ current_user.army.metal }}</span>
                     </div>
                     <div class="user-resource">
                         <span>field</span>
-                        <span>*number*</span>
+                        <span>{{ current_user.army.field }}</span>
                     </div>
                 </div>
                 <div class="army-resources defense" style="display: none">
@@ -54,19 +54,19 @@
                 <div class="army-power attack">
                     <div class="user-resource">
                         <span>soldiers</span>
-                        <span>*number*</span>
+                        <span>{{ current_user.army.soldiers }}</span>
                     </div>
                     <div class="user-resource">
                         <span>tanks</span>
-                        <span>*number*</span>
+                        <span>{{ current_user.army.tanks }}</span>
                     </div>
                     <div class="user-resource">
                         <span>bombs</span>
-                        <span>*number*</span>
+                        <span>{{ current_user.army.bombs }}</span>
                     </div>
                     <div class="user-resource">
                         <span>power</span>
-                        <span>*number*</span>
+                        <span>{{ current_user.army.power }}</span>
                     </div>
                 </div>
                 <div class="army-power defense" style="display: none">

@@ -4,7 +4,7 @@ import flask
 import google.oauth2.credentials
 import googleapiclient.discovery
 from app import db
-from app.models import User
+from app.models import User, Army
 from dotenv import load_dotenv
 from authlib.client import OAuth2Session
 from flask_login import login_user, current_user
@@ -13,7 +13,7 @@ from flask import url_for
 ACCESS_TOKEN_URI = 'https://www.googleapis.com/oauth2/v4/token'
 AUTHORIZATION_URL = 'https://accounts.google.com/o/oauth2/v2/auth?access_type=offline&prompt=consent'
 
-AUTHORIZATION_SCOPE ='openid email profile'
+AUTHORIZATION_SCOPE = 'openid email profile'
 
 load_dotenv()
 
@@ -37,21 +37,21 @@ def build_credentials():
         raise Exception('User must be logged in')
 
     oauth2_tokens = flask.session[AUTH_TOKEN_KEY]
-    
+
     return google.oauth2.credentials.Credentials(
-                oauth2_tokens['access_token'],
-                refresh_token=oauth2_tokens['refresh_token'],
-                client_id=CLIENT_ID,
-                client_secret=CLIENT_SECRET,
-                token_uri=ACCESS_TOKEN_URI)
+        oauth2_tokens['access_token'],
+        refresh_token=oauth2_tokens['refresh_token'],
+        client_id=CLIENT_ID,
+        client_secret=CLIENT_SECRET,
+        token_uri=ACCESS_TOKEN_URI)
 
 
 def get_user_info():
     credentials = build_credentials()
 
     oauth2_client = googleapiclient.discovery.build(
-                        'oauth2', 'v2',
-                        credentials=credentials)
+        'oauth2', 'v2',
+        credentials=credentials)
 
     return oauth2_client.userinfo().get().execute()
 
@@ -93,15 +93,15 @@ def google_auth_redirect():
 
     if req_state != flask.session[AUTH_STATE_KEY]:
         return flask.make_response('Invalid state parameter', 401)
-    
+
     session = OAuth2Session(CLIENT_ID, CLIENT_SECRET,
                             scope=AUTHORIZATION_SCOPE,
                             state=flask.session[AUTH_STATE_KEY],
                             redirect_uri=AUTH_REDIRECT_URI)
 
     oauth2_tokens = session.fetch_access_token(
-                        ACCESS_TOKEN_URI,            
-                        authorization_response=flask.request.url)
+        ACCESS_TOKEN_URI,
+        authorization_response=flask.request.url)
 
     flask.session[AUTH_TOKEN_KEY] = oauth2_tokens
 
@@ -114,6 +114,9 @@ def google_auth_redirect():
     if not existing_user:
         user = User(email=email, avatar=avatar, is_google_user=True)
         db.session.add(user)
+        db.session.commit()
+        army = Army(user_id=user.id)
+        db.session.add(army)
         db.session.commit()
         login_user(user)
     else:

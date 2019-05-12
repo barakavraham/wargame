@@ -1,5 +1,5 @@
 from app import db, bcrypt
-from app.models import User
+from app.models import User, Army
 from app.forms import RegistrationForm, LoginForm
 from app.routes.google_auth import google_logout
 from flask import render_template, url_for, flash, redirect, request, Blueprint
@@ -16,8 +16,11 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        user = User(email=form.email.data, password=hashed_password, army_name=form.army_name.data)
+        user = User(email=form.email.data, password=hashed_password)
         db.session.add(user)
+        db.session.commit()
+        army = Army(user_id=user.id, army_name=form.army_name.data)
+        db.session.add(army)
         db.session.commit()
         login_user(user, remember=False)
         return redirect(url_for('base.index'))

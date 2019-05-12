@@ -8,4 +8,3 @@ base = Blueprint('base', __name__, template_folder='templates')
 @login_required
 def index():
     return render_template('base.html')
-
