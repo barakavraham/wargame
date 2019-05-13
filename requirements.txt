@@ -1,3 +1,4 @@
+aniso8601==6.0.0
 asn1crypto==0.24.0
 astroid==2.2.5
 Authlib==0.11
@@ -14,6 +15,7 @@ flake8==3.7.7
 Flask==1.0.2
 Flask-Bcrypt==0.7.1
 Flask-Login==0.4.1
+Flask-RESTful==0.3.7
 Flask-SQLAlchemy==2.4.0
 Flask-WTF==0.14.2
 google-api-python-client==1.7.8
@@ -34,6 +36,7 @@ pycparser==2.19
 pyflakes==2.1.1
 pylint==2.3.1
 python-dotenv==0.10.1
+pytz==2019.1
 requests==2.21.0
 rsa==4.0
 six==1.12.0
