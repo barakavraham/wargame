@@ -57,4 +57,3 @@ app.register_blueprint(attack.attack, url_prefix="/attack")
 app.register_blueprint(profile.profile, url_prefix="/profile")
 app.register_blueprint(google_auth.google_auth, url_prefix="/google")
 app.register_blueprint(api_blueprint, url_prefix='/api')
-
