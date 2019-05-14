@@ -1,10 +1,12 @@
 from app import db
 from app.models import User
 from apscheduler.schedulers.background import BackgroundScheduler
-from datetime import datetime, timedelta
+from datetime import datetime
 from time import sleep
 
+
 def gift_users():
+    # add code to gift all users whatever you want
     print('gifting users')
 
 
