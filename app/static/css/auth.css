@@ -1,3 +1,6 @@
+.main-container {
+    justify-content: center;
+}
 .form-input {
     margin-top: 10px;
     margin-left: 10px;

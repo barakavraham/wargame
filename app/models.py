@@ -41,7 +41,7 @@ class Army(db.Model, UserMixin):
     user = db.relationship("User", backref=backref("army", uselist=False))
 
     def __repr__(self):
-        return f'<Army {self.army_name}>'
+        return f'<Army {self.name}>'
 
     def get_item_amount(self, item):
         return getattr(self, item)

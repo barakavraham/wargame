@@ -38,8 +38,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '827677ccbc5d49e567a7fceed8b43c2682c8469c2aa2b84d648349ef2fd7f4d0'
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL') or \
-'sqlite:///' + os.path.join(basedir, 'app.db')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL') or 'sqlite:///' + os.path.join(basedir, 'app.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
@@ -58,7 +57,7 @@ from app.api import api_blueprint
 from app.tasks import scheduler
 from app import models
 
-scheduler.start()
+# scheduler.start()
 
 app.register_blueprint(base.base, url_prefix="/base")
 app.register_blueprint(shop.shop, url_prefix="/shop")
