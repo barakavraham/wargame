@@ -1,7 +1,6 @@
 {% extends "layout.html" %}
 {% block styles %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
 {%  endblock styles %}
 {% block content %}
     <div class="form_container">
@@ -45,7 +44,7 @@
                     {% endif %}
                 </div>
                 <span class="al_reg"><a href="{{ url_for('auth.register') }}"> Forgot password?</a></span>
-                <div class="google-button-div"><a href="http://localhost:5000/google/login"><img class="google-login-button" src="{{ url_for('static', filename='images/google.png') }}"></a></div>
+                <div class="google-button-div"><a href="{{ url_for('google_auth.login') }}"><img class="google-login-button" src="{{ url_for('static', filename='images/google.png') }}"></a></div>
                 <div class="submit">
                     {{ form.submit(class="btn3") }}
                 </div>

@@ -13,7 +13,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=True)
     avatar = db.Column(db.String(100), nullable=False, default='default.jpg')
-    is_google_user = db.Column(db.Boolean, nullable=False, default=False)
+    is_google_user = db.Column(db.Boolean, nullable=False, default='0')
 
     def __repr__(self):
         return f'<User {self.email}>'
@@ -22,7 +22,7 @@ class User(db.Model, UserMixin):
 class Army(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
-    name = db.Column(db.String(20), unique=False, nullable=True, default='NoName')
+    name = db.Column(db.String(20), unique=False, nullable=False, default='NoName')
     gold = db.Column(db.Integer, nullable=False, default=100)
     wood = db.Column(db.Integer, nullable=False, default=100)
     metal = db.Column(db.Integer, nullable=False, default=100)
@@ -35,7 +35,8 @@ class Army(db.Model, UserMixin):
     missile_2 = db.Column(db.Integer, nullable=False, default=0)
     missile_3 = db.Column(db.Integer, nullable=False, default=0)
     jet = db.Column(db.Integer, nullable=False, default=0)
-    clan = db.Column(db.String(15), nullable=True, default=None)
+    clan = db.Column(db.String(15), default=None)
+    turns = db.Column(db.Integer, nullable=False, default=60)
 
     user = db.relationship("User", backref=backref("army", uselist=False))
 

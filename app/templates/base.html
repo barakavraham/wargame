@@ -1,7 +1,10 @@
 {% extends "layout.html" %}
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/base.css') }}">
+{% endblock styles %}
 {% block content %}
     <div class="user-army-container">
-    <div id="army-name">{{ current_user.army.army_name }}</div>
+    <div id="army-name">{{ current_user.army.name }}</div>
         <div class="tables">
             <div class="resources">
                 {% for resource in user_resources %}

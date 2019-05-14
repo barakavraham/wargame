@@ -1,5 +1,5 @@
 from flask import render_template, Blueprint
-from flask_login import login_required
+from flask_login import login_required, current_user
 from app import SHOP_ITEMS
 
 shop = Blueprint('shop', __name__, template_folder='templates')

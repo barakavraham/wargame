@@ -1,0 +1,100 @@
+.form-input {
+    margin-top: 10px;
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.submit {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 2em;
+    margin-bottom: 1em;
+    
+}
+
+.reg_title {
+    margin-bottom: 20px;
+    border-bottom: 2px solid black;
+    margin-left: 10px;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.btn3 {
+    border-radius: 3px;
+    background-color: rgb(181, 208, 250);
+    border: 1px solid black;
+}
+
+.btn3:hover {
+    transition: 0.3s;
+    color: white;
+    background-color: black;
+
+}
+
+.form_div, .form_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-bottom: 10px;
+}
+
+.reg_box, .log_box {
+    margin-top: 30px;
+    padding: 1em 2em 0 1em;
+    border: 1px solid rgb(255, 255, 255);
+}
+
+.input {
+    background-size: 100%;
+    padding-right: 5em;
+}
+
+.al_reg {
+    margin-left: 10px;
+    font-size: 12px;
+}
+
+span a {
+    color: blue;
+}
+
+.error_input {
+    border: 1px solid red;
+}
+
+.error {
+    font-weight: bold;
+    font-family: Ariel;
+    font-size: 14px;
+    color: red;
+}
+
+.google-login-button {
+    height: 35px;
+    width: 10.5rem;
+    border-radius: 3px;
+    border: 1px solid black;
+    align-items: center;
+}
+
+.google-login-button:hover {
+    height: 40px;
+    width: 11rem;
+}
+
+.log_title {
+    display: flex;
+    justify-content: space-around;
+    font-weight: bold;
+}
+
+.account_message {
+    text-align: center;
+    background-color: rgb(6, 255, 6);
+    font-size: 15px;
+    font-weight: bold;
+}
+

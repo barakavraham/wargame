@@ -17,9 +17,9 @@
                     {% for user in users_lists[page_num] %}
                         <tr class="tr0">
                             {% if user == current_user %}
-                                <td><a class="army-name-current" href="{{ url_for('profile.index', army_name=user.army.army_name) }}">{{ user.army.army_name }}</a></td>
+                                <td><a class="army-name-current" href="{{ url_for('profile.index', army_name=user.army.name) }}">{{ user.army.name }}</a></td>
                             {% else %}
-                                <td><a class="army-name" href="{{ url_for('profile.index', army_name=user.army.army_name) }}">{{ user.army.army_name }}</a></td>
+                                <td><a class="army-name" href="{{ url_for('profile.index', army_name=user.army.name) }}">{{ user.army.name }}</a></td>
                             {% endif %}
                             <td>{{ user.army.field }}</td>
                             <td>{{ user.army.clan }}</td>
@@ -30,7 +30,7 @@
             <div class="next-previous-buttons">
                 <div class="p-page">
                     {% if page_num >= 1 %}
-                    <a href="{{ url_for('attack.index', page_num=page_num - 1) }}">Previous page</a>
+                        <a href="{{ url_for('attack.index', page_num=page_num - 1) }}">Previous page</a>
                     {% endif %}
                 </div>
                 <div class="n-page">
