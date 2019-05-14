@@ -2,7 +2,6 @@
 /.vscode
 .DS_Store
 .idea/
-site.db
+app.db
 .env
-__pycache__/
-migrations
+__pycache__

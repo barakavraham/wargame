@@ -35,8 +35,7 @@ class Army(db.Model, UserMixin):
     missile_2 = db.Column(db.Integer, nullable=False, default=0)
     missile_3 = db.Column(db.Integer, nullable=False, default=0)
     jet = db.Column(db.Integer, nullable=False, default=0)
-    clan = db.Column(db.String(15), nullable=True, unique=False, default=None)
-    check = db.Column(db.Integer, nullable=False, default=0)
+    clan = db.Column(db.String(15), nullable=True, default=None)
 
     user = db.relationship("User", backref=backref("army", uselist=False))
 
