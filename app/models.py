@@ -13,6 +13,7 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(60), nullable=True)
     avatar = db.Column(db.String(100), nullable=False, default='default.jpg')
     is_google_user = db.Column(db.Boolean, nullable=False, default=False)
+    test_col = db.Column(db.Integer, nullable=False, default=0)
 
     def __repr__(self):
         return f'<User {self.email}>'
