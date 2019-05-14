@@ -3,6 +3,8 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from dataclasses import dataclass
+from flask_migrate import Migrate
+import os
 
 
 @dataclass
@@ -32,11 +34,15 @@ SHOP_ITEMS = {
     'jet': ShopItem(35_000, 12_000, 150_000, 'jet'),
 }
 
+basedir = os.path.abspath(os.path.dirname(__file__))
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '827677ccbc5d49e567a7fceed8b43c2682c8469c2aa2b84d648349ef2fd7f4d0'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL') or \
+'sqlite:///' + os.path.join(basedir, 'app.db')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
+migrate = Migrate(app, db)
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
 
@@ -50,8 +56,9 @@ def unauthorized_callback():
 from app.routes import base, shop, auth, google_auth, attack, profile
 from app.api import api_blueprint
 from app.tasks import scheduler
+from app import models
 
-scheduler.start()
+# scheduler.start()
 
 app.register_blueprint(base.base, url_prefix="/base")
 app.register_blueprint(shop.shop, url_prefix="/shop")

@@ -13,5 +13,5 @@ def index(page_num):
     page_num = int(page_num)
     users = sorted(User.query.all(), key=operator.attrgetter('army.field'), reverse=True)
     sum_users = math.ceil(len(users)/10)
-    users_lists = [users[x:x+10] for x in range(0, sum_users*10+1, 5)]
+    users_lists = [users[x:x+10] for x in range(0, sum_users*10, 10)]
     return render_template('attack.html', users_lists=users_lists, page_num=page_num, num_lists=sum_users)

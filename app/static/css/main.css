@@ -11,7 +11,7 @@ body {
 
 .main-container {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     height: 100vh;
 }
 
@@ -48,41 +48,6 @@ body {
     margin: 0 1rem 0.5rem 1rem;
 }
 
-#army{
-    text-align: center;
-    margin-bottom: 2em;
-}
-
-#army h2 {
-    display: inline-block;
-}
-
-.user-army-container{
-    display: flex;
-    justify-content: center;
-    height: 100vh;
-    width: 100%;
-}
-
-.user-army-container h4 {
-    text-align: center;
-}
-
-.user-resource span {
-    padding: 1em 4em 1em 4em;
-}
-
-.user-resource {
-    background-color: brown;
-    display: flex;
-    color: white;
-    justify-content: space-around;
-    margin: 0 1em 0 1em;
-    border-bottom: 1px solid white;
-    border-right: 1px solid white;
-    border-left: 1px solid white;
-}
-
 .side-links ul {
     display: flex;
     flex-direction: column;
@@ -109,36 +74,55 @@ body {
     font-size: 20px;
 }
 
-.att-def {
+#army-name {
+    font-size: 2rem;
+    color: black;
+    font-weight: bold;
     text-align: center;
-    margin-bottom: 0.4rem;
+    margin: 1rem 0;
 }
 
-.left-col {
+.user-army-container{
     width: 90%;
 }
-
 
 .tables {
     display: flex;
     justify-content: space-around;
-    margin: 0 5rem;
 }
 
-.attack-button,
-.defense-button {
-    padding: 5px 10px;
-    background-color: #fff;
-    border-radius: 8px;
-    border: none;
-    color: #000;
-    transition: 0.3s;
+.resources {
+    display: flex;
+    width: 50%;
+    justify-content: space-evenly;
 }
 
-.attack-button:hover,
-.defense-button:hover {
-    background-color: #000;
-    color: #fff;
-    transition: 0.3s;
+.resource {
+    display: flex;
 }
 
+.resource-name {
+    color: white;
+    font-weight: bold;
+}
+
+.img {
+    height: 3rem;
+    width: 3rem;
+}
+
+.gold-amount {
+    color: gold;
+}
+
+.metal-amount {
+    color: grey;
+}
+
+.wood-amount {
+    color: saddlebrown;
+}
+
+.field-amount {
+    color: black;
+}
