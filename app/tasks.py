@@ -25,4 +25,4 @@ def gift_users_task():
 
 
 scheduler = BackgroundScheduler()
-# scheduler.add_job(gift_users_task)
+scheduler.add_job(gift_users_task)

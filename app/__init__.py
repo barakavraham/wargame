@@ -58,7 +58,7 @@ from app.api import api_blueprint
 from app.tasks import scheduler
 from app import models
 
-# scheduler.start()
+scheduler.start()
 
 app.register_blueprint(base.base, url_prefix="/base")
 app.register_blueprint(shop.shop, url_prefix="/shop")
