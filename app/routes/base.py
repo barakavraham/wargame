@@ -4,10 +4,12 @@ from dataclasses import dataclass
 
 base = Blueprint('base', __name__, template_folder='templates')
 
+
 @dataclass
 class UserResources:
     amount: int
     picture: str
+
 
 def get_user_resources():
     user_resources = {
