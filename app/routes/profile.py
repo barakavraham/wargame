@@ -1,6 +1,6 @@
 from flask import render_template, Blueprint
 from flask_login import login_required
-from app.models import Army
+from app.models.army import Army
 
 
 profile = Blueprint('profile', __name__, template_folder='templates')

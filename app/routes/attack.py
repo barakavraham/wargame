@@ -1,6 +1,6 @@
 from flask import render_template, Blueprint
 from flask_login import login_required
-from app.models import User
+from app.models.user import User
 import operator
 import math
 
