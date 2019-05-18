@@ -4,7 +4,8 @@ import flask
 import google.oauth2.credentials
 import googleapiclient.discovery
 from app import db
-from app.models import User, Army
+from app.models.user import User
+from app.models.army import Army
 from dotenv import load_dotenv
 from authlib.client import OAuth2Session
 from flask_login import login_user, current_user

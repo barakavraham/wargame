@@ -2,9 +2,9 @@
 
 {% block styles %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/attack.css') }}">
-{% endblock styles %}
+    {% endblock styles %}
 
-{% block content %}
+    {% block content %}
    <div class="main-table-container">
         <div class="semi-table-container">
             <table class="table">
@@ -19,9 +19,9 @@
                     {% for user in users_lists[page_num] %}
                         <tr class="tr0">
                             {% if user == current_user %}
-                                <td><a class="army-name-current" href="{{ url_for('profile.index', army_name=user.army.name) }}">{{ user.army.name }}</a></td>
+                                <td><a class="army-name-current" href="{{ url_for('profile.index', name=user.army.name) }}">{{ user.army.name }}</a></td>
                             {% else %}
-                                <td><a class="army-name" href="{{ url_for('profile.index', army_name=user.army.name) }}">{{ user.army.name }}</a></td>
+                                <td><a class="army-name" href="{{ url_for('profile.index', name=user.army.name) }}">{{ user.army.name }}</a></td>
                             {% endif %}
                             <td>{{ user.army.field }}</td>
                             <td>{{ user.army.clan }}</td>

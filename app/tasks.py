@@ -1,5 +1,5 @@
 from app import create_app, db
-from app.models import User
+from app.models.user import User
 from datetime import datetime
 from time import sleep
 
@@ -16,5 +16,5 @@ def gift_users_task():
                 current_minutes = minutes
                 for user in User.query.all():
                     user.get_gift()
-        db.session.commit()
+                db.session.commit()
         sleep(1)

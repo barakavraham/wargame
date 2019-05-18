@@ -1,29 +1,7 @@
-import math
-from app import db, login_manager
+from app.models.user import User
+from app import db
 from flask_login import UserMixin
 from sqlalchemy.orm import backref
-
-
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(user_id)
-
-
-class User(db.Model, UserMixin):
-    id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(60), nullable=True)
-    avatar = db.Column(db.String(100), nullable=False, default='default.jpg')
-    is_google_user = db.Column(db.Boolean, nullable=False, default='0')
-
-    def get_gift(self):
-        self.army.gold += math.ceil(self.army.field / 10)
-        self.army.metal += math.ceil(self.army.field / 20)
-        self.army.wood += math.ceil(self.army.field / 20)
-        self.army.turns += 3
-
-    def __repr__(self):
-        return f'<User {self.email}>'
 
 
 class Army(db.Model, UserMixin):
@@ -44,6 +22,7 @@ class Army(db.Model, UserMixin):
     jet = db.Column(db.Integer, nullable=False, default=0)
     clan = db.Column(db.String(15), default=None)
     turns = db.Column(db.Integer, nullable=False, default=60)
+    
 
     user = db.relationship("User", backref=backref("army", uselist=False))
 
@@ -56,3 +35,4 @@ class Army(db.Model, UserMixin):
     def add_item_amount(self, item, amount):
         current_amount = self.get_item_amount(item)
         setattr(self, item, current_amount + amount)
+        

@@ -56,6 +56,7 @@ def create_app(config_class=Config):
 
     app.redis = Redis.from_url(app.config['REDIS_URL'])
     app.task_queue = rq.Queue('webgame-tasks', connection=app.redis)
+    app.task_queue.empty()
     app.task_queue.enqueue('app.tasks.gift_users_task')
 
     from app.routes import base, shop, auth, google_auth, attack, profile
