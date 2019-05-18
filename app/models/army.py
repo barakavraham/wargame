@@ -21,7 +21,7 @@ class Army(db.Model, UserMixin):
     missile_3 = db.Column(db.Integer, nullable=False, default=0)
     jet = db.Column(db.Integer, nullable=False, default=0)
     clan = db.Column(db.String(15), default=None)
-    turns = db.Column(db.Integer, nullable=False, server_default='60')
+    turns = db.Column(db.Integer, nullable=False, default=60)
     
 
     user = db.relationship("User", backref=backref("army", uselist=False))
@@ -35,3 +35,4 @@ class Army(db.Model, UserMixin):
     def add_item_amount(self, item, amount):
         current_amount = self.get_item_amount(item)
         setattr(self, item, current_amount + amount)
+        

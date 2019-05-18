@@ -1,7 +1,7 @@
 import math
 from app import db, login_manager
 from flask_login import UserMixin
-
+from datetime import datetime
 
 
 @login_manager.user_loader
@@ -17,6 +17,7 @@ class User(db.Model, UserMixin):
     is_google_user = db.Column(db.Boolean, nullable=False, default='0')
 
     def get_gift(self):
+        print(datetime.utcnow())
         self.army.gold += math.ceil(self.army.field / 10)
         self.army.metal += math.ceil(self.army.field / 20)
         self.army.wood += math.ceil(self.army.field / 20)
