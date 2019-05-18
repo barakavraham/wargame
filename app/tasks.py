@@ -16,5 +16,5 @@ def gift_users_task():
                 current_minutes = minutes
                 for user in User.query.all():
                     user.get_gift()
-                    db.session.commit()
+                db.session.commit()
         sleep(1)
