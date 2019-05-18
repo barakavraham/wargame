@@ -13,11 +13,11 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=True)
-    avatar = db.Column(db.String(100), nullable=False, default='default.jpg')
-    is_google_user = db.Column(db.Boolean, nullable=False, default='0')
+    avatar = db.Column(db.String(200), nullable=False, default='default.jpg')
+    is_google_user = db.Column(db.Boolean, nullable=False, default=False)
 
     def get_gift(self):
-        print(datetime.utcnow())
+        print(f'{datetime.utcnow()} - {repr(self)}')
         self.army.gold += math.ceil(self.army.field / 10)
         self.army.metal += math.ceil(self.army.field / 20)
         self.army.wood += math.ceil(self.army.field / 20)

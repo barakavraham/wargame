@@ -7,7 +7,7 @@ app = create_app()
 app.app_context().push()
 
 
-def gift_users_task():
+def gift_users():
     current_minutes = None
     while True:
         minutes = datetime.utcnow().minute

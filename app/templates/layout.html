@@ -28,7 +28,7 @@
     <div class="main-container">
         {% block content %}
         {% endblock %}
-        {% if current_user.is_authenticated %}
+        {% if current_user.is_authenticated and current_user.army.name %}
             <div class="side-links">
                 <ul>
                     <li><a href="{{ url_for('base.index') }}">Base</a></li>

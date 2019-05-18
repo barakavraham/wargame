@@ -1,6 +1,7 @@
+from dataclasses import dataclass
 from flask import render_template, Blueprint
 from flask_login import login_required, current_user
-from dataclasses import dataclass
+from app.permissions.permissions import army_name_required
 
 base = Blueprint('base', __name__, template_folder='templates')
 
@@ -23,6 +24,7 @@ def get_user_resources():
 
 @base.route("/")
 @login_required
+@army_name_required
 def index():
     user_resources = get_user_resources()
-    return render_template('base.html', user_resources=user_resources)
+    return render_template('base/index.html', user_resources=user_resources)

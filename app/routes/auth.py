@@ -1,7 +1,7 @@
 from app import db, bcrypt
 from app.models.user import User
 from app.models.army import Army
-from app.forms import RegistrationForm, LoginForm
+from app.forms.auth import RegistrationForm, LoginForm
 from app.routes.google_auth import google_logout
 from flask import render_template, url_for, flash, redirect, request, Blueprint
 from flask_login import current_user, login_user, logout_user
@@ -25,7 +25,7 @@ def register():
         db.session.commit()
         login_user(user, remember=False)
         return redirect(url_for('base.index'))
-    return render_template('register.html', form=form)
+    return render_template('auth/register.html', form=form)
 
 
 @auth.route("/login", methods=['GET', 'POST'])
@@ -42,7 +42,7 @@ def login():
             login_user(user, remember=False)
             next_url = request.args.get('next', 'base.index')
             return redirect(url_for(next_url))
-    return render_template('login.html', form=form)
+    return render_template('auth/login.html', form=form)
 
 
 @auth.route('/logout')
