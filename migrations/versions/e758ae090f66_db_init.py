@@ -1,8 +1,8 @@
 """db init
 
-Revision ID: 02cdd54b9810
+Revision ID: e758ae090f66
 Revises: 
-Create Date: 2019-05-14 23:00:22.524324
+Create Date: 2019-05-18 18:10:16.158580
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '02cdd54b9810'
+revision = 'e758ae090f66'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -22,7 +22,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('email', sa.String(length=120), nullable=False),
     sa.Column('password', sa.String(length=60), nullable=True),
-    sa.Column('avatar', sa.String(length=100), nullable=False),
+    sa.Column('avatar', sa.String(length=200), nullable=False),
     sa.Column('is_google_user', sa.Boolean(), nullable=False),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email')
@@ -30,7 +30,7 @@ def upgrade():
     op.create_table('army',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=True),
-    sa.Column('name', sa.String(length=20), nullable=False),
+    sa.Column('name', sa.String(length=20), nullable=True),
     sa.Column('gold', sa.Integer(), nullable=False),
     sa.Column('wood', sa.Integer(), nullable=False),
     sa.Column('metal', sa.Integer(), nullable=False),
@@ -46,7 +46,8 @@ def upgrade():
     sa.Column('clan', sa.String(length=15), nullable=True),
     sa.Column('turns', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
-    sa.PrimaryKeyConstraint('id')
+    sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('name')
     )
     # ### end Alembic commands ###
 

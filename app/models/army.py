@@ -1,4 +1,4 @@
-from app.models.user import User
+from app.models.user import User # DO NOT DELETE
 from app import db
 from flask_login import UserMixin
 from sqlalchemy.orm import backref
@@ -7,7 +7,7 @@ from sqlalchemy.orm import backref
 class Army(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
-    name = db.Column(db.String(20), unique=False, nullable=False, default='NoName')
+    name = db.Column(db.String(20), unique=True)
     gold = db.Column(db.Integer, nullable=False, default=100)
     wood = db.Column(db.Integer, nullable=False, default=100)
     metal = db.Column(db.Integer, nullable=False, default=100)
@@ -22,7 +22,6 @@ class Army(db.Model, UserMixin):
     jet = db.Column(db.Integer, nullable=False, default=0)
     clan = db.Column(db.String(15), default=None)
     turns = db.Column(db.Integer, nullable=False, default=60)
-    
 
     user = db.relationship("User", backref=backref("army", uselist=False))
 
@@ -35,4 +34,4 @@ class Army(db.Model, UserMixin):
     def add_item_amount(self, item, amount):
         current_amount = self.get_item_amount(item)
         setattr(self, item, current_amount + amount)
-        
+

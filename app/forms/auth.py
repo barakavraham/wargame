@@ -17,16 +17,16 @@ class RegistrationForm(FlaskForm):
                             validators=[DataRequired(), Length(min=3, max=24)])
     submit = SubmitField('Sign up')
 
-    def validate_army_name(self, army_name):
-        print('validating army name')
+    @staticmethod
+    def validate_army_name(_, army_name):
         army = Army.query.filter_by(name=army_name.data).first()
         if army:
             raise ValidationError('This army name is already taken')
         if not army_name.data.isalnum():
             raise ValidationError('Army name must contain only numbers and letters')
 
-    def validate_email(self, email):
-        print('validating email')
+    @staticmethod
+    def validate_email(_, email):
         user = User.query.filter_by(email=email.data).first()
         if user:
             raise ValidationError('This email is already taken')
@@ -40,7 +40,6 @@ class LoginForm(FlaskForm):
     remember = BooleanField('Remember me')
     submit = SubmitField('Login')
 
-    @staticmethod
     def validate_email(self, email):
         user = User.query.filter_by(email=email.data).first()
         if not user:
