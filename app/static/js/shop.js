@@ -9,6 +9,11 @@ $(document).ready(function(){
         });
     }
 
+    $('.tech-btn').on('click', function(){
+        $('.table').hide()
+        $('.tech-table').show()
+    })
+
     $('.amount').on('input', function() {
         $(this).val($(this).val().replace(/\D/g, ''));
     });
@@ -19,10 +24,10 @@ $(document).ready(function(){
             $purchaseResult = $buyBtn.next('div.purchase-result'),
             $amountInput = $buyBtn.prev('.amount'),
             amount = Number($amountInput.val()),
-            currentGold = $userRsources.data('army-gold'),
+            currentcoin = $userRsources.data('army-coin'),
             currentMetal = $userRsources.data('army-metal'),
             currentResourceAmount = Number($buyBtn.closest('tr').find('.current-amount').text()),
-            goldCost = $buyBtn.data('cost-gold'),
+            coinCost = $buyBtn.data('cost-coin'),
             metalCost = $buyBtn.data('cost-metal');
 
         $('div.purchase-result').text('');
@@ -35,7 +40,7 @@ $(document).ready(function(){
             return false;
         }
 
-        if (goldCost * amount > currentGold || metalCost * amount > currentMetal) {
+        if (coinCost * amount > currentcoin || metalCost * amount > currentMetal) {
             $purchaseResult.addClass('fail').text('Not enough resources');
             return false;
         }
@@ -46,9 +51,9 @@ $(document).ready(function(){
             amount: amount
         }).done(function() {
             $buyBtn.closest('tr').find('.current-amount').text(currentResourceAmount + amount);
-            $('#current-gold-amount').text(currentGold - goldCost * amount);
+            $('#current-coin-amount').text(currentcoin - coinCost * amount);
             $('#current-metal-amount').text(currentMetal - metalCost * amount);
-            $('#user-resources').data('army-gold', currentGold - goldCost * amount);
+            $('#user-resources').data('army-coin', currentcoin - coinCost * amount);
             $('#user-resources').data('army-metal', currentMetal - metalCost * amount);
             $purchaseResult.addClass('success').text('Purchase successful');
             $amountInput.val('');

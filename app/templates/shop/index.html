@@ -7,14 +7,22 @@
 {% block content %}
     <div class="table-container">
         <div class="table-div">
+            <div class="view">
+                <div>
+                    <button class="tech-btn"> technology </button>
+                </div>
+                <div>
+                    <button class="wep-btn"> Weapons </button>
+                </div>
+            </div>
         <div
                 id="user-resources"
-                data-army-gold="{{ current_user.army.gold }}"
+                data-army-coin="{{ current_user.army.coin }}"
                 data-army-metal="{{ current_user.army.metal }}"
         >
             <div>
-                <span>gold: <span id="current-gold-amount">{{ current_user.army.gold }}</span></span>
-                <img class="img" src="{{ url_for('static', filename='images/gold.png') }}">
+                <span>coins: <span id="current-coin-amount">{{ current_user.army.coin }}</span></span>
+                <img class="img" src="{{ url_for('static', filename='images/coin.png') }}">
             </div>
             <div>
                 <span>metal: <span id="current-metal-amount">{{ current_user.army.metal }}</span></span>
@@ -38,8 +46,8 @@
                             </td>
                             <td class="td-item-cost">
                                 <div>
-                                    <h5 class="item-cost">{{ shop_items[item].gold }}</h5>
-                                    <img class="img" src="{{ url_for('static', filename='images/gold.png') }}">
+                                    <h5 class="item-cost">{{ shop_items[item].coin }}</h5>
+                                    <img class="img" src="{{ url_for('static', filename='images/coin.png') }}">
                                 </div>
                                 <div>
                                     <h5 class="item-cost">{{ shop_items[item].metal }}</h5>
@@ -58,8 +66,54 @@
                                 <button
                                         class="buy-btn"
                                         data-item="{{ item }}"
-                                        data-cost-gold="{{ shop_items[item].gold }}"
+                                        data-cost-coin="{{ shop_items[item].coin }}"
                                         data-cost-metal="{{ shop_items[item].metal }}"
+                                >Buy</button>
+                                <div class="purchase-result"></div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <table class="tech-table" style="display: none">
+                <thead>
+                    <tr id="shop-cat">
+                        <th id="weapon">Weapons</th>
+                        <th id="cost">Cost</th>
+                        <th>Buy</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for upgrade in tech_upgrades_list %}
+                        <tr class="tr-item">
+                            <td class="shop-item">
+                                <img class="wep-img" src="{{ url_for('static', filename='images/'+tech_upgrades.get_to_level(upgrade).level_1.picture_name+'.png') }}">
+                            </td>
+                            <td class="td-item-cost">
+                                <div>
+                                    <h5 class="item-cost">{{ tech_upgrades.get_to_level(upgrade).get_user_level(upgrade).coin }}</h5>
+                                    <img class="img" src="{{ url_for('static', filename='images/coin.png') }}">
+                                </div>
+                                <div>
+                                    <h5 class="item-cost">{{ tech_upgrades.get_to_level(upgrade).get_user_level(upgrade).metal }}</h5>
+                                    <img class="img" src="{{ url_for('static', filename='images/metal.png') }}">
+                                </div>
+                                <div>
+                                    <h5 class="item-cost">{{ tech_upgrades.get_to_level(upgrade).get_user_level(upgrade).wood }}</h5>
+                                    <img class="img" src="{{ url_for('static', filename='images/wood.png') }}">
+                                </div>
+                            </td>
+                            <td class="td-button">
+                                <div class="item-amount">
+                                    Upgrade level: <span class="current-amount">{{ tech_upgrades.get_to_level(upgrade).get_user_level(upgrade) }}</span>
+                                </div>
+                                <input  class="amount" placeholder="0" type="text">
+                                <button
+                                        class="buy-btn-upgrade"
+                                        data-item-upgrade="{{ upgrade }}"
+                                        data-cost-upgrade-coin="{{ tech_upgrades[upgrade].coin }}"
+                                        data-cost-upgrade-metal="{{ tech_upgrades[upgrade].metal }}"
+                                        data-cost-upgrade-wood="{{ tech_upgrades[upgrade].wood }}"
                                 >Buy</button>
                                 <div class="purchase-result"></div>
                             </td>
