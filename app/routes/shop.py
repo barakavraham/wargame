@@ -1,9 +1,8 @@
-from app import SHOP_ITEMS, db
+from app import SHOP_ITEMS
 from app.permissions.permissions import army_name_required
 from flask import render_template, Blueprint
 from flask_login import login_required, current_user
 from dataclasses import dataclass
-from app.models.user import User
 
 shop = Blueprint('shop', __name__, template_folder='templates')
 
