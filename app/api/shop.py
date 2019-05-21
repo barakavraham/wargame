@@ -8,14 +8,14 @@ subpath_api = SubpathApi(base_api, '/shop', 'shop')
 
 def can_buy(item, amount):
     prices = SHOP_ITEMS[item].price(amount)
-    return current_user.army.gold >= prices.gold and current_user.army.metal >= prices.metal
+    return current_user.army.coin >= prices.coin and current_user.army.metal >= prices.metal
 
 
 def buy_item(item, amount):
     if not can_buy(item, amount):
         return False
     prices = SHOP_ITEMS[item].price(amount)
-    current_user.army.gold -= prices.gold
+    current_user.army.coin -= prices.coin
     current_user.army.metal -= prices.metal
     current_user.army.add_item_amount(item, amount)
     db.session.commit()

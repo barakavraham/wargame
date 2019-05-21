@@ -14,7 +14,7 @@ class UserResources:
 
 def get_user_resources():
     user_resources = {
-        "Coins": UserResources(current_user.army.gold, 'gold'),
+        "Coins": UserResources(current_user.army.coin, 'coin'),
         "Metal": UserResources(current_user.army.metal, 'metal'),
         "Wood": UserResources(current_user.army.wood, 'wood'),
         "field": UserResources(current_user.army.field, 'field')
