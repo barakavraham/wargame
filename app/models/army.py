@@ -25,7 +25,6 @@ class Army(db.Model):
     clan = db.Column(db.String(15), default=None)
     turns = db.Column(db.Integer, nullable=False, default=60)
 
-
     user = db.relationship('User', backref=backref('army', uselist=False))
 
     def __repr__(self):
@@ -37,6 +36,7 @@ class Army(db.Model):
     def add_item_amount(self, item, amount):
         current_amount = self.get_item_amount(item)
         setattr(self, item, current_amount + amount)
+
 
 class Upgrade(db.Model):
     __tablename__ = 'upgrades'

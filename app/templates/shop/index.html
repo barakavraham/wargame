@@ -84,40 +84,42 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for upgrade in tech_upgrades_list %}
-                        <tr class="tr-item">
-                            <td class="shop-item">
-                                <img class="wep-img" src="{{ url_for('static', filename='images/'+tech_upgrades.get_to_level(upgrade).level_1.picture_name+'.png') }}">
-                            </td>
-                            <td class="td-item-cost">
-                                <div>
-                                    <h5 class="item-cost">{{ tech_upgrades.get_to_level(upgrade).get_user_level(upgrade).coin }}</h5>
-                                    <img class="img" src="{{ url_for('static', filename='images/coin.png') }}">
-                                </div>
-                                <div>
-                                    <h5 class="item-cost">{{ tech_upgrades.get_to_level(upgrade).get_user_level(upgrade).metal }}</h5>
-                                    <img class="img" src="{{ url_for('static', filename='images/metal.png') }}">
-                                </div>
-                                <div>
-                                    <h5 class="item-cost">{{ tech_upgrades.get_to_level(upgrade).get_user_level(upgrade).wood }}</h5>
-                                    <img class="img" src="{{ url_for('static', filename='images/wood.png') }}">
-                                </div>
-                            </td>
-                            <td class="td-button">
-                                <div class="item-amount">
-                                    Upgrade level: <span class="current-amount">{{ tech_upgrades.get_to_level(upgrade).get_user_level(upgrade) }}</span>
-                                </div>
-                                <input  class="amount" placeholder="0" type="text">
-                                <button
-                                        class="buy-btn-upgrade"
-                                        data-item-upgrade="{{ upgrade }}"
-                                        data-cost-upgrade-coin="{{ tech_upgrades[upgrade].coin }}"
-                                        data-cost-upgrade-metal="{{ tech_upgrades[upgrade].metal }}"
-                                        data-cost-upgrade-wood="{{ tech_upgrades[upgrade].wood }}"
-                                >Buy</button>
-                                <div class="purchase-result"></div>
-                            </td>
-                        </tr>
+                    {% for upgrade in tech_upgrades %}
+                        {% for upgrade_level in tech_upgrades[upgrade].__dict__ %}
+                            <tr class="tr-item">
+                                <td class="shop-item">
+                                    <img class="wep-img" src="{{ url_for('static', filename='images/'+tech_upgrades[upgrade][upgrade_level].picture_name+'.png') }}">
+                                </td>
+                                <td class="td-item-cost">
+                                    <div>
+                                        <h5 class="item-cost">{{ tech_upgrades[upgrade][upgrade_level].coin }}</h5>
+                                        <img class="img" src="{{ url_for('static', filename='images/coin.png') }}">
+                                    </div>
+                                    <div>
+                                        <h5 class="item-cost">{{ tech_upgrades[upgrade][upgrade_level].metal }}</h5>
+                                        <img class="img" src="{{ url_for('static', filename='images/metal.png') }}">
+                                    </div>
+                                    <div>
+                                        <h5 class="item-cost">{{ tech_upgrades[upgrade][upgrade_level].wood }}</h5>
+                                        <img class="img" src="{{ url_for('static', filename='images/wood.png') }}">
+                                    </div>
+                                </td>
+                                <td class="td-button">
+                                    <div class="item-amount">
+                                        Upgrade level: <span class="current-amount">{{ current_user.army.upgrades.get_upgrade_level(upgrade) }}</span>
+                                    </div>
+                                    <input  class="amount" placeholder="0" type="text">
+                                    <button
+                                            class="buy-btn-upgrade"
+                                            data-item-upgrade="{{ upgrade }}"
+                                            data-cost-upgrade-coin="{{ tech_upgrades[upgrade][upgrade_level].coin }}"
+                                            data-cost-upgrade-metal="{{ tech_upgrades[upgrade][upgrade_level].metal }}"
+                                            data-cost-upgrade-wood="{{ tech_upgrades[upgrade][upgrade_level].wood }}"
+                                    >Buy</button>
+                                    <div class="purchase-result"></div>
+                                </td>
+                            </tr>
+                        {% endfor %}
                     {% endfor %}
                 </tbody>
             </table>
