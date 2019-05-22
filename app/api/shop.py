@@ -1,7 +1,8 @@
+from app import db
+from app.api import base_api, SubpathApi
+from app.utils.shop import SHOP_ITEMS
 from flask_restful import Resource, reqparse
 from flask_login import current_user
-from app.api import base_api, SubpathApi
-from app import SHOP_ITEMS, db
 
 subpath_api = SubpathApi(base_api, '/shop', 'shop')
 
