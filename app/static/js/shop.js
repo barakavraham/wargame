@@ -10,9 +10,14 @@ $(document).ready(function(){
     }
 
     $('.tech-btn').on('click', function(){
-        $('.table').hide()
-        $('.tech-table').show()
-    })
+        $('.table-container').find('table').hide()
+        $('.table-container').find('table').next('table').show()
+    });
+
+    $('.weapon-btn').on('click', function(){
+        $('.table-container').find('table').next('table').hide()
+        $('.table-container').find('table').first().show()
+    });
 
     $('.amount').on('input', function() {
         $(this).val($(this).val().replace(/\D/g, ''));

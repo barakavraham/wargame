@@ -12,23 +12,23 @@
                     <button class="tech-btn"> technology </button>
                 </div>
                 <div>
-                    <button class="wep-btn"> Weapons </button>
+                    <button class="weapon-btn"> Weapons </button>
                 </div>
             </div>
-        <div
-                id="user-resources"
-                data-army-coin="{{ current_user.army.coin }}"
-                data-army-metal="{{ current_user.army.metal }}"
-        >
-            <div>
-                <span>coins: <span id="current-coin-amount">{{ current_user.army.coin }}</span></span>
-                <img class="img" src="{{ url_for('static', filename='images/coin.png') }}">
+            <div
+                    id="user-resources"
+                    data-army-coin="{{ current_user.army.coin }}"
+                    data-army-metal="{{ current_user.army.metal }}"
+            >
+                <div>
+                    <span>coins: <span id="current-coin-amount">{{ current_user.army.coin }}</span></span>
+                    <img class="img" src="{{ url_for('static', filename='images/coin.png') }}">
+                </div>
+                <div>
+                    <span>metal: <span id="current-metal-amount">{{ current_user.army.metal }}</span></span>
+                    <img class="img" src="{{ url_for('static', filename='images/metal.png') }}">
+                </div>
             </div>
-            <div>
-                <span>metal: <span id="current-metal-amount">{{ current_user.army.metal }}</span></span>
-                <img class="img" src="{{ url_for('static', filename='images/metal.png') }}">
-            </div>
-        </div>
             <table class="table">
                 <thead>
                     <tr id="shop-cat">
@@ -60,7 +60,9 @@
                             </td>
                             <td class="td-button">
                                 <div class="item-amount">
-                                    you own: <span class="current-amount">{{ current_user.army.get_item_amount(item) }}</span>
+                                    <span class="item-amount">
+                                        you own: <span class="current-amount">{{ current_user.army.get_item_amount(item) }}</span>
+                                    </span>
                                 </div>
                                 <input  class="amount" placeholder="0" type="text">
                                 <button
@@ -75,17 +77,19 @@
                     {% endfor %}
                 </tbody>
             </table>
-            <table class="tech-table" style="display: none">
+            <table class="table" style="display: none">
                 <thead>
                     <tr id="shop-cat">
-                        <th id="weapon">Weapons</th>
+                        <th></th>
                         <th id="cost">Cost</th>
-                        <th>Buy</th>
+                        <th id="description">Description</th>
+                        <th>Upgrade</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for upgrade in tech_upgrades %}
                         {% for upgrade_level in tech_upgrades[upgrade].__dict__ %}
+                            {% if upgrade_level == current_user.army.upgrades.get_upgrade_level(upgrade) %}
                             <tr class="tr-item">
                                 <td class="shop-item">
                                     <img class="wep-img" src="{{ url_for('static', filename='images/'+tech_upgrades[upgrade][upgrade_level].picture_name+'.png') }}">
@@ -104,21 +108,24 @@
                                         <img class="img" src="{{ url_for('static', filename='images/wood.png') }}">
                                     </div>
                                 </td>
+                                <td></td>
                                 <td class="td-button">
                                     <div class="item-amount">
-                                        Upgrade level: <span class="current-amount">{{ current_user.army.upgrades.get_upgrade_level(upgrade) }}</span>
+                                        <span class="item-amount">
+                                            Upgrade level <span class="current-amount">{{ current_user.army.upgrades.get_upgrade_level_num(upgrade) }}</span>
+                                        </span>
                                     </div>
-                                    <input  class="amount" placeholder="0" type="text">
                                     <button
                                             class="buy-btn-upgrade"
                                             data-item-upgrade="{{ upgrade }}"
                                             data-cost-upgrade-coin="{{ tech_upgrades[upgrade][upgrade_level].coin }}"
                                             data-cost-upgrade-metal="{{ tech_upgrades[upgrade][upgrade_level].metal }}"
                                             data-cost-upgrade-wood="{{ tech_upgrades[upgrade][upgrade_level].wood }}"
-                                    >Buy</button>
+                                    >Upgrade</button>
                                     <div class="purchase-result"></div>
                                 </td>
                             </tr>
+                            {% endif %}
                         {% endfor %}
                     {% endfor %}
                 </tbody>

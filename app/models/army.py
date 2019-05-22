@@ -53,3 +53,6 @@ class Upgrade(db.Model):
     def get_upgrade_level(self, upgrade_name):
         upgrade_level = getattr(self, upgrade_name)
         return "level_"+str(upgrade_level)
+
+    def get_upgrade_level_num(self, upgrade_name):
+        return getattr(self, upgrade_name)
