@@ -19,6 +19,7 @@
                     id="user-resources"
                     data-army-coin="{{ current_user.army.coin }}"
                     data-army-metal="{{ current_user.army.metal }}"
+                    data-army-wood="{{ current_user.army.wood }}"
             >
                 <div>
                     <span>coins: <span id="current-coin-amount">{{ current_user.army.coin }}</span></span>
@@ -27,6 +28,10 @@
                 <div>
                     <span>metal: <span id="current-metal-amount">{{ current_user.army.metal }}</span></span>
                     <img class="img" src="{{ url_for('static', filename='images/metal.png') }}">
+                </div>
+                <div>
+                    <span>wood: <span id="current-wood-amount">{{ current_user.army.wood }}</span></span>
+                    <img class="img" src="{{ url_for('static', filename='images/wood.png') }}">
                 </div>
             </div>
             <table class="table">
@@ -112,11 +117,11 @@
                                 <td class="td-button">
                                     <div class="item-amount">
                                         <span class="item-amount">
-                                            Upgrade level <span class="current-amount">{{ current_user.army.upgrades.get_upgrade_level_num(upgrade) }}</span>
+                                            Upgrade level <span class="current-level">{{ current_user.army.upgrades.get_upgrade_level_num(upgrade) }}</span>
                                         </span>
                                     </div>
                                     <button
-                                            class="buy-btn-upgrade"
+                                            class="upgrade-btn"
                                             data-item-upgrade="{{ upgrade }}"
                                             data-cost-upgrade-coin="{{ tech_upgrades[upgrade][upgrade_level].coin }}"
                                             data-cost-upgrade-metal="{{ tech_upgrades[upgrade][upgrade_level].metal }}"
