@@ -7,25 +7,6 @@ from flask_login import current_user
 subpath_api = SubpathApi(base_api, '/shop', 'shop')
 
 
-<<<<<<< HEAD
-def can_buy(item, amount):
-    prices = SHOP_ITEMS[item].price(amount)
-    return current_user.army.coin >= prices.coin and current_user.army.metal >= prices.metal
-
-
-def buy_item(item, amount):
-    if not can_buy(item, amount):
-        return False
-    prices = SHOP_ITEMS[item].price(amount)
-    current_user.army.coin -= prices.coin
-    current_user.army.metal -= prices.metal
-    current_user.army.add_item_amount(item, amount)
-    db.session.commit()
-    return True # test commit
-
-
-=======
->>>>>>> upgrade api
 class BuyResourcesAPI(Resource):
 
     def __init__(self):
