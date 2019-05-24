@@ -19,7 +19,7 @@ def buy_item(item, amount):
     current_user.army.metal -= prices.metal
     current_user.army.add_item_amount(item, amount)
     db.session.commit()
-    return True
+    return True # test commit
 
 
 class BuyResourcesAPI(Resource):
