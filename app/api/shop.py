@@ -65,7 +65,7 @@ class UpgradeAPI(Resource):
         current_user.army.wood -= prices.wood
         current_user.army.upgrades.add_level(upgrade)
         db.session.commit()
-        return True
+        return True #test
 
     def post(self):
         args = self.reqparse.parse_args()
