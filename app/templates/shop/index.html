@@ -50,14 +50,12 @@
                                 <img class="wep-img" src="{{ url_for('static', filename='images/'+shop_items[item].picture_name+'.png') }}">
                             </td>
                             <td class="td-item-cost">
-                                <div>
-                                    <h5 class="item-cost">{{ shop_items[item].coin }}</h5>
-                                    <img class="img" src="{{ url_for('static', filename='images/coin.png') }}">
-                                </div>
-                                <div>
-                                    <h5 class="item-cost">{{ shop_items[item].metal }}</h5>
-                                    <img class="img" src="{{ url_for('static', filename='images/metal.png') }}">
-                                </div>
+                                {% for resource in shop_items[item].prices %}
+                                    <div>
+                                        <h5 class="item-cost">{{ shop_items[item].prices[resource] }}</h5>
+                                        <img class="img" src="{{ url_for('static', filename='images/'+resource+'.png') }}">
+                                    </div>
+                                {% endfor %}
                             </td>
                             <td class="td-item-power">
                                 <span class="item-power">{{ shop_items[item].power }}</span>
@@ -69,12 +67,13 @@
                                         you own: <span class="current-amount">{{ current_user.army.get_item_amount(item) }}</span>
                                     </span>
                                 </div>
-                                <input  class="amount" placeholder="0" type="text">
+                                <input class="amount" placeholder="0" type="text" />
                                 <button
                                         class="buy-btn"
                                         data-item="{{ item }}"
-                                        data-cost-coin="{{ shop_items[item].coin }}"
-                                        data-cost-metal="{{ shop_items[item].metal }}"
+                                        {% for resource in shop_items[item].prices %}
+                                            data-cost-{{ resource }}="{{ shop_items[item].prices[resource] }}"
+                                        {% endfor %}
                                 >Buy</button>
                                 <div class="purchase-result"></div>
                             </td>
@@ -100,18 +99,12 @@
                                     <img class="wep-img" src="{{ url_for('static', filename='images/'+tech_upgrades[upgrade][upgrade_level].picture_name+'.png') }}">
                                 </td>
                                 <td class="td-item-cost">
-                                    <div>
-                                        <h5 class="item-cost coin-price">{{ tech_upgrades[upgrade][upgrade_level].coin }}</h5>
-                                        <img class="img" src="{{ url_for('static', filename='images/coin.png') }}">
-                                    </div>
-                                    <div>
-                                        <h5 class="item-cost metal-price">{{ tech_upgrades[upgrade][upgrade_level].metal }}</h5>
-                                        <img class="img" src="{{ url_for('static', filename='images/metal.png') }}">
-                                    </div>
-                                    <div>
-                                        <h5 class="item-cost wood-price">{{ tech_upgrades[upgrade][upgrade_level].wood }}</h5>
-                                        <img class="img" src="{{ url_for('static', filename='images/wood.png') }}">
-                                    </div>
+                                    {% for resource in tech_upgrades[upgrade][upgrade_level].prices %}
+                                        <div>
+                                            <h5 class="item-cost {{ resource }}-price">{{ tech_upgrades[upgrade][upgrade_level].prices[resource] }}</h5>
+                                            <img class="img" src="{{ url_for('static', filename='images/'+resource+'.png') }}" alt="{{ resource }}" />
+                                        </div>
+                                    {% endfor %}
                                 </td>
                                 <td></td>
                                 <td class="td-button">
@@ -126,9 +119,9 @@
                                     <button
                                             class="upgrade-btn"
                                             data-item-upgrade="{{ upgrade }}"
-                                            data-cost-upgrade-coin="{{ tech_upgrades[upgrade][upgrade_level].coin }}"
-                                            data-cost-upgrade-metal="{{ tech_upgrades[upgrade][upgrade_level].metal }}"
-                                            data-cost-upgrade-wood="{{ tech_upgrades[upgrade][upgrade_level].wood }}"
+                                            {% for resource in tech_upgrades[upgrade][upgrade_level].prices %}
+                                                data-cost-{{ resource }}="{{ tech_upgrades[upgrade][upgrade_level].prices[resource] }}"
+                                            {% endfor %}
                                             data-next-level="{{ current_user.army.upgrades.get_current_level_num(upgrade) + 1 }}"
                                     >Upgrade</button>
                                     <div class="purchase-result"></div>
