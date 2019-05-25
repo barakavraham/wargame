@@ -5,7 +5,7 @@ import google.oauth2.credentials
 import googleapiclient.discovery
 from app import db
 from app.models.user import User
-from app.models.army import Army
+from app.models.army import Army, Upgrade
 from dotenv import load_dotenv
 from authlib.client import OAuth2Session
 from flask_login import login_user, current_user
@@ -118,6 +118,9 @@ def google_auth_redirect():
         db.session.commit()
         army = Army(user_id=user.id)
         db.session.add(army)
+        db.session.commit()
+        upgrade = Upgrade(army_id=user.id)
+        db.session.add(upgrade)
         db.session.commit()
         login_user(user)
     else:

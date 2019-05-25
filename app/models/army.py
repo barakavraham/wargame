@@ -4,11 +4,13 @@ from flask_login import UserMixin
 from sqlalchemy.orm import backref
 
 
-class Army(db.Model, UserMixin):
+class Army(db.Model):
+    __tablename__ = 'armies'
+
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     name = db.Column(db.String(20), unique=True)
-    gold = db.Column(db.Integer, nullable=False, default=100)
+    coin = db.Column(db.Integer, nullable=False, default=100)
     wood = db.Column(db.Integer, nullable=False, default=100)
     metal = db.Column(db.Integer, nullable=False, default=100)
     field = db.Column(db.Integer, nullable=False, default=1000)
@@ -23,7 +25,7 @@ class Army(db.Model, UserMixin):
     clan = db.Column(db.String(15), default=None)
     turns = db.Column(db.Integer, nullable=False, default=60)
 
-    user = db.relationship("User", backref=backref("army", uselist=False))
+    user = db.relationship('User', backref=backref('army', uselist=False))
 
     def __repr__(self):
         return f'<Army {self.name}>'
@@ -35,3 +37,30 @@ class Army(db.Model, UserMixin):
         current_amount = self.get_item_amount(item)
         setattr(self, item, current_amount + amount)
 
+
+class Upgrade(db.Model):
+    __tablename__ = 'upgrades'
+
+    id = db.Column(db.Integer, primary_key=True)
+    army_id = db.Column(db.Integer, db.ForeignKey('armies.id'))
+    ground_weapons = db.Column(db.Integer, nullable=False, default=0)
+    bombs = db.Column(db.Integer, nullable=False, default=0)
+    air_weapons = db.Column(db.Integer, nullable=False, default=0)
+    country = db.Column(db.Integer, nullable=False, default=0)
+
+    army = db.relationship('Army', backref=backref('upgrades', uselist=False))
+
+    def get_current_level(self, upgrade_name):
+        current_level = getattr(self, upgrade_name)
+        return f'level_{current_level}'
+
+    def get_next_level(self, upgrade_name):
+        current_level = getattr(self, upgrade_name)
+        return f'level_{current_level + 1}'
+
+    def get_current_level_num(self, upgrade_name):
+        return getattr(self, upgrade_name)
+
+    def add_level(self, upgrade_name):
+        current_level = self.get_current_level_num(upgrade_name)
+        setattr(self, upgrade_name, current_level + 1)

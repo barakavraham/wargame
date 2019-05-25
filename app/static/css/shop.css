@@ -105,6 +105,7 @@
 
 .item-amount {
     font-size: 0.9rem;
+    text-align: center;
 }
 
 .td-button {
@@ -127,4 +128,15 @@
 
 .fail {
     color: red;
+}
+
+.view {
+    display: flex;
+    justify-content: center;
+    width: 90%;
+    margin: 1rem 0;
+}
+
+.view div {
+    width: 20%;
 }
