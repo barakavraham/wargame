@@ -50,6 +50,14 @@ class UpgradableItem:
     def get_item_level(upgrade):
         return current_user.army.upgrades.get_upgrade_level(upgrade)
 
+    def __getitem__(self, level):
+        if isinstance(level, str):
+            return getattr(self, level, None)
+        return getattr(self, f'level_{level}', None)
+
+    def __iter__(self):
+        return iter(self.__dict__)
+
 
 class TechUpgrades:
     def __init__(self, ground_weapons: UpgradableItem, bombs: UpgradableItem, air_weapons: UpgradableItem, country: UpgradableItem):
@@ -58,6 +66,11 @@ class TechUpgrades:
         self.air_weapons = air_weapons
         self.country = country
 
+    def __getitem__(self, upgrade_name):
+        return getattr(self, upgrade_name)
+
+    def __iter__(self):
+        return iter(self.__dict__)
 
 TECH_UPGRADES = TechUpgrades(
     ground_weapons=UpgradableItem(

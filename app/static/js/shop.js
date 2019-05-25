@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(document).ready(function() {
 
     let $techBtn = $('.tech-btn')
 
@@ -11,12 +11,12 @@ $(document).ready(function(){
         });
     }
 
-    $('.tech-btn').on('click', function(){
+    $('.tech-btn').on('click', function() {
         $('.table-container').find('table').hide()
         $('.table-container').find('table').next('table').show()
     });
 
-    $('.weapon-btn').on('click', function(){
+    $('.weapon-btn').on('click', function() {
         $('.table-container').find('table').next('table').hide()
         $('.table-container').find('table').first().show()
     });
@@ -72,15 +72,15 @@ $(document).ready(function(){
 
     $('.upgrade-btn').on('click', function() {
         let $userResources = $('#user-resources'),
-            $buyBtn = $(this),
-            $purchaseResult = $buyBtn.next('div.purchase-result'),
+            $upgradeBtn = $(this),
+            $purchaseResult = $upgradeBtn.next('div.purchase-result'),
             currentCoin = $userResources.data('army-coin'),
             currentMetal = $userResources.data('army-metal'),
             currentWood = $userResources.data('army-wood'),
-            currentUpgradeLevel = Number($buyBtn.closest('tr').find('.current-level').text()),
-            coinCost = $buyBtn.data('cost-upgrade-coin'),
-            woodCost = $buyBtn.data('cost-upgrade-wood'),
-            metalCost = $buyBtn.data('cost-upgrade-metal');
+            nextUpgradeLevel = $upgradeBtn.data('next-level'),
+            coinCost = $upgradeBtn.data('cost-upgrade-coin'),
+            woodCost = $upgradeBtn.data('cost-upgrade-wood'),
+            metalCost = $upgradeBtn.data('cost-upgrade-metal');
 
         $('div.purchase-result').text('');
         $purchaseResult.removeClass('success, fail');
@@ -91,20 +91,38 @@ $(document).ready(function(){
         }
 
         shopApiPost('/upgrade', {
-            upgrade: $buyBtn.data('item-upgrade'),
-            level: currentUpgradeLevel
-        }).done(function(){
-            $buyBtn.closest('tr').find('.current-level').text(currentUpgradeLevel + 1);
+            upgrade: $upgradeBtn.data('item-upgrade'),
+            level: nextUpgradeLevel
+        }).done(function(data) {
+            $upgradeBtn.closest('tr').find('.current-level').text(nextUpgradeLevel);
             $('#current-coin-amount').text(currentCoin - coinCost);
             $('#current-metal-amount').text(currentMetal - metalCost);
             $('#current-wood-amount').text(currentWood - woodCost);
             $('#user-resources').data('army-coin', currentCoin - coinCost);
             $('#user-resources').data('army-metal', currentMetal - metalCost);
             $('#user-resources').data('army-wood', currentWood - woodCost);
+            $upgradeBtn.data('next-level', nextUpgradeLevel + 1);
+
+            if (data.prices) {
+                $upgradeBtn.data('cost-upgrade-coin', data.prices.coin);
+                $upgradeBtn.data('cost-upgrade-wood', data.prices.wood);
+                $upgradeBtn.data('cost-upgrade-metal', data.prices.metal);
+                $upgradeBtn.closest('tr').find('.coin-price').text(data.prices.coin);
+                $upgradeBtn.closest('tr').find('.wood-price').text(data.prices.wood);
+                $upgradeBtn.closest('tr').find('.metal-price').text(data.prices.metal);
+            } else {
+                $upgradeBtn.closest('tr').find('.coin-price').text('NaN');
+                $upgradeBtn.closest('tr').find('.wood-price').text('NaN');
+                $upgradeBtn.closest('tr').find('.metal-price').text('NaN');
+            }
+
             $purchaseResult.addClass('success').text('Purchase successful');
-        }).fail(function({ status }) {
+        }).fail(function({ status, max_level }) {
             if (status === 400)
                 $purchaseResult.addClass('fail').text('Not enough resources');
+            else if (max_level)
+                $purchaseResult.addClass('fail').text('200');
         })
     });
 });
+

@@ -50,27 +50,39 @@ class UpgradeAPI(Resource):
         super(UpgradeAPI, self).__init__()
 
     def can_upgrade(self, upgrade, level):
-        prices = TECH_UPGRADES.__dict__[upgrade].__dict__[f'level_{level}']
+        prices = TECH_UPGRADES[upgrade][level]
         return (current_user.army.coin >= prices.coin and
                 current_user.army.metal >= prices.metal and
                 current_user.army.wood >= prices.wood)
-
+    @staticmethod
+    def is_max_level(upgrade, level):
+        if TECH_UPGRADES[upgrade][level] is None:
+            return True
+        return False
 
     def upgrade(self, upgrade, level):
         if not self.can_upgrade(upgrade, level):
             return False
-        prices = TECH_UPGRADES.__dict__[upgrade].__dict__[f'level_{level}']
+        prices = TECH_UPGRADES[upgrade][level]
         current_user.army.coin -= prices.coin
         current_user.army.metal -= prices.metal
         current_user.army.wood -= prices.wood
         current_user.army.upgrades.add_level(upgrade)
         db.session.commit()
-        return True #test
+        return True
 
     def post(self):
         args = self.reqparse.parse_args()
+        if self.is_max_level(args['upgrade'], args['level']):
+            return {'max_level': True}, 400
         is_successful = self.upgrade(args['upgrade'], args['level'])
-        return {'success': is_successful}, 200 if is_successful else 400
+        upgrade = TECH_UPGRADES[args['upgrade']][args['level']+1]
+        prices = {
+            'coin': upgrade.coin,
+            'metal': upgrade.metal,
+            'wood': upgrade.wood
+        } if upgrade else None
+        return {'success': is_successful, 'prices': prices}, 200 if is_successful else 400
 
     
 subpath_api.add_resource(UpgradeAPI, '/upgrade', endpoint='upgrade')

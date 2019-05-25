@@ -91,25 +91,25 @@
                         <th>Upgrade</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id=table-refresh>
                     {% for upgrade in tech_upgrades %}
-                        {% for upgrade_level in tech_upgrades[upgrade].__dict__ %}
-                            {% if upgrade_level == current_user.army.upgrades.get_upgrade_level(upgrade) %}
+                        {% for upgrade_level in tech_upgrades[upgrade] %}
+                            {% if upgrade_level == current_user.army.upgrades.get_next_level(upgrade) %}
                             <tr class="tr-item">
                                 <td class="shop-item">
                                     <img class="wep-img" src="{{ url_for('static', filename='images/'+tech_upgrades[upgrade][upgrade_level].picture_name+'.png') }}">
                                 </td>
                                 <td class="td-item-cost">
                                     <div>
-                                        <h5 class="item-cost">{{ tech_upgrades[upgrade][upgrade_level].coin }}</h5>
+                                        <h5 class="item-cost coin-price">{{ tech_upgrades[upgrade][upgrade_level].coin }}</h5>
                                         <img class="img" src="{{ url_for('static', filename='images/coin.png') }}">
                                     </div>
                                     <div>
-                                        <h5 class="item-cost">{{ tech_upgrades[upgrade][upgrade_level].metal }}</h5>
+                                        <h5 class="item-cost metal-price">{{ tech_upgrades[upgrade][upgrade_level].metal }}</h5>
                                         <img class="img" src="{{ url_for('static', filename='images/metal.png') }}">
                                     </div>
                                     <div>
-                                        <h5 class="item-cost">{{ tech_upgrades[upgrade][upgrade_level].wood }}</h5>
+                                        <h5 class="item-cost wood-price">{{ tech_upgrades[upgrade][upgrade_level].wood }}</h5>
                                         <img class="img" src="{{ url_for('static', filename='images/wood.png') }}">
                                     </div>
                                 </td>
@@ -117,7 +117,10 @@
                                 <td class="td-button">
                                     <div class="item-amount">
                                         <span class="item-amount">
-                                            Upgrade level <span class="current-level">{{ current_user.army.upgrades.get_upgrade_level_num(upgrade) }}</span>
+                                            Upgrade level 
+                                            <span class="current-level">
+                                                {{ current_user.army.upgrades.get_current_level_num(upgrade) }}
+                                            </span>
                                         </span>
                                     </div>
                                     <button
@@ -126,6 +129,7 @@
                                             data-cost-upgrade-coin="{{ tech_upgrades[upgrade][upgrade_level].coin }}"
                                             data-cost-upgrade-metal="{{ tech_upgrades[upgrade][upgrade_level].metal }}"
                                             data-cost-upgrade-wood="{{ tech_upgrades[upgrade][upgrade_level].wood }}"
+                                            data-next-level="{{ current_user.army.upgrades.get_current_level_num(upgrade) + 1 }}"
                                     >Upgrade</button>
                                     <div class="purchase-result"></div>
                                 </td>

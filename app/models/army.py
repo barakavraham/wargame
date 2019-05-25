@@ -43,20 +43,24 @@ class Upgrade(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     army_id = db.Column(db.Integer, db.ForeignKey('armies.id'))
-    ground_weapons = db.Column(db.Integer, nullable=False, default=1)
-    bombs = db.Column(db.Integer, nullable=False, default=1)
-    air_weapons = db.Column(db.Integer, nullable=False, default=1)
-    country = db.Column(db.Integer, nullable=False, default=1)
+    ground_weapons = db.Column(db.Integer, nullable=False, default=0)
+    bombs = db.Column(db.Integer, nullable=False, default=0)
+    air_weapons = db.Column(db.Integer, nullable=False, default=0)
+    country = db.Column(db.Integer, nullable=False, default=0)
 
     army = db.relationship('Army', backref=backref('upgrades', uselist=False))
 
-    def get_upgrade_level(self, upgrade_name):
-        upgrade_level = getattr(self, upgrade_name)
-        return f'level_{upgrade_level}'
+    def get_current_level(self, upgrade_name):
+        current_level = getattr(self, upgrade_name)
+        return f'level_{current_level}'
 
-    def get_upgrade_level_num(self, upgrade_name):
+    def get_next_level(self, upgrade_name):
+        current_level = getattr(self, upgrade_name)
+        return f'level_{current_level + 1}'
+
+    def get_current_level_num(self, upgrade_name):
         return getattr(self, upgrade_name)
 
     def add_level(self, upgrade_name):
-        current_level = self.get_upgrade_level_num(upgrade_name)
+        current_level = self.get_current_level_num(upgrade_name)
         setattr(self, upgrade_name, current_level + 1)
