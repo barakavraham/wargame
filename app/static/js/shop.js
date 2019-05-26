@@ -47,8 +47,9 @@
                 $btn.closest('tr').find('.td-item-cost').empty();
                 for (let resource in prices) {
                     $btn.closest('tr').find('.td-item-cost').append("<div></div>");
-                    $btn.closest('tr').find('.td-item-cost').find('div').last().append(`<h5 class='item-cost ${resource}-price'></h5>`);
-                    $btn.closest('tr').find('.td-item-cost').find('div').last().append(`<img class="img ${resource}-img"  src="${prices[resource]['picture']}"></img>`)
+                    $btn.closest('tr').find('.td-item-cost').find('div').last()
+                        .append(`<h5 class='item-cost ${resource}-price'></h5>`)
+                        .append(`<img class="img ${resource}-img"  src="${prices[resource]['picture']}"></img>`);
                     $btn.data('cost-'+resource, prices[resource]['price']);
                     $btn.closest('tr').find('.'+resource+'-price').text(prices[resource]['price']);
                 }
@@ -56,7 +57,8 @@
                 console.log('maxed out');
                 $btn.closest('tr').find('.td-item-cost').empty();
                 $btn.closest('tr').find('.td-item-cost').append("<div></div>");
-                $btn.closest('tr').find('.td-item-cost').find('div').last().append("<h5 class='item-cost'> You have reached to the max level </h5>");
+                $btn.closest('tr').find('.td-item-cost').find('div').last()
+                .append("<h5 class='item-cost'> You have reached to the max level </h5>");
                 $btn.closest('tr').find('.current-level').text('max');
                 $btn.remove();
             }
