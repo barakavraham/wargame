@@ -4,18 +4,20 @@
     $(function() {
 
         let $techBtn = $('.tech-btn'),
-            $tableContainer = $('.table-container'),
+            $techTable = $('.tech-table'),
+            $weaponBtn = $('.weapon-btn'),
+            $weaponsTable = $('.weapons-table'),
             $userResources = $('#user-resources');
 
         function setupSwitchTables() {
-            $techBtn.on('click', function() {
-                $tableContainer.find('table').hide();
-                $tableContainer.find('table').next('table').show();
+            $weaponBtn.on('click', function() {
+                $techTable.hide();
+                $weaponsTable.show();
             });
 
-            $('.weapon-btn').on('click', function() {
-                $tableContainer.find('table').next('table').hide();
-                $tableContainer.find('table').first().show();
+            $techBtn.on('click', function() {
+                $weaponsTable.hide();
+                $techTable.show();
             });
         }
 

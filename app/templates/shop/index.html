@@ -5,135 +5,133 @@
 {% endblock styles %}
 
 {% block content %}
-    <div class="table-container">
-        <div class="table-div">
-            <div class="view">
-                <div>
-                    <button class="tech-btn"> technology </button>
-                </div>
-                <div>
-                    <button class="weapon-btn"> Weapons </button>
-                </div>
-            </div>
-            <div
-                    id="user-resources"
-                    data-army-coin="{{ current_user.army.coin }}"
-                    data-army-metal="{{ current_user.army.metal }}"
-                    data-army-wood="{{ current_user.army.wood }}"
-            >
-                <div>
-                    <span>coins: <span id="current-coin-amount">{{ current_user.army.coin }}</span></span>
-                    <img class="img" src="{{ url_for('static', filename='images/coin.png') }}">
-                </div>
-                <div>
-                    <span>metal: <span id="current-metal-amount">{{ current_user.army.metal }}</span></span>
-                    <img class="img" src="{{ url_for('static', filename='images/metal.png') }}">
-                </div>
-                <div>
-                    <span>wood: <span id="current-wood-amount">{{ current_user.army.wood }}</span></span>
-                    <img class="img" src="{{ url_for('static', filename='images/wood.png') }}">
-                </div>
-            </div>
-            <table class="table">
-                <thead>
-                    <tr id="shop-cat">
-                        <th id="weapon">Weapons</th>
-                        <th id="cost">Cost</th>
-                        <th id="power">Power</th>
-                        <th>Buy</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for item in shop_items %}
-                        <tr class="tr-item">
-                            <td class="shop-item">
-                                <img class="wep-img" src="{{ url_for('static', filename='images/'+shop_items[item].picture_name+'.png') }}">
-                            </td>
-                            <td class="td-item-cost">
-                                {% for resource in shop_items[item].prices %}
-                                    <div>
-                                        <h5 class="item-cost">{{ shop_items[item].prices[resource] }}</h5>
-                                        <img class="img" src="{{ url_for('static', filename='images/'+resource+'.png') }}">
-                                    </div>
-                                {% endfor %}
-                            </td>
-                            <td class="td-item-power">
-                                <span class="item-power">{{ shop_items[item].power }}</span>
-                                <img class="img" src="{{ url_for('static', filename='images/power.png') }}">
-                            </td>
-                            <td class="td-button">
-                                <div class="item-amount">
-                                    <span class="item-amount">
-                                        you own: <span class="current-amount">{{ current_user.army.get_item_amount(item) }}</span>
-                                    </span>
+    <div
+        id="user-resources"
+        data-army-coin="{{ current_user.army.coin }}"
+        data-army-metal="{{ current_user.army.metal }}"
+        data-army-wood="{{ current_user.army.wood }}"
+        class="row text-center my-4"
+    >
+        <div class="col">
+            <img class="img" src="{{ url_for('static', filename='images/coin.png') }}" />
+            <span>{{ current_user.army.coin }}</span>
+        </div>
+        <div class="col">
+            <img class="img" src="{{ url_for('static', filename='images/metal.png') }}" />
+            <span>{{ current_user.army.metal }}</span>
+        </div>
+        <div class="col">
+            <img class="img" src="{{ url_for('static', filename='images/wood.png') }}" />
+            <span>{{ current_user.army.wood }}</span>
+        </div>
+    </div>
+    <div class="row justify-content-around mb-4">
+        <button class="weapon-btn btn btn-dark"> Weapons </button>
+        <button class="tech-btn btn btn-dark"> Technology </button>
+    </div>
+    <table class="table weapons-table">
+        <thead class="thead-dark">
+            <tr class="text-center">
+                <th scope="col">Weapons</th>
+                <th scope="col">Cost</th>
+                <th scope="col">Power</th>
+                <th scope="col">Buy</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in shop_items %}
+                <tr class="text-center">
+                    <td class="align-middle">
+                        <img class="weapon-img" src="{{ url_for('static', filename='images/'+shop_items[item].picture_name+'.png') }}" />
+                    </td>
+                    <td class="align-middle">
+                        {% for resource in shop_items[item].prices %}
+                            <div class="row justify-content-around resources">
+                                <img class="resource-img" src="{{ url_for('static', filename='images/'+resource+'.png') }}" />
+                                <span>{{ shop_items[item].prices[resource] }}</span>
+                            </div>
+                        {% endfor %}
+                    </td>
+                    <td class="align-middle">
+                        <img class="power-img" src="{{ url_for('static', filename='images/power.png') }}" />
+                        <span>{{ shop_items[item].power }}</span>
+                    </td>
+                    <td class="align-middle w-30">
+                        <p>
+                            you own: <span class="current-amount">{{ current_user.army.get_item_amount(item) }}</span>
+                        </p>
+                        <div class="input-group input-group-md mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-default">Amount</span>
                                 </div>
-                                <input class="amount" placeholder="0" type="text" />
-                                <button
-                                        class="buy-btn"
+                                <input type="text" class="form-control" placeholder="0" />
+                                <div class="input-group-append">
+                                    <button
+                                        class="buy-btn btn btn-primary"
                                         data-item="{{ item }}"
                                         {% for resource in shop_items[item].prices %}
                                             data-cost-{{ resource }}="{{ shop_items[item].prices[resource] }}"
                                         {% endfor %}
-                                >Buy</button>
-                                <div class="purchase-result"></div>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            <table class="table" style="display: none">
-                <thead>
-                    <tr id="shop-cat">
-                        <th></th>
-                        <th id="cost">Cost</th>
-                        <th id="description">Description</th>
-                        <th>Upgrade</th>
+                                    >Buy</button>
+                                </div>
+                        </div>
+                        <div class="purchase-result"></div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <table class="table tech-table" style="display: none">
+        <thead class="thead-dark">
+            <tr class="text-center">
+                <th scope="col">Type</th>
+                <th scope="col">Cost</th>
+                <th scope="col">Description</th>
+                <th scope="col">Upgrade</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for upgrade in tech_upgrades %}
+                {% for upgrade_level in tech_upgrades[upgrade] %}
+                    {% if upgrade_level == current_user.army.upgrades.get_next_level(upgrade) %}
+                    <tr class="text-center">
+                        <td class="align-middle">
+                            <img class="wep-img" src="{{ url_for('static', filename='images/'+tech_upgrades[upgrade][upgrade_level].picture_name+'.png') }}">
+                        </td>
+                        <td class="align-middle">
+                            {% for resource in tech_upgrades[upgrade][upgrade_level].prices %}
+                                <div class="row justify-content-center">
+                                    <img class="mx-2 resource-img" src="{{ url_for('static', filename='images/'+resource+'.png') }}" />
+                                    <span class="mx-2">{{ tech_upgrades[upgrade][upgrade_level].prices[resource] }}</span>
+                                </div>
+                            {% endfor %}
+                        </td>
+                        <td class="align-middle"></td>
+                        <td class="align-middle">
+                            <div>
+                                <span>
+                                    Upgrade level
+                                    <span class="current-level">
+                                        {{ current_user.army.upgrades.get_current_level_num(upgrade) }}
+                                    </span>
+                                </span>
+                            </div>
+                            <button
+                                class="upgrade-btn btn btn-primary"
+                                data-item-upgrade="{{ upgrade }}"
+                                {% for resource in tech_upgrades[upgrade][upgrade_level].prices %}
+                                    data-cost-{{ resource }}="{{ tech_upgrades[upgrade][upgrade_level].prices[resource] }}"
+                                {% endfor %}
+                                data-next-level="{{ current_user.army.upgrades.get_current_level_num(upgrade) + 1 }}"
+                            >Upgrade</button>
+                            <div class="purchase-result"></div>
+                        </td>
                     </tr>
-                </thead>
-                <tbody id=table-refresh>
-                    {% for upgrade in tech_upgrades %}
-                        {% for upgrade_level in tech_upgrades[upgrade] %}
-                            {% if upgrade_level == current_user.army.upgrades.get_next_level(upgrade) %}
-                            <tr class="tr-item">
-                                <td class="shop-item">
-                                    <img class="wep-img" src="{{ url_for('static', filename='images/'+tech_upgrades[upgrade][upgrade_level].picture_name+'.png') }}">
-                                </td>
-                                <td class="td-item-cost">
-                                    {% for resource in tech_upgrades[upgrade][upgrade_level].prices %}
-                                        <div>
-                                            <h5 class="item-cost {{ resource }}-price">{{ tech_upgrades[upgrade][upgrade_level].prices[resource] }}</h5>
-                                            <img class="img {{ resource }}-img"  src="{{ url_for('static', filename='images/'+resource+'.png') }}" alt="{{ resource }}" >
-                                        </div>
-                                    {% endfor %}
-                                </td>
-                                <td></td>
-                                <td class="td-button">
-                                    <div class="item-amount">
-                                        <span class="item-amount">
-                                            Upgrade level 
-                                            <span class="current-level">
-                                                {{ current_user.army.upgrades.get_current_level_num(upgrade) }}
-                                            </span>
-                                        </span>
-                                    </div>
-                                    <button
-                                            class="upgrade-btn"
-                                            data-item-upgrade="{{ upgrade }}"
-                                            {% for resource in tech_upgrades[upgrade][upgrade_level].prices %}
-                                                data-cost-{{ resource }}="{{ tech_upgrades[upgrade][upgrade_level].prices[resource] }}"
-                                            {% endfor %}
-                                            data-next-level="{{ current_user.army.upgrades.get_current_level_num(upgrade) + 1 }}"
-                                    >Upgrade</button>
-                                    <div class="purchase-result"></div>
-                                </td>
-                            </tr>
-                            {% endif %}
-                        {% endfor %}
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+        </tbody>
+    </table>
 {% endblock content %}
 {% block scripts %}
     <script src="{{ url_for('static', filename='js/shop.js') }}"></script>
