@@ -3,6 +3,7 @@ from app.api import base_api, SubpathApi
 from app.utils.shop import can_afford, SHOP_ITEMS, TECH_UPGRADES
 from flask_restful import Resource, reqparse
 from flask_login import current_user
+from flask import url_for
 
 subpath_api = SubpathApi(base_api, '/shop', 'shop')
 
@@ -79,11 +80,15 @@ class UpgradeAPI(Resource):
         is_successful = self.upgrade(upgrade_name, level)
         upgrade = TECH_UPGRADES[upgrade_name][level + 1]
         prices = {
-            resource: upgrade.prices[resource] for resource in upgrade.prices
+                resource: {
+                    'price': upgrade.prices[resource],
+                    'picture': url_for ('static', filename=f'images/{resource}.png')
+                } for resource in upgrade.prices
         } if upgrade else None
         return {
                    'success': is_successful,
                    'prices': prices,
+                   'picture': url_for('static', filename=f'images/{upgrade.picture_name}.png') if upgrade else None,
                    'max_level': self.is_max_level(upgrade_name, level + 1)
                }, 200 if is_successful else 400
 
