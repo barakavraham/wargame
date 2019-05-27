@@ -1,142 +1,18 @@
-.table-container {
-    display: flex;
-    justify-content: center;
-    width: 90%;
+.resource-img {
+    width: 25px;
+    height: 25px;
 }
 
-.table-div {
-    width: 60%;
+.weapon-img {
+    width: 80px;
+    height: 80px;
 }
 
-.table td, .table th {
-    border: none;
-    text-align: center;
+.power-img {
+    width: 50px;
+    height: 50px
 }
 
-.table tr td div {
-    display: flex;
-    justify-content: space-evenly;
-    align-content: center;
-}
-
-.table tr td div h5 {
-    width: 35%;
-    margin: 0;
-}
-
-.table tr td div:first-child {
-    margin-bottom: 5px;
-}
-
-.table tr td div:last-child {
-    margin-top: 5px;
-}
-
-.table tr td {
-    vertical-align: middle;
-}
-
-.td-item-power {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-}
-
-#weapon {
-    color: rgb(0, 0, 0);
-}
-
-#cost {
-    color: rgb(0, 0, 0);
-}
-
-#power {
-    color: rgb(0, 0, 0);
-}
-
-.buy-btn {
-    font-size: 12px;
-    color: white;
-    background-color: green;
-    border: 1px solid black;
-}
-
-
-
-.buy-btn:hover {
-    background-color: blue;
-    transition: 0.4s;
-}
-
-.shop-item, .last-item {
-    font-size: 13px;
-    font-weight: bold;
-    color: rgb(12, 1, 31);
-    width: auto;
-}
-
-
-.td-item-cost {
-    margin: 0;
-    padding: 0;
-}
-
-.item-cost {
-    font-size: 13px;
-}
-
-.amount {
-    border-radius: 2px;
-    border: 1px solid white;
-    background: -moz-linear-gradient(top, #1e5799 0%, #207cca 99%, #7db9e8 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(top, #1e5799 0%,#207cca 99%,#7db9e8 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to bottom, #1e5799 0%,#207cca 99%,#7db9e8 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-}
-
-.img {
-    height: 15px;
-    width: 15px;
-}
-
-.wep-img {
-    height: 60px;
-    width: 60px;
-}
-
-.item-amount {
-    font-size: 0.9rem;
-    text-align: center;
-}
-
-.td-button {
-    padding: 0;
-}
-
-#user-resources {
-    display: flex;
-    width: 50%;
-    justify-content: space-evenly;
-}
-
-.success, .fail {
-    font-size: 0.8rem;
-}
-
-.success {
-    color: green;
-}
-
-.fail {
-    color: red;
-}
-
-.view {
-    display: flex;
-    justify-content: center;
-    width: 90%;
-    margin: 1rem 0;
-}
-
-.view div {
-    width: 20%;
+.w-30 {
+    width: 30%;
 }

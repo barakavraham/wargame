@@ -5,23 +5,14 @@
 {% endblock styles %}
 
 {% block content %}
-    <div class="user-army-container">
-    <div id="army-name">{{ current_user.army.name }}</div>
-        <div class="tables">
-            <div class="resources">
-                {% for resource in user_resources %}
-                    <div class="resource">
-                        <img class="img" src="{{ url_for('static', filename='images/'+user_resources[resource].picture+'.png') }}">
-                        <div id="{{ resource }}">
-                            <div class="resource-name">{{ resource }}</div>
-                            <div class="{{ user_resources[resource].picture }}-amount">{{ user_resources[resource].amount }}</div>
-                        </div>
-                    </div>
-                {% endfor %}
+    <h2 class="text-center mt-3">{{ current_user.army.name }}</h2>
+    <div class="row text-center">
+        {% for resource in user_resources %}
+            <div class="col">
+                <img height="50" width="50" class="img" src="{{ url_for('static', filename='images/'+user_resources[resource].picture+'.png') }}" alt="{{ resource }}" />
+                <p>{{ user_resources[resource].amount }}</p>
             </div>
-        <div class="user-army">
-        </div>
-        </div>
+        {% endfor %}
     </div>
 {% endblock %}
 {% block scripts %}
