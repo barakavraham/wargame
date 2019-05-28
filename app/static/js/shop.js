@@ -73,23 +73,23 @@
 
             $('.buy-btn').on('click', function() {
                 let $buyBtn = $(this),
-                    $purchaseResult = $buyBtn.next('div.purchase-result'),
-                    $amountInput = $buyBtn.prev('.amount'),
+                    $weaponContainer = $buyBtn.parents('div.weapon-container'),
+                    $purchaseResult = $weaponContainer.find('div.purchase-result'),
+                    $amountInput = $weaponContainer.find('input.amount'),
+                    $currentAmountSpan = $weaponContainer.find('span.current-weapon-amount'),
                     amount = Number($amountInput.val()),
-                    currentResourceAmount = Number($buyBtn.closest('tr').find('.current-amount').text());
+                    currentResourceAmount = Number($currentAmountSpan.text());
 
-                $('div.purchase-result').text('');
-                $purchaseResult.removeClass('success, fail');
-                $purchaseResult.text('');
+                $purchaseResult.text('').removeClass('bg-warning bg-success');
 
                 if (amount <= 0) {
                     $amountInput.val('');
-                    $purchaseResult.addClass('fail').text('Please enter a valid amount');
+                    $purchaseResult.addClass('bg-warning').text('Please enter a valid amount');
                     return false;
                 }
 
                 if (!canBuy($buyBtn, amount)) {
-                    $purchaseResult.addClass('fail').text('Not enough resources');
+                    $purchaseResult.addClass('bg-warning').text('Not enough resources');
                     return false;
                 }
 
@@ -97,13 +97,13 @@
                     item: $buyBtn.data('item'),
                     amount: amount
                 }).done(function() {
-                    $buyBtn.closest('tr').find('.current-amount').text(currentResourceAmount + amount);
+                    $currentAmountSpan.text(currentResourceAmount + amount);
                     setUserResources($buyBtn);
-                    $purchaseResult.addClass('success').text('Purchase successful');
+                    $purchaseResult.addClass('bg-success').text('Purchase successful');
                     $amountInput.val('');
                 }).fail(function({ status }) {
                     if (status === 400)
-                        $purchaseResult.addClass('fail').text('Not enough resources');
+                        $purchaseResult.addClass('bg-warning').text('Not enough resources');
                 })
             });
         }

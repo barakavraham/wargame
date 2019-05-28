@@ -1,6 +1,6 @@
 from app import db, bcrypt
 from app.models.user import User
-from app.models.army import Army
+from app.models.army import Army, Upgrade
 from app.forms.auth import RegistrationForm, LoginForm
 from app.routes.google_auth import google_logout
 from flask import render_template, url_for, flash, redirect, request, Blueprint
