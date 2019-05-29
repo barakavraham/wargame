@@ -78,6 +78,7 @@ class UpgradeAPI(Resource):
         if self.is_max_level(upgrade_name, level):
             return {'max_level': True}, 400
         is_successful = self.upgrade(upgrade_name, level)
+        #is_successful = True
         upgrade = TECH_UPGRADES[upgrade_name][level + 1]
         prices = {
                 resource: {
