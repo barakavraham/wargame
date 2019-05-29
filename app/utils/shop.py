@@ -97,7 +97,7 @@ SHOP_ITEMS = {
 TECH_UPGRADES = TechUpgrades(
     ground_weapons=UpgradableItem(
         level_1=ShopItem([('coin', 200), ('metal', 400), ('wood', 600)], picture_name="upgrade"),
-        level_2=ShopItem([('coin', 3100), ('metal', 7000), ('wood', 1_000)], picture_name="upgrade"),
+        level_2=ShopItem([('coin', 300), ('metal', 700), ('wood', 1_000)], picture_name="upgrade"),
         level_3=ShopItem([('coin', 400), ('metal', 900), ('wood', 1_600)], picture_name="upgrade2"),
         level_4=ShopItem([('coin', 800), ('metal', 2_000), ('wood', 2_600)], picture_name="upgrade"),
         level_5=ShopItem([('coin', 2_000), ('metal', 4_000), ('wood', 5_600)], picture_name="upgrade")),
