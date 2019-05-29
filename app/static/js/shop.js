@@ -84,18 +84,16 @@
                     currentResourceAmount = Number($buyBtn.closest('.weapon-container').find('.current-weapon-amount').text()),
                     purchaseSuccess = false;
 
-                $('div.purchase-result').text('');
-                $purchaseResult.removeClass('success, fail');
-                $purchaseResult.text('');
-
                 if (amount <= 0) {
                     $amountInput.val('');
                     $purchaseResult.addClass('fail').text('Please enter a valid amount');
                     return false;
                 }
 
-                if (!canBuy($buyBtn, amount)) 
+                if (!canBuy($buyBtn, amount)) {
                     purchaseSuccess = false;
+                    return false
+                }
                    
                 else 
                     purchaseSuccess = true;
@@ -126,8 +124,10 @@
                     $purchaseResult = $upgradeBtn.closest('.upgrade-container').find('div.purchase-result'),
                     purchaseSuccess;
 
-                if (!canBuy($upgradeBtn)) 
+                if (!canBuy($upgradeBtn)) {
                      purchaseSuccess = false;
+                     return false
+                }
                 
                 else 
                      purchaseSuccess = true;
