@@ -63,12 +63,12 @@
 
         function purchaseOpenMessage($divMessage, purchaseSuccess, text) {
             $('div.purchase-result').text('');
-            $divMessage.removeClass('success, fail');
+            $divMessage.removeClass('bg-success, bg-warning');
             $divMessage.text('');
             if (purchaseSuccess)
-                $divMessage.addClass('success').text(text);
+                $divMessage.addClass('bg-success').text(text);
             else
-                $divMessage.addClass('fail').text(text);
+                $divMessage.addClass('bg-warning').text(text);
         }
 
         function setupBuyResources() {
@@ -86,12 +86,13 @@
 
                 if (amount <= 0) {
                     $amountInput.val('');
-                    $purchaseResult.addClass('fail').text('Please enter a valid amount');
+                    $purchaseResult.addClass('bg-warning').text('Please enter a valid amount');
                     return false;
                 }
 
                 if (!canBuy($buyBtn, amount)) {
                     purchaseSuccess = false;
+                    purchaseOpenMessage($purchaseResult, purchaseSuccess, 'Not enough resources')
                     return false
                 }
                    
@@ -152,7 +153,7 @@
                     if (status === 400)
                         purchaseOpenMessage($purchaseResult, purchaseSuccess, 'Not enough resources')
                     else if (max_level)
-                        $purchaseResult.addClass('fail').text('200');
+                        $purchaseResult.addClass('bg-warning').text('200');
                     else
                         purchaseOpenMessage($purchaseResult, purchaseSuccess, 'Status code');
                 })
