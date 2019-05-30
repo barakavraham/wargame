@@ -4,20 +4,20 @@
     $(function() {
 
         let $techBtn = $('.tech-btn'),
-            $techTable = $('.tech-table'),
+            $techContainer = $('.upgrades-container'),
             $weaponBtn = $('.weapon-btn'),
-            $weaponsTable = $('.weapons-table'),
+            $weaponsContainer = $('.weapons-container'),
             $userResources = $('#user-resources');
 
         function setupSwitchTables() {
             $weaponBtn.on('click', function() {
-                $techTable.hide();
-                $weaponsTable.show();
+                $techContainer.hide();
+                $weaponsContainer.show();
             });
 
             $techBtn.on('click', function() {
-                $weaponsTable.hide();
-                $techTable.show();
+                $weaponsContainer.hide();
+                $techContainer.show();
             });
         }
 
@@ -45,25 +45,32 @@
         }
 
         function setButtonPrices($btn, prices) {
+            let $prices = $btn.parents('.card').find('.prices');
+            $prices.empty();
             if (prices) {
-                $btn.closest('tr').find('.td-item-cost').empty();
                 for (let resource in prices) {
-                    $btn.closest('tr').find('.td-item-cost').append("<div></div>");
-                    $btn.closest('tr').find('.td-item-cost').find('div').last()
-                        .append(`<h5 class='item-cost ${resource}-price'></h5>`)
-                        .append(`<img class="img ${resource}-img"  src="${prices[resource]['picture']}"></img>`);
-                    $btn.data('cost-'+resource, prices[resource]['price']);
-                    $btn.closest('tr').find('.'+resource+'-price').text(prices[resource]['price']);
+                    $prices.append('<div class="col text-center mt-2"></div>');
+                    let $resourceCol = $prices.find('.col').last();
+                    $resourceCol.append(`<p class="card-text mb-0"><img class="resource-img img-fluid"  src="${prices[resource]['picture']}" /></p>`);
+                    $resourceCol.append(`<p class="card-text">${prices[resource].price}</p>`);
+                    $btn.data('cost-'+resource, prices[resource].price);
                 }
             } else {
-                console.log('maxed out');
-                $btn.closest('tr').find('.td-item-cost').empty();
-                $btn.closest('tr').find('.td-item-cost').append("<div></div>");
-                $btn.closest('tr').find('.td-item-cost').find('div').last()
-                .append("<h5 class='item-cost'> You have reached to the max level </h5>");
-                $btn.closest('tr').find('.current-level').text('max');
+                $prices.append('<p class="col text-center">Maxed out</p>');
                 $btn.remove();
             }
+        }
+
+        function setPurchaseResultsMessage($purchaseResultsDiv, purchaseSuccess, text) {
+            $('div.purchase-result').removeClass('message-showing').empty();
+            $purchaseResultsDiv.append(`<p>${text}</p>`).addClass('message-showing');
+            if (purchaseSuccess)
+                $purchaseResultsDiv.find('p').addClass('bg-success');
+            else
+                $purchaseResultsDiv.find('p').addClass('bg-warning');
+            setTimeout(function() {
+                $purchaseResultsDiv.removeClass('message-showing');
+            }, 2000)
         }
 
         function setupBuyResources() {
@@ -73,37 +80,38 @@
 
             $('.buy-btn').on('click', function() {
                 let $buyBtn = $(this),
-                    $purchaseResult = $buyBtn.next('div.purchase-result'),
-                    $amountInput = $buyBtn.prev('.amount'),
+                    $purchaseResult = $buyBtn.closest('.weapon-container').find('div.purchase-result'),
+                    $amountInput = $buyBtn.closest('.input-group').find('.amount'),
                     amount = Number($amountInput.val()),
-                    currentResourceAmount = Number($buyBtn.closest('tr').find('.current-amount').text());
-
-                $('div.purchase-result').text('');
-                $purchaseResult.removeClass('success, fail');
-                $purchaseResult.text('');
+                    currentResourceAmount = Number($buyBtn.closest('.weapon-container').find('.current-weapon-amount').text()),
+                    purchaseSuccess = false;
 
                 if (amount <= 0) {
                     $amountInput.val('');
-                    $purchaseResult.addClass('fail').text('Please enter a valid amount');
+                    setPurchaseResultsMessage($purchaseResult, false, 'Please enter a valid amount');
                     return false;
                 }
 
                 if (!canBuy($buyBtn, amount)) {
-                    $purchaseResult.addClass('fail').text('Not enough resources');
-                    return false;
-                }
+                    purchaseSuccess = false;
+                    setPurchaseResultsMessage($purchaseResult, purchaseSuccess, 'Not enough resources');
+                    return false
+                } else
+                    purchaseSuccess = true;
 
                 $.gameApiPost('shop/buy_resources', {
                     item: $buyBtn.data('item'),
                     amount: amount
                 }).done(function() {
-                    $buyBtn.closest('tr').find('.current-amount').text(currentResourceAmount + amount);
+                    setPurchaseResultsMessage($purchaseResult, true, 'Purchase successful');
+                    $buyBtn.closest('.weapon-container').find('.current-weapon-amount').text(currentResourceAmount + amount);
                     setUserResources($buyBtn);
-                    $purchaseResult.addClass('success').text('Purchase successful');
                     $amountInput.val('');
                 }).fail(function({ status }) {
                     if (status === 400)
-                        $purchaseResult.addClass('fail').text('Not enough resources');
+                        setPurchaseResultsMessage($purchaseResult, purchaseSuccess, 'Not enough resources');
+                    else
+                        setPurchaseResultsMessage($purchaseResult, purchaseSuccess, 'Status code');
                 })
             });
         }
@@ -112,37 +120,42 @@
             $('.upgrade-btn').on('click', function() {
                 let $upgradeBtn = $(this),
                     nextUpgradeLevel = $upgradeBtn.data('next-level'),
-                    $purchaseResult = $upgradeBtn.next('div.purchase-result');
-
-                $('div.purchase-result').text('');
-                $purchaseResult.removeClass('success, fail');
-                $purchaseResult.text('');
+                    $purchaseResult = $upgradeBtn.closest('.upgrade-container').find('div.purchase-result'),
+                    purchaseSuccess;
 
                 if (!canBuy($upgradeBtn)) {
-                    $purchaseResult.addClass('fail').text('Not enough resources');
-                    return false;
-                }
+                    purchaseSuccess = false;
+                    return false
+                } else
+                    purchaseSuccess = true;
+                
 
                 $.gameApiPost('shop/upgrade', {
                     upgrade: $upgradeBtn.data('item-upgrade'),
                     level: nextUpgradeLevel
                 }).done(function(data) {
+                    setPurchaseResultsMessage($purchaseResult, purchaseSuccess, 'Upgrade successful');
                     setUserResources($upgradeBtn);
                     if (nextUpgradeLevel < 5)
-                        $upgradeBtn.closest('tr').find('.current-level').text(nextUpgradeLevel);
+                        $upgradeBtn.closest('.upgrade-container').find('.current-upgrade-level').text(nextUpgradeLevel);
                     $upgradeBtn.data('next-level', nextUpgradeLevel + 1);
                     if (data.picture)
-                        $upgradeBtn.closest('tr').find('.wep-img').attr('src', data.picture['picture']);
-
+                        $upgradeBtn.closest('.upgrade-container').find('.card-img-top').attr('src', data.picture);
                     setButtonPrices($upgradeBtn, data.prices);
-
-                    $purchaseResult.addClass('success').text('Purchase successful');
                 }).fail(function({ status, max_level }) {
                     if (status === 400)
-                        $purchaseResult.addClass('fail').text('Not enough resources');
+                        setPurchaseResultsMessage($purchaseResult, purchaseSuccess, 'Not enough resources')
                     else if (max_level)
-                        $purchaseResult.addClass('fail').text('200');
+                        $purchaseResult.addClass('bg-warning').text('200');
+                    else
+                        setPurchaseResultsMessage($purchaseResult, purchaseSuccess, 'Status code');
                 })
+            });
+        }
+
+        function setupPurchaseResultMessages() {
+            $('div.purchase-result').on('click', function() {
+                $(this).removeClass('message-showing');
             });
         }
 
@@ -150,6 +163,7 @@
         setupSwitchTables();
         setupBuyResources();
         setupTechUpgrades();
+        setupPurchaseResultMessages();
 
     });
 }(jQuery));

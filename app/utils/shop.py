@@ -3,10 +3,11 @@ from typing import List
 
 
 class ShopItem:
-    def __init__(self, prices=List[tuple], power: int = 0, picture_name: str = 'default'):
+    def __init__(self, prices=List[tuple], power: int = 0, picture_name: str = 'default', display_name: str = ''):
         self.prices = dict(prices)
         self.power = power
         self.picture_name = picture_name
+        self.display_name = display_name
 
     def price(self, amount=1):
         return {item: self.prices[item] * amount for item in self.prices}
@@ -48,13 +49,48 @@ class TechUpgrades:
 
 
 SHOP_ITEMS = {
-    'pistol': ShopItem([('coin', 200), ('metal', 50)], 1_000, 'pistol'),
-    'rifle': ShopItem([('coin', 400), ('metal', 150)], 2_500, 'rifle'),
-    'tank': ShopItem([('coin', 800), ('metal', 330)], 6_000, 'tank'),
-    'missile_1': ShopItem([('coin', 1_600), ('metal', 700)], 12_000, 'missile_1'),
-    'missile_2': ShopItem([('coin', 4_000), ('metal', 1_800)], 25_000, 'missile_2'),
-    'missile_3': ShopItem([('coin', 10_600), ('metal', 3_700)], 50_000, 'missile_3'),
-    'jet': ShopItem([('coin', 35_000), ('metal', 12_000)], 150_000, 'jet'),
+    'pistol': ShopItem(
+        prices=[('coin', 200), ('metal', 50)],
+        power=1_000,
+        picture_name='pistol',
+        display_name='Pistols'
+    ),
+    'rifle': ShopItem(
+        prices=[('coin', 400), ('metal', 150)],
+        power=2_500,
+        picture_name='rifle',
+        display_name='Rifles'
+    ),
+    'tank': ShopItem(
+        prices=[('coin', 800), ('metal', 330)],
+        power=6_000,
+        picture_name='tank',
+        display_name='Tanks'
+    ),
+    'missile_1': ShopItem(
+        prices=[('coin', 1_600), ('metal', 700)],
+        power=12_000,
+        picture_name='missile_1',
+        display_name='Missiles Type A'
+    ),
+    'missile_2': ShopItem(
+        prices=[('coin', 4_000), ('metal', 1_800)],
+        power=25_000,
+        picture_name='missile_2',
+        display_name='Missiles Type B'
+    ),
+    'missile_3': ShopItem(
+        prices=[('coin', 10_600), ('metal', 3_700)],
+        power=50_000,
+        picture_name='missile_3',
+        display_name='Missiles Type C'
+    ),
+    'jet': ShopItem(
+        prices=[('coin', 35_000), ('metal', 12_000)],
+        power=150_000,
+        picture_name='jet',
+        display_name='Jets'
+    ),
 }
 
 
