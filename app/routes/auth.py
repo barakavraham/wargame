@@ -3,7 +3,7 @@ from app.models.user import User
 from app.models.army import Army, Upgrade
 from app.forms.auth import RegistrationForm, LoginForm
 from app.routes.google_auth import google_logout
-from flask import render_template, url_for, flash, redirect, request, Blueprint
+from flask import url_for, flash, redirect, request, Blueprint
 from flask_login import current_user, login_user, logout_user
 
 
@@ -28,7 +28,7 @@ def register():
         db.session.commit()
         login_user(user, remember=False)
         return redirect(url_for('base.index'))
-    return render_template('auth/register.html', form=form)
+    return redirect(url_for('home.index'))
 
 
 @auth.route("/login", methods=['GET', 'POST'])
@@ -40,12 +40,12 @@ def login():
         user = User.query.filter_by(email=form.email.data).first()
         if user.is_google_user:
             flash('This email belongs to a google user')
-            return redirect(url_for('auth.login'))
+            return redirect(url_for('home.index'))
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=False)
             next_url = request.args.get('next', 'base.index')
             return redirect(url_for(next_url))
-    return render_template('auth/login.html', form=form)
+    return redirect(url_for('home.index'))
 
 
 @auth.route('/logout')
@@ -54,4 +54,4 @@ def logout():
     google_logout()
     logout_user()
     flash('You are now logged out')
-    return redirect(url_for('auth.login'))
+    return redirect(url_for('home.index'))
