@@ -5,121 +5,133 @@
 {%  endblock styles %}
 
 {% block content %}
-    home
-    <div id="login-form">
-        <div class="modal-background">
-            <div class="modal">
-                <form method="POST" action="{{ url_for('auth.login') }}" class="text-left">
-                    {{ login_form.hidden_tag() }}
-                    <h2>Login</h2>
-                    <div class="form-group">
-                        {{ login_form.email.label() }}
-                        {% if login_form.email.errors %}
-                            {{ login_form.email(class="form-control invalid-feedback") }}
-                            {% for error in login_form.email.errors %}
-                                <div class= "invalid-feedback"> {{ error }} </div>
-                            {% endfor %}
+    <div class="auth-messages text-center mt-4 bg-info">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                <div>
+                    {{ message }}
+                </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+    {% if not current_user.is_authenticated %}
+        <div id="login-form">
+            <div class="modal-background">
+                <div class="modal">
+                    <form method="POST" class="form-horizontal text-left">
+                        {{ login_form.hidden_tag() }}
+                        <h2>Login</h2>
+                        <div class="form-group">
+                            {{ login_form.email.label() }}
+                            {% if login_form.email.errors %}
+                                {{ login_form.email(class="form-control is-invalid") }}
+                                {% for error in login_form.email.errors %}
+                                    <div class= "invalid-feedback"> {{ error }} </div>
+                                {% endfor %}
 
-                        {% else %}
-                            {{ login_form.email(class="form-control") }}
-                        {% endif %}
-                    </div>
-                    <div class="form-group">
-                        {{ login_form.password.label() }}
-                        {% if login_form.password.errors %}
-                            {{ login_form.password(class="form-control invalid-feedback") }}
-                            {% for error in login_form.password.errors %}
-                                <div class= "invalid-feedback"> {{ error }} </div>
-                            {% endfor %}
+                            {% else %}
+                                {{ login_form.email(class="form-control") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ login_form.password.label() }}
+                            {% if login_form.password.errors %}
+                                {{ login_form.password(class="form-control invalid-feedback") }}
+                                {% for error in login_form.password.errors %}
+                                    <div class= "invalid-feedback"> {{ error }} </div>
+                                {% endfor %}
 
-                        {% else %}
-                            {{ login_form.password(class="form-control") }}
-                        {% endif %}
-                    </div>
-                    <div class="form-group">
-                        {{ login_form.submit(class="form-control") }}
-                    </div>
-                    <div class="form-group text-center">
-                        <a href="{{ url_for('google_auth.login') }}">
-                            <i class="fab fa-google"></i>
-                        </a>
-                    </div>
-                </form>
+                            {% else %}
+                                {{ login_form.password(class="form-control") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ login_form.submit(class="form-control") }}
+                        </div>
+                        <div class="form-group text-center">
+                            <a href="{{ url_for('google_auth.login') }}">
+                                <i class="fab fa-google"></i>
+                            </a>
+                            <input type="text" name="login" value="login-btn" hidden />
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
-    <div id="registration-form">
-        <div class="modal-background">
-            <div class="modal">
-                <form method="POST" action="{{ url_for('auth.register') }}" class="text-left">
-                    {{ registration_form.hidden_tag() }}
-                    <h2 class="reg_title">Register</h2>
-                    <div class="form-group">
-                        {{ registration_form.email.label() }}
+        <div id="registration-form">
+            <div class="modal-background">
+                <div class="modal">
+                    <form method="POST" class="text-left">
+                        {{ registration_form.hidden_tag() }}
+                        <h2 class="reg_title">Register</h2>
+                        <div class="form-group">
+                            {{ registration_form.email.label() }}
 
-                        {% if registration_form.email.errors %}
-                            {{ registration_form.email(class="form-control is-invalid") }}
-                        {% for error in registration_form.email.errors %}
-                            <div class= "invalid-feedback"> {{ error }} </div>
-                        {% endfor %}
-
-                        {% else %}
-                            {{ registration_form.email(class="form-control") }}
-                        {% endif %}
-                    </div>
-                    <div class="form-group">
-                        {{ registration_form.password.label() }}
-
-                        {% if registration_form.password.errors %}
-                            {{ registration_form.password(class="form-control is-invalid") }}
-                        {% for error in registration_form.password.errors %}
-                            <div class= "invalid-feedback"> {{ error }} </div>
-                        {% endfor %}
-
-                        {% else %}
-                            {{ registration_form.password(class="form-control") }}
-                        {% endif %}
-                    </div>
-                    <div class="form-group">
-                        {{ registration_form.confirm_password.label() }}
-
-                        {% if registration_form.confirm_password.errors %}
-                            {{ registration_form.confirm_password(class="form-control is-invalid") }}
-                        {% for error in registration_form.confirm_password.errors %}
-                            <div class= "invalid-feedback"> {{ error }} </div>
-                        {% endfor %}
-
-                        {% else %}
-                            {{ registration_form.confirm_password(class="form-control") }}
-                        {% endif %}
-                    </div>
-                    <div class="form-group">
-                        {{ registration_form.army_name.label() }}
-
-                        {% if registration_form.army_name.errors %}
-                            {{ registration_form.army_name(class="form-control is-invalid") }}
-                            {% for error in registration_form.army_name.errors %}
+                            {% if registration_form.email.errors %}
+                                {{ registration_form.email(class="form-control is-invalid") }}
+                            {% for error in registration_form.email.errors %}
                                 <div class= "invalid-feedback"> {{ error }} </div>
                             {% endfor %}
 
-                        {% else %}
-                            {{ registration_form.army_name(class="form-control") }}
-                        {% endif %}
-                    </div>
-                    <div class="form-group">
-                        {{ registration_form.submit(class="form-control") }}
-                    </div>
-                    <div class="form-group text-center">
-                        <a href="{{ url_for('google_auth.login') }}">
-                            <i class="fab fa-google"></i>
-                        </a>
-                    </div>
-                </form>
+                            {% else %}
+                                {{ registration_form.email(class="form-control") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ registration_form.password.label() }}
+
+                            {% if registration_form.password.errors %}
+                                {{ registration_form.password(class="form-control is-invalid") }}
+                            {% for error in registration_form.password.errors %}
+                                <div class= "invalid-feedback"> {{ error }} </div>
+                            {% endfor %}
+
+                            {% else %}
+                                {{ registration_form.password(class="form-control") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ registration_form.confirm_password.label() }}
+
+                            {% if registration_form.confirm_password.errors %}
+                                {{ registration_form.confirm_password(class="form-control is-invalid") }}
+                            {% for error in registration_form.confirm_password.errors %}
+                                <div class= "invalid-feedback"> {{ error }} </div>
+                            {% endfor %}
+
+                            {% else %}
+                                {{ registration_form.confirm_password(class="form-control") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ registration_form.army_name.label() }}
+
+                            {% if registration_form.army_name.errors %}
+                                {{ registration_form.army_name(class="form-control is-invalid") }}
+                                {% for error in registration_form.army_name.errors %}
+                                    <div class= "invalid-feedback"> {{ error }} </div>
+                                {% endfor %}
+
+                            {% else %}
+                                {{ registration_form.army_name(class="form-control") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ registration_form.submit(class="form-control") }}
+                        </div>
+                        <div class="form-group text-center">
+                            <a href="{{ url_for('google_auth.login') }}">
+                                <i class="fab fa-google"></i>
+                            </a>
+                            <input type="text" name="registration" value="registration-btn" hidden />
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="content">
-    </div>
+    {% endif %}
 {% endblock content %}
 {% block scripts %}
     <script src="{{ url_for('static', filename='js/home.js') }}"></script>
