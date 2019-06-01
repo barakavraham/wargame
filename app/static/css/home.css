@@ -2,7 +2,7 @@
     box-sizing: border-box;
 }
 
-html.modal-active, body.modal-active {
+html.popup-active, body.popup-active {
     overflow: hidden;
 }
 
@@ -24,8 +24,8 @@ html.modal-active, body.modal-active {
     animation: unfoldIn 1s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
 }
 
-#login-form.one .modal-background .modal,
-#registration-form.one .modal-background .modal {
+#login-form.one .popup-background .popup,
+#registration-form.one .popup-background .popup {
     transform: scale(0);
     animation: zoomIn 0.5s 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
 }
@@ -36,21 +36,21 @@ html.modal-active, body.modal-active {
     animation: unfoldOut 1s 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
 }
 
-#login-form.one.out .modal-background .modal,
-#registration-form.one.out .modal-background .modal {
+#login-form.one.out .popup-background .popup,
+#registration-form.one.out .popup-background .popup {
     animation: zoomOut 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
 }
 
-#login-form .modal-background,
-#registration-form .modal-background {
+#login-form .popup-background,
+#registration-form .popup-background {
     display: table-cell;
     background: rgba(0, 0, 0, 0.8);
     text-align: center;
     vertical-align: middle;
 }
 
-#login-form .modal-background .modal,
-#registration-form .modal-background .modal {
+#login-form .popup-background .popup,
+#registration-form .popup-background .popup {
     background: white;
     padding: 10px 20px;
     display: inline-block;
@@ -58,28 +58,43 @@ html.modal-active, body.modal-active {
     position: relative;
 }
 
-.modal {
+.popup {
     height: auto;
     width: auto;
 }
 
+.fa-google {
+    font-size: 2em;
+    color: #00bbf0;
+    transition: 0.2s;
+}
+
+.fa-google:hover {
+    color: #f67280;
+    transition: 0.2s;
+}
+
+/* Media Queries */
+
 @media only screen and (min-width: 320px) {
-    .modal {
+    .popup {
         min-width: 300px;
     }
 }
 
 @media only screen and (min-width: 360px) {
-    .modal {
+    .popup {
         min-width: 340px;
     }
 }
 
 @media only screen and (min-width: 500px) {
-    .modal {
+    .popup {
         min-width: 480px;
     }
 }
+
+/* Animations */
 
 @keyframes unfoldIn {
     0% {

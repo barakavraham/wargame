@@ -43,3 +43,7 @@
 .purchase-result p {
     padding: 4px;
 }
+
+.input-group-text {
+    border: none;
+}

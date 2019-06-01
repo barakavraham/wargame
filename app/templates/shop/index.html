@@ -10,7 +10,7 @@
         data-army-coin="{{ current_user.army.coin }}"
         data-army-metal="{{ current_user.army.metal }}"
         data-army-wood="{{ current_user.army.wood }}"
-        class="row text-center my-4"
+        class="row text-center my-4 border p-2"
     >
         <div class="col">
             <img class="img" src="{{ url_for('static', filename='images/coin.png') }}" />
@@ -55,14 +55,14 @@
                                     <img class="power-img" src="{{ url_for('static', filename='images/power.png') }}" alt="power"/>
                                     {{ shop_items[item].power }}
                                 </p>
-                                <div class="input-group input-group-md mb-1">
-                                    <input type="text" class="form-control amount" placeholder="0" />
+                                <div class="input-group mb-2 mr-sm-2">
+                                    <input type="text" class="form-control py-0 amount" placeholder="0" />
                                     <div class="input-group-append">
                                         <button
-                                            class="buy-btn btn btn-primary weapon-btn"
+                                            class="buy-btn btn-dark input-group-text"
                                             data-item="{{ item }}"
                                             {% for resource in shop_items[item].prices %}
-                                                data-cost-{{ resource }}="{{ shop_items[item].prices[resource] }}"
+                                            data-cost-{{ resource }}="{{ shop_items[item].prices[resource] }}"
                                             {% endfor %}
                                         >Buy</button>
                                     </div>
@@ -103,7 +103,7 @@
                                         </p>
                                         <div class="align-self-center">
                                             <button
-                                            class="btn btn-primary upgrade-btn"
+                                            class="btn btn-dark upgrade-btn"
                                             data-item-upgrade="{{ upgrade }}"
                                             {% for resource in tech_upgrades[upgrade][upgrade_level].prices %}
                                                 data-cost-{{ resource }}="{{ tech_upgrades[upgrade][upgrade_level].prices[resource] }}"

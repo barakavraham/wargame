@@ -2,3 +2,21 @@ img {
     height: 50px;
     width: 50px;
 }
+
+.bg-dark, .btn-dark {
+    background-color: #35477d !important;
+}
+
+.bg-info, .btn-info {
+    background-color: #00bbf0 !important;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: rgba(228, 255, 254, 0.8);
+    transition: 0.2s;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: rgba(228, 255, 254, 1) !important;
+    transition: 0.2s;
+}
