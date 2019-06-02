@@ -31,10 +31,11 @@ def create_app(config_class=Config):
     app.task_queue.empty()
     app.task_queue.enqueue('app.tasks.gift_users.gift_users', job_timeout=-1)
 
-    from app.routes import base, shop, auth, google_auth, attack, profile
+    from app.routes import base, shop, auth, google_auth, attack, profile, home
     from app.api import api_blueprint
     from app.models import user, army
 
+    app.register_blueprint(home.home, url_prefix="")
     app.register_blueprint(base.base, url_prefix="/base")
     app.register_blueprint(shop.shop, url_prefix="/shop")
     app.register_blueprint(auth.auth, url_prefix="/auth")
@@ -49,4 +50,4 @@ def create_app(config_class=Config):
 @login_manager.unauthorized_handler
 def unauthorized_callback():
     flash('You must login to view this page')
-    return redirect(url_for('auth.login', next=request.endpoint))
+    return redirect(url_for('home.index', next=request.endpoint))

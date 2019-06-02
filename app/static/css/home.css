@@ -1,0 +1,139 @@
+* {
+    box-sizing: border-box;
+}
+
+html.popup-active, body.popup-active {
+    overflow: hidden;
+}
+
+#login-form,
+#registration-form {
+    position: fixed;
+    display: table;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    transform: scale(0);
+    z-index: 1;
+}
+
+#login-form.one,
+#registration-form.one {
+    transform: scaleY(0.01) scaleX(0);
+    animation: unfoldIn 1s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+
+#login-form.one .popup-background .popup,
+#registration-form.one .popup-background .popup {
+    transform: scale(0);
+    animation: zoomIn 0.5s 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+
+#login-form.one.out,
+#registration-form.one.out{
+    transform: scale(1);
+    animation: unfoldOut 1s 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+
+#login-form.one.out .popup-background .popup,
+#registration-form.one.out .popup-background .popup {
+    animation: zoomOut 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+
+#login-form .popup-background,
+#registration-form .popup-background {
+    display: table-cell;
+    background: rgba(0, 0, 0, 0.8);
+    text-align: center;
+    vertical-align: middle;
+}
+
+#login-form .popup-background .popup,
+#registration-form .popup-background .popup {
+    background: white;
+    padding: 10px 20px;
+    display: inline-block;
+    border-radius: 3px;
+    position: relative;
+}
+
+.popup {
+    height: auto;
+    width: auto;
+}
+
+.fa-google {
+    font-size: 2em;
+    color: #00bbf0;
+    transition: 0.2s;
+}
+
+.fa-google:hover {
+    color: #f67280;
+    transition: 0.2s;
+}
+
+/* Media Queries */
+
+@media only screen and (min-width: 320px) {
+    .popup {
+        min-width: 300px;
+    }
+}
+
+@media only screen and (min-width: 360px) {
+    .popup {
+        min-width: 340px;
+    }
+}
+
+@media only screen and (min-width: 500px) {
+    .popup {
+        min-width: 480px;
+    }
+}
+
+/* Animations */
+
+@keyframes unfoldIn {
+    0% {
+        transform: scaleY(0.005) scaleX(0);
+    }
+    50% {
+        transform: scaleY(0.005) scaleX(1);
+    }
+    100% {
+        transform: scaleY(1) scaleX(1);
+    }
+}
+
+@keyframes unfoldOut {
+    0% {
+        transform: scaleY(1) scaleX(1);
+    }
+    50% {
+        transform: scaleY(0.005) scaleX(1);
+    }
+    100% {
+        transform: scaleY(0.005) scaleX(0);
+    }
+}
+
+@keyframes zoomIn {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+       transform: scale(1);
+    }
+}
+
+@keyframes zoomOut {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(0);
+    }
+}
