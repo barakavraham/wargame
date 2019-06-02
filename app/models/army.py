@@ -2,7 +2,7 @@ from app.models.user import User # DO NOT DELETE
 from app import db
 from flask_login import UserMixin
 from sqlalchemy.orm import backref
-
+from app.utils.shop import TECH_UPGRADES
 
 class Army(db.Model):
     __tablename__ = 'armies'
@@ -64,3 +64,10 @@ class Upgrade(db.Model):
     def add_level(self, upgrade_name):
         current_level = self.get_current_level_num(upgrade_name)
         setattr(self, upgrade_name, current_level + 1)
+
+    def is_max_level(self, upgrade_name):
+        current_level = getattr(self, upgrade_name)
+        return current_level == TECH_UPGRADES[upgrade_name].max_level
+
+
+
