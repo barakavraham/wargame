@@ -1,9 +1,10 @@
 from flask_login import current_user
 from typing import List
+import re
 
 
 class ShopItem:
-    def __init__(self, prices=List[tuple], power: int = 0, picture_name: str = 'default', display_name: str = ''):
+    def __init__(self, prices: List[tuple], power: int = 0, picture_name: str = 'upgrade', display_name: str = ''):
         self.prices = dict(prices)
         self.power = power
         self.picture_name = picture_name
@@ -13,13 +14,25 @@ class ShopItem:
         return {item: self.prices[item] * amount for item in self.prices}
 
 
+
 class UpgradableItem:
-    def __init__(self, level_1: ShopItem, level_2: ShopItem, level_3: ShopItem, level_4: ShopItem, level_5: ShopItem):
+    def __init__(self,
+                level_1: ShopItem = None, level_2: ShopItem = None,
+                level_3: ShopItem = None, level_4: ShopItem = None,
+                level_5: ShopItem = None, level_6: ShopItem = None,
+                level_7: ShopItem = None, level_8: ShopItem = None,
+                level_9: ShopItem = None, max_level: int = None):
+
         self.level_1 = level_1
         self.level_2 = level_2
         self.level_3 = level_3
         self.level_4 = level_4
         self.level_5 = level_5
+        self.level_6 = level_6
+        self.level_7 = level_7
+        self.level_8 = level_8
+        self.level_9 = level_9
+        self.max_level = max_level
 
     @staticmethod
     def get_item_level(upgrade):
@@ -33,6 +46,8 @@ class UpgradableItem:
     def __iter__(self):
         return iter(self.__dict__)
 
+    def get_max_level_picture(self):
+        return self[self.max_level].picture_name
 
 class TechUpgrades:
     def __init__(self, ground_weapons: UpgradableItem, bombs: UpgradableItem, air_weapons: UpgradableItem, country: UpgradableItem):
@@ -98,27 +113,31 @@ TECH_UPGRADES = TechUpgrades(
     ground_weapons=UpgradableItem(
         level_1=ShopItem([('coin', 200), ('metal', 400), ('wood', 600)], picture_name="upgrade"),
         level_2=ShopItem([('coin', 300), ('metal', 700), ('wood', 1_000)], picture_name="upgrade"),
-        level_3=ShopItem([('coin', 400), ('metal', 900), ('wood', 1_600)], picture_name="upgrade2"),
-        level_4=ShopItem([('coin', 800), ('metal', 2_000), ('wood', 2_600)], picture_name="upgrade"),
-        level_5=ShopItem([('coin', 2_000), ('metal', 4_000), ('wood', 5_600)], picture_name="upgrade")),
+        level_3=ShopItem([('coin', 400), ('metal', 900), ('wood', 1_600)], picture_name="upgrade"),
+        level_4=ShopItem([('coin', 800), ('metal', 2_000), ('wood', 2_600)], picture_name="upgrade2"),
+        max_level=4),
     bombs=UpgradableItem(
         level_1=ShopItem([('coin', 200), ('metal', 400), ('wood', 600)], picture_name="upgrade"),
         level_2=ShopItem([('coin', 300), ('metal', 700), ('wood', 1_000)], picture_name="upgrade"),
         level_3=ShopItem([('coin', 400), ('metal', 900), ('wood', 1_600)], picture_name="upgrade2"),
         level_4=ShopItem([('coin', 800), ('metal', 2_000), ('wood', 2_600)], picture_name="upgrade"),
-        level_5=ShopItem([('coin', 2_000), ('metal', 4_000), ('wood', 5_600)], picture_name="upgrade")),
+        level_5=ShopItem([('coin', 2_000), ('metal', 4_000), ('wood', 5_600)], picture_name="upgrade"),
+        max_level=5),
     air_weapons=UpgradableItem(
         level_1=ShopItem([('coin', 200), ('metal', 400), ('wood', 600)], picture_name="upgrade"),
         level_2=ShopItem([('coin', 300), ('metal', 700), ('wood', 1_000)], picture_name="upgrade"),
         level_3=ShopItem([('coin', 400), ('metal', 900), ('wood', 1_600)], picture_name="upgrade2"),
         level_4=ShopItem([('coin', 800), ('metal', 2_000), ('wood', 2_600)], picture_name="upgrade"),
-        level_5=ShopItem([('coin', 2_000), ('metal', 4_000), ('wood', 5_600)], picture_name="upgrade")),
+        level_5=ShopItem([('coin', 2_000), ('metal', 4_000), ('wood', 5_600)], picture_name="upgrade"),
+        max_level=5),
     country=UpgradableItem(
         level_1=ShopItem([('coin', 200), ('metal', 400), ('wood', 600)], picture_name="upgrade"),
         level_2=ShopItem([('coin', 300), ('metal', 700)], picture_name="upgrade"),
         level_3=ShopItem([('coin', 400)], picture_name="upgrade2"),
         level_4=ShopItem([('coin', 800), ('metal', 2_000), ('wood', 2_600)], picture_name="upgrade"),
-        level_5=ShopItem([('coin', 2_000), ('metal', 4_000), ('wood', 5_600)], picture_name="upgrade")))
+        max_level=4))
+        
+        
 
 
 def can_afford(prices):

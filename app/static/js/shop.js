@@ -46,6 +46,8 @@
 
         function setButtonPrices($btn, prices) {
             let $prices = $btn.parents('.card').find('.prices');
+            // for (let resource in {metal: 0, wood: 0, coin: 0})
+            //     $btn.data('cost-'+resource, 0);
             $prices.empty();
             if (prices) {
                 for (let resource in prices) {
@@ -71,6 +73,15 @@
             setTimeout(function() {
                 $purchaseResultsDiv.removeClass('message-showing');
             }, 2000)
+        }
+
+        function setNewUpgradeLevel($upgradeBtn, max_level, nextUpgradeLevel) {
+            if (max_level)
+                $upgradeBtn.closest('.upgrade-container').find('.current-upgrade-level').text('Max');
+            else {
+                $upgradeBtn.closest('.upgrade-container').find('.current-upgrade-level').text(nextUpgradeLevel);
+                $upgradeBtn.data('next-level', nextUpgradeLevel + 1);
+            }
         }
 
         function setupBuyResources() {
@@ -105,7 +116,7 @@
                 }).done(function() {
                     setPurchaseResultsMessage($purchaseResult, true, 'Purchase successful');
                     $buyBtn.closest('.weapon-container').find('.current-weapon-amount').text(currentResourceAmount + amount);
-                    setUserResources($buyBtn);
+                    setUserResources($buyBtn, amount);
                     $amountInput.val('');
                 }).fail(function({ status }) {
                     if (status === 400)
@@ -136,9 +147,7 @@
                 }).done(function(data) {
                     setPurchaseResultsMessage($purchaseResult, purchaseSuccess, 'Upgrade successful');
                     setUserResources($upgradeBtn);
-                    if (nextUpgradeLevel < 5)
-                        $upgradeBtn.closest('.upgrade-container').find('.current-upgrade-level').text(nextUpgradeLevel);
-                    $upgradeBtn.data('next-level', nextUpgradeLevel + 1);
+                    setNewUpgradeLevel($upgradeBtn, data.max_level, nextUpgradeLevel);
                     if (data.picture)
                         $upgradeBtn.closest('.upgrade-container').find('.card-img-top').attr('src', data.picture);
                     setButtonPrices($upgradeBtn, data.prices);
