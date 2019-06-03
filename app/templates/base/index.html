@@ -6,13 +6,52 @@
 
 {% block content %}
     <h2 class="text-center mt-3">{{ current_user.army.name }}</h2>
-    <div class="row text-center border p-2">
+    <div
+        id="user-resources"
+        data-army-coin="{{ current_user.army.coin }}"
+        data-army-metal="{{ current_user.army.metal }}"
+        data-army-wood="{{ current_user.army.wood }}"
+        class="row text-center border p-2">
+
         {% for resource in user_resources %}
             <div class="col">
                 <img height="50" width="50" class="img" src="{{ url_for('static', filename='images/'+user_resources[resource].picture+'.png') }}" alt="{{ resource }}" />
-                <p class="m-0">{{ user_resources[resource].amount }}</p>
+                <p id="current-{{ resource }}-amount" class="m-0">{{ user_resources[resource].amount }}</p>
             </div>
         {% endfor %}
+    </div>
+    <span id="current-turns-amount">turns: {{ current_user.army.turns }}</span>
+    <div class="row">
+        <div class="card col-lg-4 col-md-2 col-sm-4 col-xs-8 mx-auto mt-3 d-flex">
+            <img class="card-img-top img-fluid mx-auto" src="{{ url_for('static', filename='images/searchResources.png') }}" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">Search for resources</h5>
+                <p class="card-text middle-card-text">Search for your resources with low chance to find a diamond</p>
+                <p class="card-text">Cost: 10 turns</p>
+            </div>
+            <div class="text-center">
+                <button
+                    id="search-resources-btn"
+                    data-turns-amount="{{ current_user.army.turns }}"
+                    class="btn-primary mb-3"
+                >Search</button>
+            </div>
+        </div>
+        <div class="card col-lg-4 col-md-2 col-sm-4 col-xs-8 mx-auto mt-3 d-flex">
+            <img class="card-img-top img-fluid mx-auto mt-2" src="{{ url_for('static', filename='images/fieldSearch.png') }}" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">Search for field</h5>
+                <p class="card-text middle-card-text">Search for your field, low chance to find a diamond</p>
+                <p class="card-text">Cost: 15 turns</p>
+                <div class="text-center">
+                    <button
+                            id="search-field-btn"
+                            data-turns-amount="{{ current_user.army.turns }}"
+                            class="btn-primary"
+                    >Search</button>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}
 {% block scripts %}
