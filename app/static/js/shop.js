@@ -46,8 +46,8 @@
 
         function setButtonPrices($btn, prices) {
             let $prices = $btn.parents('.card').find('.prices');
-            for (let resource in {metal: 0, wood: 0, coin: 0})
-                $btn.data('cost-'+resource, 0);
+            // for (let resource in {metal: 0, wood: 0, coin: 0})
+            //     $btn.data('cost-'+resource, 0);
             $prices.empty();
             if (prices) {
                 for (let resource in prices) {

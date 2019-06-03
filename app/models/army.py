@@ -68,6 +68,3 @@ class Upgrade(db.Model):
     def is_max_level(self, upgrade_name):
         current_level = getattr(self, upgrade_name)
         return current_level == TECH_UPGRADES[upgrade_name].max_level
-
-
-

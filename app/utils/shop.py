@@ -16,11 +16,12 @@ class ShopItem:
 
 
 class UpgradableItem:
-    def __init__(self, level_1: ShopItem=None, level_2: ShopItem=None,
-                level_3: ShopItem=None, level_4: ShopItem=None,
-                level_5: ShopItem=None, level_6: ShopItem=None,
-                level_7: ShopItem=None, level_8: ShopItem=None,
-                level_9: ShopItem=None, max_level: int = None):
+    def __init__(self,
+                level_1: ShopItem = None, level_2: ShopItem = None,
+                level_3: ShopItem = None, level_4: ShopItem = None,
+                level_5: ShopItem = None, level_6: ShopItem = None,
+                level_7: ShopItem = None, level_8: ShopItem = None,
+                level_9: ShopItem = None, max_level: int = None):
 
         self.level_1 = level_1
         self.level_2 = level_2
@@ -133,7 +134,8 @@ TECH_UPGRADES = TechUpgrades(
         level_1=ShopItem([('coin', 200), ('metal', 400), ('wood', 600)], picture_name="upgrade"),
         level_2=ShopItem([('coin', 300), ('metal', 700)], picture_name="upgrade"),
         level_3=ShopItem([('coin', 400)], picture_name="upgrade2"),
-        max_level=3))
+        level_4=ShopItem([('coin', 800), ('metal', 2_000), ('wood', 2_600)], picture_name="upgrade"),
+        max_level=4))
         
         
 
