@@ -19,4 +19,4 @@ class SubpathApi:
 
 
 # import all APIs
-from app.api import shop
+from app.api import shop, base
