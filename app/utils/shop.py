@@ -1,6 +1,5 @@
 from flask_login import current_user
 from typing import List
-import re
 
 
 class ShopItem:

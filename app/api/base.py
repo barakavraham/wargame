@@ -11,7 +11,6 @@ subpath_api = SubpathApi(base_api, '/base', 'base')
 class SearchResourcesAPI(Resource):
 
     def __init__(self):
-        self.reqparse = reqparse.RequestParser()
         super(SearchResourcesAPI, self).__init__()
 
     def search_for_resources(self):
@@ -44,12 +43,12 @@ class SearchResourcesAPI(Resource):
 
         return add_resource
 
-    def post(self):
+    def get(self):
         is_successful = self.can_search() 
         if self.can_search():      
             add_resource = self.add_user_resources()
         return {
-            'turnsAmount': current_user.army.turns, 
+            'turns': current_user.army.turns, 
             'added_resource': add_resource
             }, 200 if is_successful else 400
 
