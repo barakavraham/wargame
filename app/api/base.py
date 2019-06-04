@@ -43,6 +43,7 @@ class SearchResourcesAPI(Resource):
 
         return add_resource
 
+
     def get(self):
         is_successful = self.can_search() 
         if self.can_search():      
