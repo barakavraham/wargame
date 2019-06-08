@@ -64,7 +64,7 @@
         }
 
         function setPurchaseResultsMessage($purchaseResultsDiv, purchaseSuccess, text) {
-            $('div.purchase-result').removeClass('message-showing').empty();
+            $purchaseResultsDiv.removeClass('message-showing').empty();
             $purchaseResultsDiv.append(`<p>${text}</p>`).addClass('message-showing');
             if (purchaseSuccess)
                 $purchaseResultsDiv.find('p').addClass('bg-success');
@@ -99,22 +99,21 @@
 
                 if (amount <= 0) {
                     $amountInput.val('');
-                    setPurchaseResultsMessage($purchaseResult, false, 'Please enter a valid amount');
+                    setPurchaseResultsMessage($purchaseResult, purchaseSuccess, 'Please enter a valid amount');
                     return false;
                 }
 
                 if (!canBuy($buyBtn, amount)) {
-                    purchaseSuccess = false;
                     setPurchaseResultsMessage($purchaseResult, purchaseSuccess, 'Not enough resources');
-                    return false
-                } else
-                    purchaseSuccess = true;
+                    return false;
+                }
 
                 $.gameApiPost('shop/buy_resources', {
                     item: $buyBtn.data('item'),
                     amount: amount
                 }).done(function() {
-                    setPurchaseResultsMessage($purchaseResult, true, 'Purchase successful');
+                    purchaseSuccess = true;
+                    setPurchaseResultsMessage($purchaseResult, purchaseSuccess, 'Purchase successful');
                     $buyBtn.closest('.weapon-container').find('.current-weapon-amount').text(currentResourceAmount + amount);
                     setUserResources($buyBtn, amount);
                     $amountInput.val('');

@@ -14,6 +14,7 @@ class Army(db.Model):
     wood = db.Column(db.Integer, nullable=False, default=100)
     metal = db.Column(db.Integer, nullable=False, default=100)
     field = db.Column(db.Integer, nullable=False, default=1000)
+    diamond = db.Column(db.Integer, nullable=False, default=0)
     power = db.Column(db.Integer, nullable=False, default=0)
     pistol = db.Column(db.Integer, nullable=False, default=0)
     rifle = db.Column(db.Integer, nullable=False, default=0)
