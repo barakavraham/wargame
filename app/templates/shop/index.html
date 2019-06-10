@@ -14,15 +14,15 @@
     >
         <div class="col">
             <img class="img" src="{{ url_for('static', filename='images/coin.png') }}" />
-            <span id="current-coin-amount">{{ current_user.army.coin }}</span>
+            <span id="current-coin-amount">{{ current_user.army.get_num_with_comma(current_user.army.coin) }}</span>
         </div>
         <div class="col">
             <img class="img" src="{{ url_for('static', filename='images/metal.png') }}" />
-            <span id="current-metal-amount">{{ current_user.army.metal }}</span>
+            <span id="current-metal-amount">{{ current_user.army.get_num_with_comma(current_user.army.metal) }}</span>
         </div>
         <div class="col">
             <img class="img" src="{{ url_for('static', filename='images/wood.png') }}" />
-            <span id="current-wood-amount">{{ current_user.army.wood }}</span>
+            <span id="current-wood-amount">{{ current_user.army.get_num_with_comma(current_user.army.wood) }}</span>
         </div>
     </div>
     <div class="row justify-content-around mb-4">
@@ -33,7 +33,7 @@
         <div class="row">
             {% for item in shop_items %}
                 <div class="weapon-container col-lg-3 col-md-4 col-sm-6 col-xs-12 mx-auto mt-3 d-flex flex-column align-items-stretch">
-                    <p class="text-center"> {{ shop_items[item].display_name }} - <span class="current-weapon-amount">{{ current_user.army.get_item_amount(item) }}</span> </p>
+                    <p class="text-center"> {{ shop_items[item].display_name }} - <span class="current-weapon-amount">{{ current_user.army.get_num_with_comma(current_user.army.get_item_amount(item)) }}</span> </p>
                     <div class="card border-dark mb-3">
                         <div class="purchase-result text-center mb-1"></div>
                         <img class="card-img-top img-fluid mx-auto mt-3 mb-3" src="{{ url_for('static', filename='images/'+shop_items[item].picture_name+'.png') }}" alt="Card image cap" />
@@ -45,7 +45,7 @@
                                             <img class="resource-img img-fluid" src="{{ url_for('static', filename='images/'+resource+'.png') }}" alt="{{ shop_items[item].display_name }}"/>
                                         </p>
                                         <p class="card-text">
-                                            {{ shop_items[item].prices[resource] }}
+                                            {{ current_user.army.get_num_with_comma(shop_items[item].prices[resource]) }}
                                         </p>
                                     </div>
                                 {% endfor %}
@@ -53,7 +53,7 @@
                             <div class="d-flex flex-column h-100 justify-content-between">
                                 <p class="card-text text-center mt-4 mb-2">
                                     <img class="power-img" src="{{ url_for('static', filename='images/power.png') }}" alt="power"/>
-                                    {{ shop_items[item].power }}
+                                    {{ current_user.army.get_num_with_comma(shop_items[item].power) }}
                                 </p>
                                 <div class="input-group mb-2 mr-sm-2">
                                     <input type="text" class="form-control py-0 amount" placeholder="0" />
@@ -105,7 +105,7 @@
                                                         <img class="resource-img img-fluid" src="{{ url_for('static', filename='images/'+resource+'.png') }}" alt=""/>
                                                     </p>
                                                     <p class="card-text">
-                                                        {{ tech_upgrades[upgrade][upgrade_level].prices[resource] }}
+                                                        {{ current_user.army.get_num_with_comma(tech_upgrades[upgrade][upgrade_level].prices[resource]) }}
                                                     </p>
                                                 </div>
                                             {% endfor %}

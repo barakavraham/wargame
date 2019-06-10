@@ -1,5 +1,9 @@
 ;window.webgame = {};
 
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 (function($, webgame) {
     $.each( [ "get", "post", "put", "delete" ], function( i, method ) {
         $[ 'gameApi' + _.capitalize(method) ] = function( url, data, callback, dataType ) {
@@ -24,5 +28,4 @@
             }, $.isPlainObject( url ) && url ) );
         };
     });
-
 })(jQuery, window.webgame);

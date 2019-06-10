@@ -38,7 +38,7 @@
                     let formattedResource = resource.replace('cost', '').toLowerCase(),
                         resourceCost = $btn.data(resource),
                         currentResourceAmount = $userResources.data('army-'+formattedResource);
-                    $('#current-'+formattedResource+'-amount').text(currentResourceAmount - resourceCost * amount);
+                    $('#current-'+formattedResource+'-amount').text(numberWithCommas(currentResourceAmount - resourceCost * amount));
                     $userResources.data('army-'+formattedResource, currentResourceAmount - resourceCost * amount);
                 }
             }
@@ -46,15 +46,15 @@
 
         function setButtonPrices($btn, prices) {
             let $prices = $btn.parents('.card').find('.prices');
-            // for (let resource in {metal: 0, wood: 0, coin: 0})
-            //     $btn.data('cost-'+resource, 0);
+            for (let resource in {metal: 0, wood: 0, coin: 0})
+                $btn.data('cost-'+resource, 0);
             $prices.empty();
             if (prices) {
                 for (let resource in prices) {
                     $prices.append('<div class="col text-center mt-2"></div>');
                     let $resourceCol = $prices.find('.col').last();
                     $resourceCol.append(`<p class="card-text mb-0"><img class="resource-img img-fluid"  src="${prices[resource]['picture']}" /></p>`);
-                    $resourceCol.append(`<p class="card-text">${prices[resource].price}</p>`);
+                    $resourceCol.append(`<p class="card-text">${numberWithCommas(prices[resource].price)}</p>`);
                     $btn.data('cost-'+resource, prices[resource].price);
                 }
             } else {
@@ -64,7 +64,7 @@
         }
 
         function setPurchaseResultsMessage($purchaseResultsDiv, purchaseSuccess, text) {
-            $('div.purchase-result').removeClass('message-showing').empty();
+            $purchaseResultsDiv.removeClass('message-showing').empty();
             $purchaseResultsDiv.append(`<p>${text}</p>`).addClass('message-showing');
             if (purchaseSuccess)
                 $purchaseResultsDiv.find('p').addClass('bg-success');
@@ -94,28 +94,27 @@
                     $purchaseResult = $buyBtn.closest('.weapon-container').find('div.purchase-result'),
                     $amountInput = $buyBtn.closest('.input-group').find('.amount'),
                     amount = Number($amountInput.val()),
-                    currentResourceAmount = Number($buyBtn.closest('.weapon-container').find('.current-weapon-amount').text()),
+                    currentResourceAmount = Number($buyBtn.closest('.weapon-container').find('.current-weapon-amount').text().replace(/\D/g,'')),
                     purchaseSuccess = false;
 
                 if (amount <= 0) {
                     $amountInput.val('');
-                    setPurchaseResultsMessage($purchaseResult, false, 'Please enter a valid amount');
+                    setPurchaseResultsMessage($purchaseResult, purchaseSuccess, 'Please enter a valid amount');
                     return false;
                 }
 
                 if (!canBuy($buyBtn, amount)) {
-                    purchaseSuccess = false;
                     setPurchaseResultsMessage($purchaseResult, purchaseSuccess, 'Not enough resources');
-                    return false
-                } else
-                    purchaseSuccess = true;
+                    return false;
+                }
 
                 $.gameApiPost('shop/buy_resources', {
                     item: $buyBtn.data('item'),
                     amount: amount
                 }).done(function() {
-                    setPurchaseResultsMessage($purchaseResult, true, 'Purchase successful');
-                    $buyBtn.closest('.weapon-container').find('.current-weapon-amount').text(currentResourceAmount + amount);
+                    purchaseSuccess = true;
+                    setPurchaseResultsMessage($purchaseResult, purchaseSuccess, 'Purchase successful');
+                    $buyBtn.closest('.weapon-container').find('.current-weapon-amount').text(numberWithCommas(currentResourceAmount + amount));
                     setUserResources($buyBtn, amount);
                     $amountInput.val('');
                 }).fail(function({ status }) {

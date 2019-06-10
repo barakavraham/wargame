@@ -14,6 +14,7 @@ class Army(db.Model):
     wood = db.Column(db.Integer, nullable=False, default=100)
     metal = db.Column(db.Integer, nullable=False, default=100)
     field = db.Column(db.Integer, nullable=False, default=1000)
+    diamond = db.Column(db.Integer, nullable=False, default=0)
     power = db.Column(db.Integer, nullable=False, default=0)
     pistol = db.Column(db.Integer, nullable=False, default=0)
     rifle = db.Column(db.Integer, nullable=False, default=0)
@@ -36,6 +37,9 @@ class Army(db.Model):
     def add_item_amount(self, item, amount):
         current_amount = self.get_item_amount(item)
         setattr(self, item, current_amount + amount)
+
+    def get_num_with_comma(self, num):
+        return "{:,}".format(num)
 
 
 class Upgrade(db.Model):
