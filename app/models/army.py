@@ -38,6 +38,9 @@ class Army(db.Model):
         current_amount = self.get_item_amount(item)
         setattr(self, item, current_amount + amount)
 
+    def get_num_with_comma(self, num):
+        return "{:,}".format(num)
+
 
 class Upgrade(db.Model):
     __tablename__ = 'upgrades'
