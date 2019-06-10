@@ -1,3 +1,14 @@
+.map-img {
+  height: 120px;
+  width: 150px;
+}
+
+.resource-search-img {
+  height: 120px;
+  width: 180px;
+  margin-top: 1rem;
+}
+
 .resource-img {
     height: 35px;
     width: 35px;
