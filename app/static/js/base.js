@@ -2,17 +2,21 @@
     'use strict';
 
     $(function() {
-        let $userResources = $('#user-resources');
+        let $userResources = $('#user-resources'),
+            $searchResourcesBtn = $('#search-resources-btn'),
+            $searchFieldBtn = $('#search-field-btn'),
+            $currentTurnsAmount = $('#current-turns-amount')
+        ;
     
 
         function setUserResources({ added_resource, turns }, $userResources) {
             for (let resource in added_resource){
                 let resource_amount = $userResources.data('army-'+resource);
                 $(`#current-${resource}-amount`).text(numberWithCommas(resource_amount + added_resource[resource].amount));
-                $('#user-resources').data(`army-${resource}` ,resource_amount + added_resource[resource].amount);
+                $userResources.data(`army-${resource}` ,resource_amount + added_resource[resource].amount);
             }
             $userResources.data('army-turns', turns);
-            $('#current-turns-amount').text(`turns: ${turns}`);
+            $currentTurnsAmount.text(`turns: ${turns}`);
         }
 
         function setCardBody($btn, {added_resource}) {
@@ -46,17 +50,14 @@
         function setPurchaseResultsMessage($purchaseResultsDiv, purchaseSuccess, text) {
             $purchaseResultsDiv.removeClass('message-showing').empty();
             $purchaseResultsDiv.append(`<p>${text}</p>`).addClass('message-showing');
-            if (purchaseSuccess)
-                $purchaseResultsDiv.find('p').addClass('bg-success');
-            else
-                $purchaseResultsDiv.find('p').addClass('bg-warning');
+            $purchaseResultsDiv.find('p').addClass(purchaseSuccess ? 'bg-success' : 'bg-warning');
             setTimeout(function() {
                 $purchaseResultsDiv.removeClass('message-showing');
             }, 2000)
         }
 
         function setupResourceSearch() {
-            $('#search-resources-btn').on('click', function(){
+            $searchResourcesBtn.on('click', function(){
                 let $btn = $(this),
                     $purchaseResult = $btn.closest('.card').find('.purchase-result'),
                     turns = $userResources.data('army-turns'),
@@ -75,17 +76,14 @@
                         setUserResources(user_new_resources, $userResources); // resources will update only after the spin //
                     }, 2000);
 
-                }).fail(function(status){
-                    if (status === 400)
-                        setPurchaseResultsMessage($purchaseResult, purchaseSuccess, "You don't have enough turns");
-                    else
-                        setPurchaseResultsMessage($purchaseResult, purchaseSuccess, "Status code");
+                }).fail(function({ status }){
+                    setPurchaseResultsMessage($purchaseResult, purchaseSuccess, status === 400 ? "You don't have enough turns" : 'An error occurred');
                 })
             });
         }
 
         function setupFieldSearch() {
-            $('#search-field-btn').on('click', function(){
+            $searchFieldBtn.on('click', function(){
                 let $btn = $(this),
                     $purchaseResult = $btn.closest('.card').find('.purchase-result'),
                     turns = $userResources.data('army-turns'),
@@ -103,11 +101,8 @@
                         $btn.prop('disabled', false);
                         setUserResources(user_new_field, $userResources); // resources will update only after the spin //
                     }, 2000);
-                }).fail(function({status}){
-                    if (status === 400)
-                        setPurchaseResultsMessage($purchaseResult, purchaseSuccess, "You don't have enough turns");
-                    else
-                        setPurchaseResultsMessage($purchaseResult, purchaseSuccess, 'Status code');
+                }).fail(function({ status }){
+                    setPurchaseResultsMessage($purchaseResult, purchaseSuccess, status === 400 ? "You don't have enough turns" : 'An error occurred');
                 });
             });
         }

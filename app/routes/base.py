@@ -17,7 +17,8 @@ def get_user_resources():
         "coin": UserResources(current_user.army.coin, 'coin'),
         "metal": UserResources(current_user.army.metal, 'metal'),
         "wood": UserResources(current_user.army.wood, 'wood'),
-        "field": UserResources(current_user.army.field, 'field')
+        "field": UserResources(current_user.army.field, 'field'),
+        "diamond": UserResources(current_user.army.diamond, 'diamond'),
     }
     return user_resources
 

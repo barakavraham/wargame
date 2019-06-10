@@ -5,36 +5,30 @@
 {%  endblock styles %}
 
 {% block content %}
-    <div class="form_container">
-        <div class="messages">
+    <div class="mt-4 d-flex flex-column align-items-center justify-content-center">
+        <div class="text-center bg-warning p-1 mb-2 rounded">
             {% with messages = get_flashed_messages() %}
                 {% if messages %}
                     {% for message in messages %}
-                    <div class="message">
+                    <div>
                         {{ message }}
                     </div>
                     {% endfor %}
                 {% endif %}
             {% endwith %}
         </div>
-        <form method="POST">
+        <form method="POST" class="text-center border border-light p-5 w-100">
             {{ form.hidden_tag() }}
-            <span>Choose army name</span>
-            <div class="form-input">
-                {{ form.army_name.label() }}
-                {% if form.army_name.errors %}
-                    {{ form.army_name(class="input") }}
-                    {% for error in form.army_name.errors %}
-                        <div class= "error"> {{ error }} </div>
-                    {% endfor %}
-
-                {% else %}
-                    {{ form.army_name(class="input") }}
-                {% endif %}
-            </div>
-            <div class="submit">
-                {{ form.submit(class="submit-btn") }}
-            </div>
+            <p class="h4 mb-4">Choose army name</p>
+            {% if form.army_name.errors %}
+                {{ form.army_name(class="form-control mb-4 is-invalid") }}
+                {% for error in form.army_name.errors %}
+                    <div class= "invalid-feedback"> {{ error }} </div>
+                {% endfor %}
+            {% else %}
+                {{ form.army_name(class="form-control mb-4") }}
+            {% endif %}
+            <button class="btn btn-dark btn-block my-4" type="submit">Sign in</button>
         </form>
     </div>
 {% endblock content %}

@@ -1,4 +1,4 @@
-"""lol
+"""db init
 
 Revision ID: fbdd3a81be2a
 Revises: 
