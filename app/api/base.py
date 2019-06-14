@@ -20,10 +20,9 @@ class SearchResourcesAPI(Resource):
         found_resource = ceil(current_user.army.field / random_percentage)
         return found_resource
 
-    @staticmethod
-    def search_for_diamond():
-        random_num = randint(0, 10)
-        return 1 if random_num == 1 else 0
+    def search_for_diamonds(self, diamonds = 0):
+        random_num = randint(1, 2)
+        return self.search_for_diamonds(diamonds + 1) + 1 if random_num == 1 and diamonds != 9 else 0
 
     @staticmethod
     def can_search():
@@ -44,7 +43,7 @@ class SearchResourcesAPI(Resource):
                 'picture': url_for('static', filename='images/coin.png')
             },
             'diamond': {
-                'amount': self.search_for_diamond(),
+                'amount': self.search_for_diamonds(),
                 'picture': url_for('static', filename='images/diamond.png')
             }
         }
