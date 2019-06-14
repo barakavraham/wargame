@@ -2,71 +2,67 @@
 
 {% block styles %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/attack.css') }}">
-    {% endblock styles %}
+{% endblock styles %}
 
-    {% block content %}
-   <div class="main-table-container">
-        <div class="semi-table-container">
-            <table class="table mt-3">
-                <thead class="thead-dark">
-                    <tr id="shop-cat">
-                        <th scope="col" class="rank-column">Rank</th>
-                        <th scope="col" class="army-column">Army</th>
-                        <th scope="col" class="field-column">Field</th>
-                        <th scope="col" class="clan-column">Clan</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for user in users_lists[page_num-1] %}
-                        <tr class="tr0">
-                            <td>{{ users_lists[page_num-1].index(user) + (page_num-1)*10 + 1 }}</td>
-                            {% if user == current_user %}
-                                <td><a class="army-name-current font-weight-bold" href="{{ url_for('profile.index', army_name=user.army.name) }}">{{ user.army.name }}</a></td>
-                            {% else %}
-                                <td><a class="army-name" href="{{ url_for('profile.index', army_name=user.army.name) }}">{{ user.army.name }}</a></td>
-                            {% endif %}
-                            <td>{{ user.army.field }}</td>
-                            <td>{{ user.army.clan }}</td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            <nav aria-label="...">
-                <ul class="pagination justify-content-center"> 
-                    {% if page_num > 1 %}     
-                        <li class="page-item">
-                            <a class="page-link" href="{{ url_for('attack.index', page_num=page_num - 1) }}">Previous</a>
-                            <li class="page-item">
-                                <a class="page-link" href="{{ url_for('attack.index', page_num=page_num - 1) }}">{{ page_num - 1 }}</a>
-                            </li>
-                        </li>
+{% block content %}
+    <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Rank</th>
+            <th id="army-column" scope="col">Army</th>
+            <th id="field-column" scope="col">Field</th>
+            <th id="clan-column" scope="col">Clan</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for user in users_lists[page_num - 1] %}
+                <tr>
+                    <td scope="row">{{ users_lists[page_num-1].index(user) + (page_num-1)*10 + 1 }}</td>
+                    {% if user == current_user %}
+                        <td><a class="army-name-current font-weight-bold" href="{{ url_for('profile.index', army_name=user.army.name) }}">{{ user.army.name }}</a></td>
                     {% else %}
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#">Previous</a>
-                        </li>
+                        <td><a class="army-name" href="{{ url_for('profile.index', army_name=user.army.name) }}">{{ user.army.name }}</a></td>
                     {% endif %}
-                    <li class="page-item active">
-                        <span class="page-link">
-                            {{ page_num }}
-                            <span class="sr-only">(current)</span>
-                        </span>
+                    <td>{{ user.army.field }}</td>
+                    <td>{{ user.army.clan }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <nav>
+        <ul class="pagination justify-content-center"> 
+            {% if page_num > 1 %}     
+                <li class="page-item">
+                    <a class="page-link" href="{{ url_for('attack.index', page_num=page_num - 1) }}">Previous</a>
+                    <li class="page-item">
+                        <a class="page-link" href="{{ url_for('attack.index', page_num=page_num - 1) }}">{{ page_num - 1 }}</a>
                     </li>
-                    {% if page_num < num_lists %}
-                        <li class="page-item">
-                            <a class="page-link" href="{{ url_for('attack.index', page_num=page_num + 1) }}">{{ page_num + 1 }}</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="{{ url_for('attack.index', page_num=page_num + 1) }}">Next</a>
-                        </li>
-                    {% else %}
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#">Next</a>
-                        </li>
-                    {% endif %}
-                </ul>
-            </nav>
-        </div>
-   </div>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" href="#">Previous</a>
+                </li>
+            {% endif %}
+            <li class="page-item active">
+                <span class="page-link">
+                    {{ page_num }}
+                    <span class="sr-only">(current)</span>
+                </span>
+            </li>
+            {% if page_num < num_lists %}
+                <li class="page-item">
+                    <a class="page-link" href="{{ url_for('attack.index', page_num=page_num + 1) }}">{{ page_num + 1 }}</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="{{ url_for('attack.index', page_num=page_num + 1) }}">Next</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" href="#">Next</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
 {% endblock content %}
 {% block scripts %}
     <script src="{{ url_for('static', filename='js/attack.js') }}"></script>

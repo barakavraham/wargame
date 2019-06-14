@@ -22,7 +22,6 @@ def index():
         return redirect(url_for(next_url))
 
     elif form_button == 'registration-btn' and registration_form.validate_on_submit():
-        # UsersMaker()
         form = registration_form
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         user = User(email=form.email.data, password=hashed_password)
@@ -43,17 +42,3 @@ def index():
                            js_vars={
                                'invalidFormButton': form_button
                            })
-
-def UsersMaker():
-    names = ["Roanld1", "Killer2" "asa1233", "PoweRanger3", "UnstoppeD3", "Daniel3", "di22232n", "1231233", "REalNam1e", "UnWane3td", "RAN4ANNA", "di1n1oa", "Shirli2", "bosto3n", "1253sssa", "Che1cKCCCCC"]
-    for name in names:
-        hashed_password = bcrypt.generate_password_hash(name).decode('utf-8')
-        user = User(email=f'${name}@gmail.com', password=hashed_password)
-        db.session.add(user)
-        db.session.commit()
-        army = Army(user_id=user.id, name=name)
-        db.session.add(army)
-        db.session.commit()
-        upgrade = Upgrade(army_id=user.id)
-        db.session.add(upgrade)
-        db.session.commit()

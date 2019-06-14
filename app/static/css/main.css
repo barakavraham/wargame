@@ -1,6 +1,6 @@
-img {
-    height: 50px;
-    width: 50px;
+html {
+    position: relative;
+    min-height: 100%;
 }
 
 .bg-dark, .btn-dark {
@@ -19,4 +19,28 @@ img {
 .navbar-dark .navbar-nav .nav-link:hover {
     color: rgba(228, 255, 254, 1) !important;
     transition: 0.2s;
+}
+
+.thead-dark th {
+    background-color: transparent !important;
+    border-bottom: none !important;
+}
+
+.thead-dark {
+    background: #1b2735;
+    background: -moz-linear-gradient(bottom,  #1b2735 0%, #253949 50%, #335067 100%);
+    background: -webkit-linear-gradient(bottom,  #1b2735 0%,#253949 50%,#335067 100%);
+    background: linear-gradient(to top,  #1b2735 0%,#253949 50%,#335067 100%);
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    font-size: 12px;
+}
+
+img {
+    height: 50px;
+    width: 50px;
 }

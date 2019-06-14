@@ -1,11 +1,11 @@
-.rank-column {
+#rank-column {
     width: 10%;
 }
 
-.army-column {
+#army-column {
     width: 40%;
 }
 
-.field-column {
-    width: 25%; 
+#field-column {
+    width: 25%;
 }
