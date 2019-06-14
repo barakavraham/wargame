@@ -29,9 +29,7 @@
                 $card_body.append('<h5 class="card-title">Search for resources</h5>');
             $card_body.append('<p class="card-text"> you found: </p><div class="d-flex resources-div"></div>');
             for (let resource in added_resource) {
-                if (resource === 'diamond' && added_resource[resource].amount === 0)
-                    continue;
-                if (resource === 'diamond' && added_resource[resource].amount === 1)
+                if (resource === 'diamond')
                     $card_body.append('<div class="d-flex resources-div mt-3"></div>');
                 var sNumber = numberWithCommas(added_resource[resource].amount);
                 $card_body.find('.resources-div').last().append('<div class="col text-center"></div>');

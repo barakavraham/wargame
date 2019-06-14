@@ -7,19 +7,21 @@
     {% block content %}
    <div class="main-table-container">
         <div class="semi-table-container">
-            <table class="table">
-                <thead>
+            <table class="table mt-3">
+                <thead class="thead-dark">
                     <tr id="shop-cat">
-                        <th id="weapon">Army</th>
-                        <th id="cost">Field</th>
-                        <th id="power">Clan</th>
+                        <th scope="col" class="rank-column">Rank</th>
+                        <th scope="col" class="army-column">Army</th>
+                        <th scope="col" class="field-column">Field</th>
+                        <th scope="col" class="clan-column">Clan</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for user in users_lists[page_num] %}
+                    {% for user in users_lists[page_num-1] %}
                         <tr class="tr0">
+                            <td>{{ users_lists[page_num-1].index(user) + (page_num-1)*10 + 1 }}</td>
                             {% if user == current_user %}
-                                <td><a class="army-name-current" href="{{ url_for('profile.index', army_name=user.army.name) }}">{{ user.army.name }}</a></td>
+                                <td><a class="army-name-current font-weight-bold" href="{{ url_for('profile.index', army_name=user.army.name) }}">{{ user.army.name }}</a></td>
                             {% else %}
                                 <td><a class="army-name" href="{{ url_for('profile.index', army_name=user.army.name) }}">{{ user.army.name }}</a></td>
                             {% endif %}
@@ -29,18 +31,40 @@
                     {% endfor %}
                 </tbody>
             </table>
-            <div class="next-previous-buttons">
-                <div class="p-page">
-                    {% if page_num >= 1 %}
-                        <a href="{{ url_for('attack.index', page_num=page_num - 1) }}">Previous page</a>
+            <nav aria-label="...">
+                <ul class="pagination justify-content-center"> 
+                    {% if page_num > 1 %}     
+                        <li class="page-item">
+                            <a class="page-link" href="{{ url_for('attack.index', page_num=page_num - 1) }}">Previous</a>
+                            <li class="page-item">
+                                <a class="page-link" href="{{ url_for('attack.index', page_num=page_num - 1) }}">{{ page_num - 1 }}</a>
+                            </li>
+                        </li>
+                    {% else %}
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#">Previous</a>
+                        </li>
                     {% endif %}
-                </div>
-                <div class="n-page">
-                    {% if page_num + 1 < num_lists %}
-                        <a href="{{ url_for('attack.index', page_num=page_num + 1) }}">Next Page</a>
+                    <li class="page-item active">
+                        <span class="page-link">
+                            {{ page_num }}
+                            <span class="sr-only">(current)</span>
+                        </span>
+                    </li>
+                    {% if page_num < num_lists %}
+                        <li class="page-item">
+                            <a class="page-link" href="{{ url_for('attack.index', page_num=page_num + 1) }}">{{ page_num + 1 }}</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="{{ url_for('attack.index', page_num=page_num + 1) }}">Next</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#">Next</a>
+                        </li>
                     {% endif %}
-                </div>
-            </div>
+                </ul>
+            </nav>
         </div>
    </div>
 {% endblock content %}
