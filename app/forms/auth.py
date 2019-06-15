@@ -9,22 +9,23 @@ from app import bcrypt
 class RegistrationForm(FlaskForm):
     email = StringField('Email',
                         validators=[DataRequired(), Email()],
-                        render_kw={'placeholder': 'Email', 'type': 'email'})
+                        render_kw={'placeholder': 'Email', 'type': 'email', 'id': 'registration-email'})
     password = PasswordField('Password',
                              validators=[DataRequired(), Length(min=6, max=32)],
-                             render_kw={'placeholder': 'Password'})
+                             render_kw={'placeholder': 'Password', 'id': 'registration-password'})
     confirm_password = PasswordField('Confirm Password',
                                      validators=[DataRequired(), EqualTo('password')],
-                                     render_kw={'placeholder': 'Confirm Password'})
+                                     render_kw={'placeholder': 'Confirm Password',
+                                                'id': 'registration-confirm-password'})
     army_name = StringField('Army Name',
                             validators=[DataRequired(), Length(min=3, max=24)],
-                            render_kw={'placeholder': 'Army Name'})
+                            render_kw={'placeholder': 'Army Name', 'id': 'registration-army-name'})
 
     @staticmethod
     def validate_army_name(_, army_name):
         army = Army.query.filter_by(name=army_name.data).first()
         if army:
-            print('taken')
+            print('Army is taken')
             raise ValidationError('This army name is already taken')
         if not army_name.data.isalnum():
             raise ValidationError('Army name must contain only numbers and letters')
@@ -40,10 +41,10 @@ class RegistrationForm(FlaskForm):
 class LoginForm(FlaskForm):
     email = StringField('Email',
                         validators=[DataRequired(), Email()],
-                        render_kw={'placeholder': 'Email'})
+                        render_kw={'placeholder': 'Email', 'type': 'email', 'id': 'login-email'})
     password = PasswordField('Password',
                              validators=[DataRequired(), Length(min=6, max=32)],
-                             render_kw={'placeholder': 'Password'})
+                             render_kw={'placeholder': 'Password', 'id': 'login-password'})
     remember = BooleanField('Remember me')
 
     def validate_email(self, email):

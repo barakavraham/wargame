@@ -1,4 +1,5 @@
 from app import db
+from app.permissions.permissions import login_required_for_api
 from app.api import base_api, SubpathApi
 from app.utils.shop import can_afford, SHOP_ITEMS, TECH_UPGRADES
 from flask_restful import Resource, reqparse
@@ -9,6 +10,7 @@ subpath_api = SubpathApi(base_api, '/shop', 'shop')
 
 
 class BuyResourcesAPI(Resource):
+    decorators = [login_required_for_api]
 
     def __init__(self):
         self.reqparse = reqparse.RequestParser()
@@ -33,8 +35,8 @@ class BuyResourcesAPI(Resource):
 
     def post(self):
         args = self.reqparse.parse_args()
-        if args['amount'] <= 0:
-            return {'success': False}
+        if args['amount'] <= 0 or args['item'] not in SHOP_ITEMS:
+            return {'success': False}, 400
         is_successful = self.buy_item(args['item'], args['amount'])
         return {'success': is_successful}, 200 if is_successful else 400
 
@@ -43,6 +45,7 @@ subpath_api.add_resource(BuyResourcesAPI, '/buy_resources', endpoint='buy_resour
 
 
 class UpgradeAPI(Resource):
+    decorators = [login_required_for_api]
 
     def __init__(self):
         self.reqparse = reqparse.RequestParser()
@@ -57,9 +60,7 @@ class UpgradeAPI(Resource):
 
     @staticmethod
     def is_max_level(upgrade, level):
-        if TECH_UPGRADES[upgrade][level] is None:
-            return True
-        return False
+        return TECH_UPGRADES[upgrade].max_level <= current_user.army.upgrades.get_current_level_num(upgrade)
 
     def upgrade(self, upgrade, level):
         if not self.can_upgrade(upgrade, level):
@@ -75,6 +76,9 @@ class UpgradeAPI(Resource):
         args = self.reqparse.parse_args()
         upgrade_name = args['upgrade']
         level = args['level']
+        if (upgrade_name not in TECH_UPGRADES
+            or level != current_user.army.upgrades.get_current_level_num(upgrade_name) + 1):
+            return {'success': False}, 400
         if self.is_max_level(upgrade_name, level):
             return {'max_level': True}, 400
         is_successful = self.upgrade(upgrade_name, level)

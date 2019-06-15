@@ -2,6 +2,7 @@ from math import ceil
 from random import randint, uniform
 from app import db
 from app.api import base_api, SubpathApi
+from app.permissions.permissions import login_required_for_api
 from flask_restful import Resource
 from flask_login import current_user
 from flask import url_for
@@ -10,6 +11,7 @@ subpath_api = SubpathApi(base_api, '/base', 'base')
 
 
 class SearchResourcesAPI(Resource):
+    decorators = [login_required_for_api]
 
     def __init__(self):
         super(SearchResourcesAPI, self).__init__()
@@ -55,12 +57,13 @@ class SearchResourcesAPI(Resource):
         return added_resource
 
     def get(self):
+        added_resources = None
         can_search = self.can_search()
         if can_search:
-            added_resource = self.add_user_resources()
+            added_resources = self.add_user_resources()
         return {
             'turns': current_user.army.turns,
-            'added_resource': added_resource
+            'added_resources': added_resources
         }, 200 if can_search else 400
 
 
@@ -68,6 +71,7 @@ subpath_api.add_resource(SearchResourcesAPI, '/search_resources', endpoint='sear
 
 
 class SearchFieldAPI(Resource):
+    decorators = [login_required_for_api]
 
     def __init__(self):
         super(SearchFieldAPI, self).__init__()
@@ -98,11 +102,12 @@ class SearchFieldAPI(Resource):
 
     def get(self):
         can_search = self.can_search()
+        added_resources = None
         if can_search:
-            added_resource = self.add_user_resources()
+            added_resources = self.add_user_resources()
         return {
            'turns': current_user.army.turns,
-           'added_resource': added_resource
+           'added_resources': added_resources
         }, 200 if can_search else 400
 
 

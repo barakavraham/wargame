@@ -1,7 +1,7 @@
 import os
 import rq
 from redis import Redis
-from config import Config
+from config import config
 from flask import Flask, redirect, request, flash, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
@@ -17,19 +17,20 @@ bcrypt = Bcrypt()
 login_manager = LoginManager()
 
 
-def create_app(config_class=Config):
+def create_app(config_name='development'):
     app = Flask(__name__)
-    app.config.from_object(config_class)
+    app.config.from_object(config[config_name])
 
     db.init_app(app)
     migrate.init_app(app, db)
     bcrypt.init_app(app)
     login_manager.init_app(app)
 
-    app.redis = Redis.from_url(app.config['REDIS_URL'])
-    app.task_queue = rq.Queue('webgame-tasks', connection=app.redis)
-    app.task_queue.empty()
-    app.task_queue.enqueue('app.tasks.gift_users.gift_users', job_timeout=-1)
+    if config_name != 'testing':
+        app.redis = Redis.from_url(app.config['REDIS_URL'])
+        app.task_queue = rq.Queue('webgame-tasks', connection=app.redis)
+        app.task_queue.empty()
+        app.task_queue.enqueue('app.tasks.gift_users.gift_users', job_timeout=-1)
 
     from app.routes import base, shop, auth, google_auth, attack, profile, home
     from app.api import api_blueprint

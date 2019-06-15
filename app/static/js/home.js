@@ -23,7 +23,7 @@
         }
 
         function setupFormInputs() {
-            $('form input').not(':checkbox, radio').on('input', function() {
+            $('form input').not(':checkbox, radio').on('focusout', function() {
                 $(this).removeClass('is-invalid').addClass('mb-4');
                 $(this).parent('div').find('.invalid-feedback').remove();
             });

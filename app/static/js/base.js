@@ -9,31 +9,31 @@
         ;
     
 
-        function setUserResources({ added_resource, turns }, $userResources) {
-            for (let resource in added_resource){
+        function setUserResources({ added_resources, turns }, $userResources) {
+            for (let resource in added_resources){
                 let resource_amount = $userResources.data('army-'+resource);
-                $(`#current-${resource}-amount`).text(numberWithCommas(resource_amount + added_resource[resource].amount));
-                $userResources.data(`army-${resource}` ,resource_amount + added_resource[resource].amount);
+                $(`#current-${resource}-amount`).text(numberWithCommas(resource_amount + added_resources[resource].amount));
+                $userResources.data(`army-${resource}` ,resource_amount + added_resources[resource].amount);
             }
             $userResources.data('army-turns', turns);
             $currentTurnsAmount.text(`turns: ${turns}`);
         }
 
-        function setCardBody($btn, {added_resource}) {
+        function setCardBody($btn, { added_resources }) {
             let $card_body = $btn.closest('.card').find('.card-body'),
                 RandomNum;
             $card_body.empty();
-            if (added_resource['field'])
+            if (added_resources['field'])
                 $card_body.append('<h5 class="card-title">Search for field</h5>');
             else
                 $card_body.append('<h5 class="card-title">Search for resources</h5>');
             $card_body.append('<p class="card-text"> you found: </p><div class="d-flex resources-div"></div>');
-            for (let resource in added_resource) {
+            for (let resource in added_resources) {
                 if (resource === 'diamond')
                     $card_body.append('<div class="d-flex resources-div mt-3"></div>');
-                var sNumber = numberWithCommas(added_resource[resource].amount);
+                var sNumber = numberWithCommas(added_resources[resource].amount);
                 $card_body.find('.resources-div').last().append('<div class="col text-center"></div>');
-                $card_body.find('.col').last().append(`<p class="card-text"><img class="resource-img img-fluid" src="${added_resource[resource].picture}" /></p>`);
+                $card_body.find('.col').last().append(`<p class="card-text"><img class="resource-img img-fluid" src="${added_resources[resource].picture}" /></p>`);
                 $card_body.find('.col').last().append(`<div class="wrapper">
                                                          <div class="letters"> 
                                                           <div class="numbers mt-2">

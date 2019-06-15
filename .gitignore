@@ -6,3 +6,4 @@ app.db
 .env
 __pycache__
 dump.rdb
+.coverage
