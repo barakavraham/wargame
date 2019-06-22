@@ -1,6 +1,6 @@
 from app.models.army import Army
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
+from wtforms import StringField
 from wtforms.validators import DataRequired, Length, ValidationError
 
 
@@ -11,7 +11,7 @@ class SetArmyNameForm(FlaskForm):
 
     @staticmethod
     def validate_army_name(_, army_name):
-        army = Army.query.filter_by(name=army_name).first()
+        army = Army.query.filter_by(name=army_name.data).first()
         if not army_name.data.isalnum():
             raise ValidationError('Army name must contain only letters and numbers')
         if army:
