@@ -11,6 +11,7 @@ TEST_USER_EMAIL = 'test@webgame.com'
 TEST_USER_PASSWORD = 'password'
 TEST_USER_ARMY_NAME = 'TestArmy'
 
+
 class RouteTestCase(TestCase):
     @classmethod
     def _remove_sqlite_test_db(cls):
@@ -18,7 +19,7 @@ class RouteTestCase(TestCase):
             os.remove(cls.app.config['SQLALCHEMY_DATABASE_FILE'])
         except OSError:
             pass
-    
+
     @classmethod
     def setupClass(cls):
         super(RouteTestCase, cls).setUpClass()
@@ -46,7 +47,7 @@ class RouteTestCase(TestCase):
                                     data=dict(email=email,
                                               password=password,
                                               remember=remember),
-                                              follow_redirects=True)
+                                    follow_redirects=True)
 
     def logout(self):
         return self.test_client.get('/auth/logout', follow_redirects=True)

@@ -2,6 +2,7 @@ from app import db, bcrypt
 from app.models.user import User
 from app.models.army import Army, Upgrade
 
+
 def create_user(email, password, army_name):
     hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
     user = User(email=email, password=hashed_password)

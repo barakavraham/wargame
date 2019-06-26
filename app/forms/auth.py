@@ -25,7 +25,6 @@ class RegistrationForm(FlaskForm):
     def validate_army_name(_, army_name):
         army = Army.query.filter_by(name=army_name.data).first()
         if army:
-            print('Army is taken')
             raise ValidationError('This army name is already taken')
         if not army_name.data.isalnum():
             raise ValidationError('Army name must contain only numbers and letters')
@@ -34,7 +33,6 @@ class RegistrationForm(FlaskForm):
     def validate_email(_, email):
         user = User.query.filter_by(email=email.data).first()
         if user:
-            print('user taken')
             raise ValidationError('This email is already taken')
 
 
