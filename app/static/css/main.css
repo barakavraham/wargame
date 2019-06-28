@@ -1,6 +1,12 @@
+
+
 html {
     position: relative;
     min-height: 100%;
+}
+
+body {
+    background-image: linear-gradient(60deg, #29323c 0%, #485563 100%);
 }
 
 .bg-dark, .btn-dark {

@@ -9,6 +9,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <!-- Material Design Bootstrap -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.2/css/mdb.min.css" rel="stylesheet">
+    <!-- Layout css -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
     {% block styles %}{% endblock %}
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
@@ -64,8 +65,8 @@
         {% block content %}
         {% endblock %}
     </div>
-    <footer class="footer text-center border-top">
-        <p class="mb-0 py-1">All Rights Reserved &copy; WebGame <span id="copyright-year"></span></p>
+    <footer class="footer text-center">
+        <p class="mb-0 py-1 text-white">All Rights Reserved &copy; WebGame <span id="copyright-year"></span></p>
     </footer>
     <!-- JQuery -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>

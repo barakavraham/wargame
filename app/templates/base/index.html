@@ -5,8 +5,8 @@
 {% endblock styles %}
 
 {% block content %}
-    <h2 class="text-center mt-3">{{ current_user.army.name }}</h2>
-    <div class="text-center">
+    <h2 class="text-center mt-3 text-white">{{ current_user.army.name }}</h2>
+    <div class="text-center text-white">
             <span id="current-turns-amount">Turns: {{ current_user.army.turns }}</span>
     </div>
     <div
@@ -17,22 +17,22 @@
         data-army-field="{{ current_user.army.field }}"
         data-army-turns="{{ current_user.army.turns }}"
         data-army-diamond="{{ current_user.army.diamond }}"
-        class="row text-center border p-2">
+        class="row text-center p-2">
         {% for resource in user_resources %}
             <div class="col">
                 <img height="50" width="50" class="img" src="{{ url_for('static', filename='images/'+user_resources[resource].picture+'.png') }}" alt="{{ resource }}" />
-                <p id="current-{{ resource }}-amount" class="m-0">{{ current_user.army.get_num_with_comma(user_resources[resource].amount) }}</p>
+                <p id="current-{{ resource }}-amount" class="m-0 resource-amount">{{ current_user.army.get_num_with_comma(user_resources[resource].amount) }}</p>
             </div>
         {% endfor %}
     </div>
     <div class="row">
-        <div class="card col-lg-4 mx-auto mt-3 d-flex">
+        <div class="card text-white col-lg-4 mt-3 d-flex">
             <div class="purchase-result text-center mb-1"></div>
             <img class="card-img-top img-fluid mx-auto resource-search-img" src="{{ url_for('static', filename='images/search_resources.png') }}" alt="resources image">
             <div class="card-body">
                 <h5 class="card-title">Search for resources</h5>
-                <p class="card-text middle-card-text">Search for your resources with low chance to find diamonds</p>
-                <p class="card-text">Cost: 10 turns</p>
+                <p class="card-text middle-card-text text-white">Search for your resources with low chance to find diamonds</p>
+                <p class="card-text text-white">Cost: 10 turns</p>
             </div>
             <div class="text-center">
                 <button
@@ -41,13 +41,13 @@
                 >Search</button>
             </div>
         </div>
-        <div class="card col-lg-4 mx-auto mt-3 d-flex">
+        <div class="card text-white col-lg-4 mt-3 d-flex">
             <div class="purchase-result text-center mb-1"></div>
             <img class="card-img-top img-fluid mx-auto mt-2 map-img" src="{{ url_for('static', filename='images/search_field.png') }}" alt="field image">
             <div class="card-body">
                 <h5 class="card-title">Search for field</h5>
-                <p class="card-text middle-card-text">Search for your field, no chance for diamonds</p>
-                <p class="card-text">Cost: 15 turns</p>
+                <p class="card-text middle-card-text text-white">Search for your field, no chance for diamonds</p>
+                <p class="card-text text-white">Cost: 15 turns</p>
             </div>
             <div class="text-center">
                 <button

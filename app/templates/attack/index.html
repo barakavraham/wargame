@@ -17,14 +17,28 @@
         <tbody>
             {% for user in users_lists[page_num - 1] %}
                 <tr>
-                    <td scope="row">{{ users_lists[page_num-1].index(user) + (page_num-1)*10 + 1 }}</td>
+                    <td scope="row" class="text-white"> {{ users_lists[page_num-1].index(user) + (page_num-1)*10 + 1 }} </td>
                     {% if user == current_user %}
-                        <td><a class="army-name-current font-weight-bold" href="{{ url_for('profile.index', army_name=user.army.name) }}">{{ user.army.name }}</a></td>
+                        <td>      
+                            <a class="army-name-current font-weight-bold button text-white"
+                               data-army-email="{{ user.email }}"
+                               data-army-rank="{{ users_lists[page_num-1].index(user) + (page_num-1)*10 + 1 }}"
+                               id="five" > 
+                                {{ user.army.name }} 
+                            </a>
+                        </td>
                     {% else %}
-                        <td><a class="army-name" href="{{ url_for('profile.index', army_name=user.army.name) }}">{{ user.army.name }}</a></td>
+                        <td>
+                            <a class="army-name button text-white"
+                               data-army-email="{{ user.email }}"
+                               data-army-rank="{{ users_lists[page_num-1].index(user) + (page_num-1)*10 + 1 }}"
+                               id="five" > 
+                                {{ user.army.name }} 
+                            </a>
+                        </td>
                     {% endif %}
-                    <td>{{ user.army.field }}</td>
-                    <td>{{ user.army.clan }}</td>
+                    <td class="text-white">{{ user.army.field }}</td>
+                    <td class="text-white">{{ user.army.clan }}</td>
                 </tr>
             {% endfor %}
         </tbody>

@@ -5,8 +5,7 @@
         let $userResources = $('#user-resources'),
             $searchResourcesBtn = $('#search-resources-btn'),
             $searchFieldBtn = $('#search-field-btn'),
-            $currentTurnsAmount = $('#current-turns-amount')
-        ;
+            $currentTurnsAmount = $('#current-turns-amount');
     
 
         function setUserResources({ added_resources, turns }, $userResources) {
