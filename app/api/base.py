@@ -22,7 +22,7 @@ class SearchResourcesAPI(Resource):
         found_resource = ceil(current_user.army.field / random_percentage)
         return found_resource
 
-    def search_for_diamonds(self, diamonds = 0):
+    def search_for_diamonds(self, diamonds=0):
         random_num = randint(1, 2)
         return self.search_for_diamonds(diamonds + 1) + 1 if random_num == 1 and diamonds != 9 else 0
 

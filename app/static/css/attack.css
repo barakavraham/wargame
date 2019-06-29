@@ -1,3 +1,11 @@
+* {
+    box-sizing: border-box;
+}
+
+html.popup-active, body.popup-active {
+    overflow: hidden;
+}
+
 #rank-column {
     width: 10%;
 }
@@ -18,16 +26,6 @@
     z-index: -1;
 }
 
-
-* {
-    box-sizing: border-box;
-}
-
-
-html.popup-active, body.popup-active {
-    overflow: hidden;
-}
-
 #army-profile {
     position: fixed;
     display: table;
@@ -43,12 +41,12 @@ html.popup-active, body.popup-active {
     transform: scale(1);
 }
 
-#army-profile.five .army-profile-background {
+#army-profile.five .profile-background {
     background: rgba(0, 0, 0, .0);
     animation: fadeIn 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
 }
 
-#army-profile.five .army-profile-background .popup {
+#army-profile.five .profile-background .popup {
     transform: translateX(-1500px);
     animation: roadRunnerIn 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
 }
@@ -57,23 +55,23 @@ html.popup-active, body.popup-active {
     animation: quickScaleDown 0s 0.5s linear forwards;
 }
 
-#army-profile.five.out .army-profile-background {
+#army-profile.five.out .profile-background {
     animation: fadeOut 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
 }
 
-#army-profile.five.out .army-profile-background .popup {
+#army-profile.five.out .profile-background .popup {
     animation: roadRunnerOut 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
 }
 
 
-#army-profile .army-profile-background {
+#army-profile .profile-background {
     display: table-cell;
     background: rgba(0, 0, 0, .8);
     text-align: center;
     vertical-align: middle;
 }
 
-#army-profile .army-profile-background .popup {
+#army-profile .profile-background .popup {
     background: #67757d;
     padding: 50px;
     display: inline-block;

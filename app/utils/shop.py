@@ -3,15 +3,20 @@ from typing import List
 
 
 class ShopItem:
-    def __init__(self, prices: List[tuple], power: int = 0, picture_name: str = 'upgrade', display_name: str = ''):
+    def __init__(self,
+                 prices: List[tuple],
+                 power: int = 0,
+                 picture_name: str = 'upgrade',
+                 display_name: str = '',
+                 weapon_type: str = ''):
         self.prices = dict(prices)
         self.power = power
         self.picture_name = picture_name
         self.display_name = display_name
+        self.weapon_type = weapon_type
 
     def price(self, amount=1):
         return {item: self.prices[item] * amount for item in self.prices}
-
 
 
 class UpgradableItem:
@@ -48,6 +53,7 @@ class UpgradableItem:
     def get_max_level_picture(self):
         return self[self.max_level].picture_name
 
+
 class TechUpgrades:
     def __init__(self, ground_weapons: UpgradableItem, bombs: UpgradableItem, air_weapons: UpgradableItem, country: UpgradableItem):
         self.ground_weapons = ground_weapons
@@ -67,43 +73,50 @@ SHOP_ITEMS = {
         prices=[('coin', 200), ('metal', 50)],
         power=1_000,
         picture_name='pistol',
-        display_name='Pistols'
+        display_name='Pistols',
+        weapon_type='ground_weapons'
     ),
     'rifle': ShopItem(
         prices=[('coin', 400), ('metal', 150)],
         power=2_500,
         picture_name='rifle',
-        display_name='Rifles'
+        display_name='Rifles',
+        weapon_type='ground_weapons'
     ),
     'tank': ShopItem(
         prices=[('coin', 800), ('metal', 330)],
         power=6_000,
         picture_name='tank',
-        display_name='Tanks'
+        display_name='Tanks',
+        weapon_type='ground_weapons'
     ),
     'missile_1': ShopItem(
         prices=[('coin', 1_600), ('metal', 700)],
         power=12_000,
         picture_name='missile_1',
-        display_name='Missiles Type A'
+        display_name='Missiles Type A',
+        weapon_type='bombs'
     ),
     'missile_2': ShopItem(
         prices=[('coin', 4_000), ('metal', 1_800)],
         power=25_000,
         picture_name='missile_2',
-        display_name='Missiles Type B'
+        display_name='Missiles Type B',
+        weapon_type='bombs'
     ),
     'missile_3': ShopItem(
         prices=[('coin', 10_600), ('metal', 3_700)],
         power=50_000,
         picture_name='missile_3',
-        display_name='Missiles Type C'
+        display_name='Missiles Type C',
+        weapon_type='bombs'
     ),
     'jet': ShopItem(
         prices=[('coin', 35_000), ('metal', 12_000)],
         power=150_000,
         picture_name='jet',
-        display_name='Jets'
+        display_name='Jets',
+        weapon_type='air_weapons'
     ),
 }
 

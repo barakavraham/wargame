@@ -16,7 +16,7 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=True)
-    avatar = db.Column(db.String(200), nullable=False, server_default='default.png')
+    avatar = db.Column(db.String(200), nullable=False, default='default.png')
     is_google_user = db.Column(db.Boolean, nullable=False, default=False)
 
     def get_gift(self):

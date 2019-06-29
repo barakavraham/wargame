@@ -1,8 +1,7 @@
 from app.models.user import User # DO NOT DELETE
 from app import db
-from flask_login import UserMixin
 from sqlalchemy.orm import backref
-from app.utils.shop import TECH_UPGRADES
+from app.utils.shop import TECH_UPGRADES, SHOP_ITEMS
 
 class Army(db.Model):
     __tablename__ = 'armies'
@@ -38,8 +37,16 @@ class Army(db.Model):
         current_amount = self.get_item_amount(item)
         setattr(self, item, current_amount + amount)
 
-    def get_num_with_comma(self, num):
-        return "{:,}".format(num)
+    @staticmethod
+    def get_num_with_comma(num):
+        return '{:,}'.format(num)
+
+    def get_power(self, unit_type):
+        total_power = 0
+        for weapon in SHOP_ITEMS:
+            if SHOP_ITEMS[weapon].weapon_type == unit_type:
+                total_power += self.get_item_amount(weapon) * SHOP_ITEMS[weapon].power
+        return total_power
 
 
 class Upgrade(db.Model):

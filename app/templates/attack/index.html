@@ -20,7 +20,7 @@
                     <td scope="row" class="text-white"> {{ users_lists[page_num-1].index(user) + (page_num-1)*10 + 1 }} </td>
                     {% if user == current_user %}
                         <td>      
-                            <a class="army-name-current font-weight-bold button text-white"
+                            <a class="army-name-current font-weight-bold show-profile text-white"
                                data-army-email="{{ user.email }}"
                                data-army-rank="{{ users_lists[page_num-1].index(user) + (page_num-1)*10 + 1 }}"
                                id="five" > 
@@ -29,7 +29,7 @@
                         </td>
                     {% else %}
                         <td>
-                            <a class="army-name button text-white"
+                            <a class="army-name show-profile text-white"
                                data-army-email="{{ user.email }}"
                                data-army-rank="{{ users_lists[page_num-1].index(user) + (page_num-1)*10 + 1 }}"
                                id="five" > 
@@ -77,6 +77,12 @@
             {% endif %}
         </ul>
     </nav>
+    <div id="army-profile">
+        <div class="profile-background">
+            <div class="popup">
+            </div>
+        </div>
+    </div>
 {% endblock content %}
 {% block scripts %}
     <script src="{{ url_for('static', filename='js/attack.js') }}"></script>
