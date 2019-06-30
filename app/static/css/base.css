@@ -19,6 +19,19 @@
     border-radius: 3px;
 }
 
+.resource-amount {
+    color: white;
+}
+
+.row {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.card {
+    background-color: #465361;
+}
+
 .purchase-result {
     position: absolute;
     display: flex;
@@ -82,7 +95,7 @@
     left: 0;
     width: 100%;
     word-break: break-all;
-    background-color: #ffffff;
+    background-color: #485563;
 }
   
 .letter:nth-child(1):before {

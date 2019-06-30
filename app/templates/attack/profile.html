@@ -1,0 +1,13 @@
+{% if user.is_google_user == False %}
+    <img class="user-avatar" src="{{ url_for('static', filename='images/'+user.avatar) }}"/>
+{% else %}
+    <img class="user-avatar" src="{{ user.avatar }}"/>
+{% endif %}
+    <h3 class="text-white">{{ user.army.name }}</h3>
+    <p class="text-white" id="rank"></p>
+    <p class="text-white"> clan: {{ user.army.clan }} </p>
+    {% if user.email != current_user.email %}
+    <div class="attack d-flex justify-content-around">
+        <a class="mt-3" id="attack-btn"><img src="{{ url_for('static', filename='images/power.png') }}"/> </a>
+    </div>
+{% endif %}

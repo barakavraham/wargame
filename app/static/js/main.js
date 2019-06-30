@@ -5,6 +5,15 @@ function numberWithCommas(x) {
 }
 
 (function($, webgame) {
+
+    let $navbarToggler = $('button.navbar-toggler');
+
+    function setupNavbar() {
+        $navbarToggler.on('click', function() {
+            $navbarToggler.toggleClass('active');
+        });
+    }
+
     $.each( [ "get", "post", "put", "delete" ], function( i, method ) {
         $[ 'gameApi' + _.capitalize(method) ] = function( url, data, callback, dataType ) {
             if (_.isString(url)) {
@@ -28,4 +37,7 @@ function numberWithCommas(x) {
             }, $.isPlainObject( url ) && url ) );
         };
     });
+
+    setupNavbar();
+
 })(jQuery, window.webgame);

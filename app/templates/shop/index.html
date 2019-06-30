@@ -10,19 +10,19 @@
         data-army-coin="{{ current_user.army.coin }}"
         data-army-metal="{{ current_user.army.metal }}"
         data-army-wood="{{ current_user.army.wood }}"
-        class="row text-center my-4 border p-2"
+        class="row text-center my-4 p-2"
     >
         <div class="col">
             <img class="img" src="{{ url_for('static', filename='images/coin.png') }}" />
-            <span id="current-coin-amount">{{ current_user.army.get_num_with_comma(current_user.army.coin) }}</span>
+            <span class="text-white" id="current-coin-amount">{{ current_user.army.get_num_with_comma(current_user.army.coin) }}</span>
         </div>
         <div class="col">
             <img class="img" src="{{ url_for('static', filename='images/metal.png') }}" />
-            <span id="current-metal-amount">{{ current_user.army.get_num_with_comma(current_user.army.metal) }}</span>
+            <span class="text-white" id="current-metal-amount">{{ current_user.army.get_num_with_comma(current_user.army.metal) }}</span>
         </div>
         <div class="col">
             <img class="img" src="{{ url_for('static', filename='images/wood.png') }}" />
-            <span id="current-wood-amount">{{ current_user.army.get_num_with_comma(current_user.army.wood) }}</span>
+            <span class="text-white" id="current-wood-amount">{{ current_user.army.get_num_with_comma(current_user.army.wood) }}</span>
         </div>
     </div>
     <div class="row justify-content-around mb-4">
@@ -33,7 +33,7 @@
         <div class="row">
             {% for item in shop_items %}
                 <div class="weapon-container col-lg-3 col-md-4 col-sm-6 col-xs-12 mx-auto mt-3 d-flex flex-column align-items-stretch">
-                    <p class="text-center"> {{ shop_items[item].display_name }} - <span class="current-weapon-amount">{{ current_user.army.get_num_with_comma(current_user.army.get_item_amount(item)) }}</span> </p>
+                    <p class="text-center text-white"> {{ shop_items[item].display_name }} - <span class="current-weapon-amount">{{ current_user.army.get_num_with_comma(current_user.army.get_item_amount(item)) }}</span> </p>
                     <div class="card border-dark mb-3">
                         <div class="purchase-result text-center mb-1"></div>
                         <img class="card-img-top img-fluid mx-auto mt-3 mb-3" src="{{ url_for('static', filename='images/'+shop_items[item].picture_name+'.png') }}" alt="Card image cap" />
@@ -44,14 +44,14 @@
                                         <p class="card-text mb-0">
                                             <img class="resource-img img-fluid" src="{{ url_for('static', filename='images/'+resource+'.png') }}" alt="{{ shop_items[item].display_name }}"/>
                                         </p>
-                                        <p class="card-text">
+                                        <p class="card-text text-white">
                                             {{ current_user.army.get_num_with_comma(shop_items[item].prices[resource]) }}
                                         </p>
                                     </div>
                                 {% endfor %}
                             </div>
                             <div class="d-flex flex-column h-100 justify-content-between">
-                                <p class="card-text text-center mt-4 mb-2">
+                                <p class="card-text text-center mt-3 mb-2 text-white">
                                     <img class="power-img" src="{{ url_for('static', filename='images/power.png') }}" alt="power"/>
                                     {{ current_user.army.get_num_with_comma(shop_items[item].power) }}
                                 </p>
@@ -79,7 +79,7 @@
             {% for upgrade in tech_upgrades %}
                 {% if current_user.army.upgrades.is_max_level(upgrade) %}
                     <div class="upgrade-container col-lg-3 col-md-4 col-sm-6 col-xs-12 mx-auto mt-3 d-flex flex-column align-items-stretch">
-                        <p class="text-center"> {{ upgrade }} - level <span class="current-upgrade-level"> Max </span> </p>
+                        <p class="text-center text-white"> {{ upgrade }} - level <span class="current-upgrade-level"> Max </span> </p>
                         <div class="card border-dark mb-3">
                             <img class="card-img-top img-fluid mx-auto mt-3 mb-3" src="{{ url_for('static', filename='images/'+tech_upgrades[upgrade].get_max_level_picture()+'.png') }}" alt="Card image cap" />
                             <div class="card-body d-flex justify-content-center">
@@ -93,7 +93,7 @@
                     {% for upgrade_level in tech_upgrades[upgrade] %}
                         {% if upgrade_level == current_user.army.upgrades.get_next_level(upgrade) %}
                             <div class="upgrade-container col-lg-3 col-md-4 col-sm-6 col-xs-12 mx-auto mt-3 d-flex flex-column align-items-stretch">
-                                <p class="text-center"> {{ upgrade }} - level <span class="current-upgrade-level">{{ current_user.army.upgrades.get_current_level_num(upgrade) }}</span> </p>
+                                <p class="text-center text-white"> {{ upgrade }} - level <span class="current-upgrade-level text-white">{{ current_user.army.upgrades.get_current_level_num(upgrade) }}</span> </p>
                                 <div class="purchase-result text-center mb-1"></div>
                                 <div class="card border-dark mb-3">
                                     <img class="card-img-top img-fluid mx-auto mt-3 mb-3" src="{{ url_for('static', filename='images/'+tech_upgrades[upgrade][upgrade_level].picture_name+'.png') }}" alt="Card image cap" />
@@ -104,19 +104,19 @@
                                                     <p class="card-text mb-0">
                                                         <img class="resource-img img-fluid" src="{{ url_for('static', filename='images/'+resource+'.png') }}" alt=""/>
                                                     </p>
-                                                    <p class="card-text">
+                                                    <p class="card-text text-white">
                                                         {{ current_user.army.get_num_with_comma(tech_upgrades[upgrade][upgrade_level].prices[resource]) }}
                                                     </p>
                                                 </div>
                                             {% endfor %}
                                         </div>
                                         <div class="d-flex flex-column h-100 justify-content-between">
-                                            <p class="card-text text-center mt-4 mb-2">
+                                            <p class="card-text text-center mt-4 mb-2 text-white">
                                                 Description
                                             </p>
                                             <div class="align-self-center">
                                                 <button
-                                                class="btn btn-dark upgrade-btn"
+                                                class="btn upgrade-btn"
                                                 data-item-upgrade="{{ upgrade }}"
                                                 {% for resource in tech_upgrades[upgrade][upgrade_level].prices %}
                                                     data-cost-{{ resource }}="{{ tech_upgrades[upgrade][upgrade_level].prices[resource] }}"

@@ -1,17 +1,21 @@
 .card-img-top {
-    width: 15vh;
-    height: 12vh;
+    width: 20vh;
+    height: 16vh;
     object-fit: fill;
 }
 
 .power-img {
-    width: 45px;
-    height: 45px;
+    width: 35px;
+    height: 35px;
 }
 
 .resource-img {
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
+}
+
+.card {
+    background-color: #66707b;
 }
 
 .bg-warning,
