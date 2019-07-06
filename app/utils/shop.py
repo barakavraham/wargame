@@ -72,49 +72,49 @@ SHOP_ITEMS = {
     'pistol': ShopItem(
         prices=[('coin', 200), ('metal', 50)],
         power=1_000,
-        picture_name='pistol',
+        picture_name='pistol.png',
         display_name='Pistols',
         weapon_type='ground_weapons'
     ),
     'rifle': ShopItem(
         prices=[('coin', 400), ('metal', 150)],
         power=2_500,
-        picture_name='rifle',
+        picture_name='rifle.png',
         display_name='Rifles',
         weapon_type='ground_weapons'
     ),
     'tank': ShopItem(
         prices=[('coin', 800), ('metal', 330)],
         power=6_000,
-        picture_name='tank',
+        picture_name='tank.png',
         display_name='Tanks',
         weapon_type='ground_weapons'
     ),
     'missile_1': ShopItem(
         prices=[('coin', 1_600), ('metal', 700)],
         power=12_000,
-        picture_name='missile_1',
+        picture_name='missile_1.png',
         display_name='Missiles Type A',
         weapon_type='bombs'
     ),
     'missile_2': ShopItem(
         prices=[('coin', 4_000), ('metal', 1_800)],
         power=25_000,
-        picture_name='missile_2',
+        picture_name='missile_2.png',
         display_name='Missiles Type B',
         weapon_type='bombs'
     ),
     'missile_3': ShopItem(
         prices=[('coin', 10_600), ('metal', 3_700)],
         power=50_000,
-        picture_name='missile_3',
+        picture_name='missile_3.png',
         display_name='Missiles Type C',
         weapon_type='bombs'
     ),
     'jet': ShopItem(
         prices=[('coin', 35_000), ('metal', 12_000)],
         power=150_000,
-        picture_name='jet',
+        picture_name='jet.png',
         display_name='Jets',
         weapon_type='air_weapons'
     ),
@@ -123,30 +123,30 @@ SHOP_ITEMS = {
 
 TECH_UPGRADES = TechUpgrades(
     ground_weapons=UpgradableItem(
-        level_1=ShopItem([('coin', 200), ('metal', 400), ('wood', 600)], picture_name="upgrade"),
-        level_2=ShopItem([('coin', 300), ('metal', 700), ('wood', 1_000)], picture_name="upgrade"),
-        level_3=ShopItem([('coin', 400), ('metal', 900), ('wood', 1_600)], picture_name="upgrade"),
-        level_4=ShopItem([('coin', 800), ('metal', 2_000), ('wood', 2_600)], picture_name="upgrade2"),
+        level_1=ShopItem([('coin', 200), ('metal', 400), ('wood', 600)], picture_name="upgrade.png"),
+        level_2=ShopItem([('coin', 300), ('metal', 700), ('wood', 1_000)], picture_name="upgrade.png"),
+        level_3=ShopItem([('coin', 400), ('metal', 900), ('wood', 1_600)], picture_name="upgrade.png"),
+        level_4=ShopItem([('coin', 800), ('metal', 2_000), ('wood', 2_600)], picture_name="upgrade2.png"),
         max_level=4),
     bombs=UpgradableItem(
-        level_1=ShopItem([('coin', 200), ('metal', 400), ('wood', 600)], picture_name="upgrade"),
-        level_2=ShopItem([('coin', 300), ('metal', 700), ('wood', 1_000)], picture_name="upgrade"),
-        level_3=ShopItem([('coin', 400), ('metal', 900), ('wood', 1_600)], picture_name="upgrade2"),
-        level_4=ShopItem([('coin', 800), ('metal', 2_000), ('wood', 2_600)], picture_name="upgrade"),
-        level_5=ShopItem([('coin', 2_000), ('metal', 4_000), ('wood', 5_600)], picture_name="upgrade"),
+        level_1=ShopItem([('coin', 200), ('metal', 400), ('wood', 600)], picture_name="upgrade.png"),
+        level_2=ShopItem([('coin', 300), ('metal', 700), ('wood', 1_000)], picture_name="upgrade.png"),
+        level_3=ShopItem([('coin', 400), ('metal', 900), ('wood', 1_600)], picture_name="upgrade2.png"),
+        level_4=ShopItem([('coin', 800), ('metal', 2_000), ('wood', 2_600)], picture_name="upgrade.png"),
+        level_5=ShopItem([('coin', 2_000), ('metal', 4_000), ('wood', 5_600)], picture_name="upgrade.png"),
         max_level=5),
     air_weapons=UpgradableItem(
-        level_1=ShopItem([('coin', 200), ('metal', 400), ('wood', 600)], picture_name="upgrade"),
-        level_2=ShopItem([('coin', 300), ('metal', 700), ('wood', 1_000)], picture_name="upgrade"),
-        level_3=ShopItem([('coin', 400), ('metal', 900), ('wood', 1_600)], picture_name="upgrade2"),
-        level_4=ShopItem([('coin', 800), ('metal', 2_000), ('wood', 2_600)], picture_name="upgrade"),
-        level_5=ShopItem([('coin', 2_000), ('metal', 4_000), ('wood', 5_600)], picture_name="upgrade"),
+        level_1=ShopItem([('coin', 200), ('metal', 400), ('wood', 600)], picture_name="upgrade.png"),
+        level_2=ShopItem([('coin', 300), ('metal', 700), ('wood', 1_000)], picture_name="upgrade.png"),
+        level_3=ShopItem([('coin', 400), ('metal', 900), ('wood', 1_600)], picture_name="upgrade2.png"),
+        level_4=ShopItem([('coin', 800), ('metal', 2_000), ('wood', 2_600)], picture_name="upgrade.png"),
+        level_5=ShopItem([('coin', 2_000), ('metal', 4_000), ('wood', 5_600)], picture_name="upgrade.png"),
         max_level=5),
     country=UpgradableItem(
-        level_1=ShopItem([('coin', 200), ('metal', 400), ('wood', 600)], picture_name="upgrade"),
-        level_2=ShopItem([('coin', 300), ('metal', 700)], picture_name="upgrade"),
-        level_3=ShopItem([('coin', 400)], picture_name="upgrade2"),
-        level_4=ShopItem([('coin', 800), ('metal', 2_000), ('wood', 2_600)], picture_name="upgrade"),
+        level_1=ShopItem([('coin', 200), ('metal', 400), ('wood', 600)], picture_name="upgrade.png"),
+        level_2=ShopItem([('coin', 300), ('metal', 700)], picture_name="upgrade.png"),
+        level_3=ShopItem([('coin', 400)], picture_name="upgrade2.png"),
+        level_4=ShopItem([('coin', 800), ('metal', 2_000), ('wood', 2_600)], picture_name="upgrade.png"),
         max_level=4))
         
         

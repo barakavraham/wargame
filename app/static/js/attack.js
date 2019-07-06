@@ -12,9 +12,9 @@
             $showProfileBtn.on('click', function(){
                 $armyProfilePopup.empty();
                 let $button = $(this),
-                    army_email = $button.data('army-email'),
+                    user_id = $button.data('user-id'),
                     army_rank = $button.data('army-rank');
-                $.gameApiGet(`attack/user_profile/${army_email}`
+                $.gameApiGet(`attack/user_profile/${user_id}`
                 ).done(function(html_profile){
                     $armyProfilePopup.append(html_profile);
                     $armyProfilePopup.find('#rank').text(`rank: ${army_rank}`);
@@ -36,19 +36,13 @@
 
         function setupAttackButton() {
             $('#attack-btn').on('click', function(){
-                // let $attack = $armyProfile.find('.attack');
-                // $attack.empty();
-                // $attack.removeClass('justify-content-around');
-                // $attack.addClass('justify-content-evenly');
-                // $attack.append("<button class='align-items-center mt-3' id='attack-btn-1'> Attack 1 </button>");
-                // $attack.append("<button class='align-items-center mt-3' id='attack-btn-2'> Attack 2 </button>");
                 $.gameApiPost('attack/attack', {
-                    attacker_user_id: 1,
-                    attacked_user_id: 2
-                }).done(({ attacker_results, attacked_results, is_winner }) => {
-                    console.log(attacker_results);
-                    console.log(attacked_results);
+                    attacker_user_id: $(this).data('attacker-user-id'),
+                    attacked_user_id: $(this).data('attacked-user-id'),
+                    weapon_types: JSON.stringify([])
+                }).done(({ is_winner, url }) => {
                     console.log(is_winner);
+                    console.log(url);
                 });
             })
         }

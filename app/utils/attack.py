@@ -4,12 +4,18 @@ from dataclasses import dataclass
 from app import db
 from app.utils.shop import SHOP_ITEMS
 
+ATTACK_COSTS = {
+    'ground_weapons': 10,
+    'bombs': 15,
+    'air_weapons': 30
+}
+
 
 @dataclass
 class BattleResults:
     attacker_results: dict
     attacked_results: dict
-    is_winner: Optional[bool]
+    did_attacker_win: Optional[bool]
 
 
 def stronger_army_by_unit(attacker_army, attacked_army, unit_type):
@@ -48,11 +54,9 @@ def attack_weapon(attacker_army, attacker_chance, attacked_army, attacked_chance
 
 
 def attack(attacker_army, attacked_army, unit_types=None):
-    battle_results = BattleResults(attacker_results={}, attacked_results={}, is_winner=None)
+    battle_results = BattleResults(attacker_results={}, attacked_results={}, did_attacker_win=None)
     attacker_army_counter = 0
     attacked_army_counter = 0
-    if unit_types is None:
-        unit_types = set([SHOP_ITEMS[weapon].weapon_type for weapon in SHOP_ITEMS])
     for unit_type in unit_types:
         stronger_army = stronger_army_by_unit(attacker_army, attacked_army, unit_type)
         for weapon in get_weapons_in_unit(unit_type):
@@ -75,6 +79,6 @@ def attack(attacker_army, attacked_army, unit_types=None):
                 attacker_army_counter += 1
             elif result == 1:
                 attacked_army_counter += 1
-    battle_results.is_winner = (True if attacker_army_counter > attacked_army_counter
-                                else False if attacked_army_counter > attacker_army_counter else None)
+    battle_results.did_attacker_win = (True if attacker_army_counter > attacked_army_counter
+                                       else False if attacked_army_counter > attacker_army_counter else None)
     return battle_results

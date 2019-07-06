@@ -1,0 +1,51 @@
+{% extends 'layout.html' %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/battle_results.css') }}">
+{% endblock styles %}
+
+{% if current_user.army == battle_result.attacker_army %}
+    {% set main_army = battle_result.attacker_army %}
+    {% set main_result = battle_result.attacker_result %}
+    {% set secondary_army = battle_result.attacked_army %}
+    {% set secondary_result = battle_result.attacked_result %}
+{% else %}
+    {% set main_army = battle_result.attacked_army %}
+    {% set main_result = battle_result.attacked_result %}
+    {% set secondary_army = battle_result.attacker_army %}
+    {% set secondary_result = battle_result.attacker_result %}
+{% endif %}
+{% set is_winner = battle_result.did_attacker_win and current_user.army == battle_result.attacker_army %}
+
+{% block content %}
+    <div class="battle-results d-flex justify-content-evenly mt-5">
+        <div class="main-avatar d-flex flex-column justify-content-center align-items-center">
+            <img class="avatar" src="{{ main_army.user.avatar }}" alt="{{ main_army.name }}"/>
+        </div>
+        <div class="results d-flex justify-content-between w-100">
+            <div class="main ml-5">
+                <div class="d-flex justify-content-between align-items-center">
+                    <img class="mx-2" src="{{ url_for('static', filename='images/swords.png') }}" alt="swords" />
+                    <h3>{{ main_army.name }}</h3>
+                </div>
+                {% for result in main_result %}
+                    <p class="text-center"><img src="{{ url_for('static', filename='images/'+shop_items[result].picture_name) }}"
+                            alt="{{ shop_items[result].display_name }}" /> {{ main_result[result] }}</p>
+                {% endfor %}
+            </div>
+            <div class="secondary mr-5">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h3>{{ secondary_army.name }}</h3>
+                    <img class="mx-2" src="{{ url_for('static', filename='images/swords.png') }}" alt="swords" />
+                </div>
+                {% for result in secondary_result %}
+                    <p class="text-center">{{ secondary_result[result] }} <img src="{{ url_for('static', filename='images/'+shop_items[result].picture_name) }}"
+                                                        alt="{{ shop_items[result].display_name }}" /></p>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="secondary-avatar d-flex flex-column justify-content-center align-items-center">
+            <img class="avatar" src="{{ secondary_army.user.avatar }}" alt="{{ secondary_army.name }}"/>
+        </div>
+    </div>
+{% endblock content %}

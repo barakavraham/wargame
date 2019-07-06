@@ -1,0 +1,14 @@
+.battle-results {
+    height: 100%;
+    color: #ffe;
+}
+
+img.avatar {
+    height: 200px;
+    width: 200px;
+    border-radius: 0 0 100% 100%;
+}
+
+h3 {
+    margin: 0;
+}
