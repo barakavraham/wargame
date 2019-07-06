@@ -1,5 +1,4 @@
 from app import db
-from tests.utils import format_response
 from tests.api import APITestCase
 
 

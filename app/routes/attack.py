@@ -1,9 +1,11 @@
 import math
 import operator
-from app.models.user import User
-from app.permissions.permissions import army_name_required
-from flask import render_template, Blueprint
+from flask import render_template, abort, Blueprint
 from flask_login import login_required, current_user
+from app.models.user import User
+from app.models.army import BattleResult
+from app.utils.shop import SHOP_ITEMS
+from app.permissions.permissions import army_name_required
 
 attack = Blueprint('attack', __name__, template_folder='templates')
 
@@ -24,3 +26,11 @@ def index(page_num=None):
                 page_num = users_lists.index(users_list) + 1
                 break
     return render_template('attack/index.html', users_lists=users_lists, page_num=page_num, num_lists=sum_users)
+
+
+@attack.route('/battle_results/<int:battle_result_id>')
+def battle_results(battle_result_id):
+    battle_result = BattleResult.query.get_or_404(battle_result_id)
+    if current_user.army not in [battle_result.attacker_army, battle_result.attacked_army]:
+        abort(404)
+    return render_template('attack/battle_result.html', battle_result=battle_result, shop_items=SHOP_ITEMS)

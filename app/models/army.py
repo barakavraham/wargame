@@ -2,6 +2,8 @@ from app.models.user import User # DO NOT DELETE
 from app import db
 from sqlalchemy.orm import backref
 from app.utils.shop import TECH_UPGRADES, SHOP_ITEMS
+from sqlalchemy_utils.types import JSONType
+
 
 class Army(db.Model):
     __tablename__ = 'armies'
@@ -79,3 +81,17 @@ class Upgrade(db.Model):
     def is_max_level(self, upgrade_name):
         current_level = getattr(self, upgrade_name)
         return current_level == TECH_UPGRADES[upgrade_name].max_level
+
+
+class BattleResult(db.Model):
+    __tablename__ = 'battle_results'
+
+    id = db.Column(db.Integer, primary_key=True)
+    attacker_army_id = db.Column(db.Integer, db.ForeignKey('armies.id'))
+    attacked_army_id = db.Column(db.Integer, db.ForeignKey('armies.id'))
+    attacker_result = db.Column(JSONType, nullable=False)
+    attacked_result = db.Column(JSONType, nullable=False)
+    did_attacker_win = db.Column(db.Boolean)
+
+    attacker_army = db.relationship('Army', foreign_keys=[attacker_army_id])
+    attacked_army = db.relationship('Army', foreign_keys=[attacked_army_id])

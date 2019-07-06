@@ -77,7 +77,7 @@ class UpgradeAPI(Resource):
         upgrade_name = args['upgrade']
         level = args['level']
         if (upgrade_name not in TECH_UPGRADES
-            or level != current_user.army.upgrades.get_current_level_num(upgrade_name) + 1):
+                or level != current_user.army.upgrades.get_current_level_num(upgrade_name) + 1):
             return {'success': False}, 400
         if self.is_max_level(upgrade_name, level):
             return {'max_level': True}, 400
@@ -86,13 +86,13 @@ class UpgradeAPI(Resource):
         prices = {
                 resource: {
                     'price': upgrade.prices[resource],
-                    'picture': url_for ('static', filename=f'images/{resource}.png')
+                    'picture': url_for('static', filename=f'images/{resource}')
                 } for resource in upgrade.prices
         } if upgrade else None
         return {
                    'success': is_successful,
                    'prices': prices,
-                   'picture': url_for('static', filename=f'images/{upgrade.picture_name}.png') if upgrade else None,
+                   'picture': url_for('static', filename=f'images/{upgrade.picture_name}') if upgrade else None,
                    'max_level': self.is_max_level(upgrade_name, level + 1)
                }, 200 if is_successful else 400
 

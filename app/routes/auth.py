@@ -38,6 +38,7 @@ def register():
                                'invalidFormButton': 'registration-btn'
                            })
 
+
 @auth.route('/logout')
 def logout():
     # logout possible google user

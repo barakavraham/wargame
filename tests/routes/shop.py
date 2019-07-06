@@ -1,6 +1,7 @@
 from tests.utils import format_response
 from tests.routes import RouteTestCase
 
+
 class ShopRouteTestCase(RouteTestCase):
 
     def setUp(self):

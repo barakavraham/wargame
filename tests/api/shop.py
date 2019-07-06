@@ -1,6 +1,5 @@
 from app import db
 from app.utils.shop import TECH_UPGRADES
-from tests.utils import format_response
 from tests.api import APITestCase
 
 

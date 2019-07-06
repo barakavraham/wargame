@@ -11,6 +11,7 @@ TEST_USER_EMAIL = 'test@webgame.com'
 TEST_USER_PASSWORD = 'password'
 TEST_USER_ARMY_NAME = 'TestArmy'
 
+
 class APITestCase(TestCase):
     @classmethod
     def _remove_sqlite_test_db(cls):
@@ -47,7 +48,7 @@ class APITestCase(TestCase):
                                     data=dict(email=email,
                                               password=password,
                                               remember=remember),
-                                              follow_redirects=True)
+                                    follow_redirects=True)
 
     def logout(self):
         return self.test_client.get('/auth/logout', follow_redirects=True)
