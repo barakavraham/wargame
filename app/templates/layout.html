@@ -14,6 +14,8 @@
     {% block styles %}{% endblock %}
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     {% block title %}{% endblock %}
+    {{ moment.include_jquery() }}
+    {{ moment.include_moment() }}
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top mb-3">
@@ -39,7 +41,7 @@
                     <a class="nav-link" href="#">Clan</a>
                 </li>
                 <li class="nav-item mx-2">
-                    <a class="nav-link" href="#">Mail</a>
+                    <a class="nav-link" href="{{ url_for('mail.index') }}">Mail</a>
                 </li>
                 <li class="nav-item mx-2">
                     <a class="nav-link" href="#">Vacation</a>
@@ -70,24 +72,23 @@
     <footer class="footer text-center">
         <p class="mb-0 py-1 text-white">All Rights Reserved &copy; WebGame <span id="copyright-year"></span></p>
     </footer>
-    <!-- JQuery -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <!-- Bootstrap tooltips -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
-    <!-- Bootstrap core JavaScript -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <!-- MDB core JavaScript -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.2/js/mdb.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.min.js"></script>
-    <script>
-        {% if js_vars %}
-            window.jsVars = {{ js_vars | safe }};
-        {% else %}
-            window.jsVars = {};
-        {% endif %}
-        document.getElementById('copyright-year').textContent = new Date().getFullYear();
-    </script>
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
-    {% block scripts %}{% endblock scripts %}
+    {% block scripts %}
+        <!-- Bootstrap tooltips -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+        <!-- Bootstrap core JavaScript -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <!-- MDB core JavaScript -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.2/js/mdb.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.min.js"></script>
+        <script>
+            {% if js_vars %}
+                window.jsVars = {{ js_vars | safe  }};
+            {% else %}
+                window.jsVars = {};
+            {% endif %}
+            document.getElementById('copyright-year').textContent = new Date().getFullYear();
+        </script>
+        <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    {% endblock scripts %}
 </body>
 </html>

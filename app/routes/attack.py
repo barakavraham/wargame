@@ -2,6 +2,7 @@ import math
 import operator
 from flask import render_template, abort, Blueprint
 from flask_login import login_required, current_user
+from app import db
 from app.models.user import User
 from app.models.army import BattleResult
 from app.utils.shop import SHOP_ITEMS
@@ -11,7 +12,7 @@ attack = Blueprint('attack', __name__, template_folder='templates')
 
 
 @attack.route('/')
-@attack.route("/<page_num>")
+@attack.route('/<page_num>')
 @login_required
 @army_name_required
 def index(page_num=None):
@@ -33,4 +34,9 @@ def battle_results(battle_result_id):
     battle_result = BattleResult.query.get_or_404(battle_result_id)
     if current_user.army not in [battle_result.attacker_army, battle_result.attacked_army]:
         abort(404)
+    if current_user.army == battle_result.attacker_army:
+        battle_result.viewed_by_attacker = True
+    else:
+        battle_result.viewed_by_attacked = True
+    db.session.commit()
     return render_template('attack/battle_result.html', battle_result=battle_result, shop_items=SHOP_ITEMS)

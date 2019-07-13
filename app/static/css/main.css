@@ -88,6 +88,10 @@ button.navbar-toggler.active .hamburger-line:nth-child(3) {
     background-color: #4C4A66 !important;
 }
 
+.th-lg {
+    min-width: 12rem !important;
+}
+
 .footer {
     position: absolute;
     bottom: 0;

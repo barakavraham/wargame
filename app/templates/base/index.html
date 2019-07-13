@@ -59,5 +59,6 @@
     </div>
 {% endblock %}
 {% block scripts %}
+    {{ super() }}
     <script src="{{ url_for('static', filename='js/base.js') }}"></script>
 {% endblock scripts %}

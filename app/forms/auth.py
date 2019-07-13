@@ -18,7 +18,7 @@ class RegistrationForm(FlaskForm):
                                      render_kw={'placeholder': 'Confirm Password',
                                                 'id': 'registration-confirm-password'})
     army_name = StringField('Army Name',
-                            validators=[DataRequired(), Length(min=3, max=24)],
+                            validators=[DataRequired(), Length(min=3, max=16)],
                             render_kw={'placeholder': 'Army Name', 'id': 'registration-army-name'})
 
     @staticmethod

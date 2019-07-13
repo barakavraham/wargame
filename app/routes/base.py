@@ -23,7 +23,7 @@ def get_user_resources():
     return user_resources
 
 
-@base.route("/")
+@base.route('/')
 @login_required
 @army_name_required
 def index():

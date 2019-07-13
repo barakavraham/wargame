@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mail.css') }}">
+{% endblock styles %}
+
+{% block content %}
+    <table class="table" style="display: none;">
+        <thead class="black white-text">
+            <tr>
+                <th scope="col">Read</th>
+                <th scope="col">Attacker</th>
+                <th scope="col">Result</th>
+                <th scope="col">Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for battle_result in attacker_battle_results %}
+                <tr>
+                    <th><input type="checkbox"/></th>
+                    <td>{% if not battle_result.viewed_by_attacker %}<span class="not-viewed"></span>{% endif %}{{ battle_result.attacker_army.name }}</td>
+                    <td class="text-{{ battle_result.did_attacker_win | result_to_class_name(True) }}">TEST</td>
+                    <td>{{ moment(timestamp=battle_result.timestamp).fromNow(refresh=True) }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <table class="table">
+        <thead class="black white-text">
+            <tr>
+                <th class="read-col" scope="col"></th>
+                <th class="attacker-col th-lg" scope="col">Attacker</th>
+                <th class="result-col" scope="col">Result</th>
+                <th class="date-col" scope="col">Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for battle_result in attacked_battle_results %}
+                <tr class="white-text">
+                    <th><input type="checkbox"/></th>
+                    <td>
+                        <a class="white-text" target="_blank" href="{{ url_for('attack.battle_results', battle_result_id=battle_result.id) }}">
+                            {% if not battle_result.viewed_by_attacked %}<i class="fas fa-exclamation-circle"></i>{% endif %}{{ battle_result.attacker_army.name }}
+                        </a>
+                    </td>
+                    <td class="text-{{ battle_result.did_attacker_win | result_to_class_name(False) }}">TEST</td>
+                    <td>{{ moment(timestamp=battle_result.timestamp).fromNow(refresh=True) }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock content %}

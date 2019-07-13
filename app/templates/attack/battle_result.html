@@ -9,35 +9,22 @@
     {% set main_result = battle_result.attacker_result %}
     {% set secondary_army = battle_result.attacked_army %}
     {% set secondary_result = battle_result.attacked_result %}
-    {% if battle_result.did_attacker_win == 1 %}
-        {% set did_win = 1 %}
-    {% elif battle_result.did_attacker_win == 0  %}
-        {% set did_win = 0 %}
-    {% else %}
-        {% set did_win = 2 %}
-    {% endif %}   
+    {% set did_win = battle_result.did_attacker_win == True %}
 {% else %}
     {% set main_army = battle_result.attacked_army %}
     {% set main_result = battle_result.attacked_result %}
     {% set secondary_army = battle_result.attacker_army %}
     {% set secondary_result = battle_result.attacker_result %}
-    {% if battle_result.did_attacker_win == 1 %}
-        {% set did_win = 0 %}
-    {% elif battle_result.did_attacker_win == 0  %}
-        {% set did_win = 1 %}
-    {% else %}
-        {% set did_win = 2 %}
-    {% endif %}   
+    {% set did_win = battle_result.did_attacker_win == False %}
 {% endif %}
-{% set is_winner = battle_result.did_attacker_win and current_user.army == battle_result.attacker_army %}
 
 {% block content %}
-    {% if did_win == 1 %}
-        <h4 class="text-center" style="color: green;">You won the battle!</h4>
-    {% elif did_win == 0 %}
-        <h4 class="text-center" style="color: red;">You lost the battle!</h4>
-    {% elif did_win == 2 %}
-        <h4 class="text-center" style="color: orange;">Its a tie!</h4>
+    {% if battle_result.did_attacker_win == None %}
+        <h4 class="text-center text-warning">Its a tie!</h4>
+    {% elif did_win == True %}
+        <h4 class="text-center text-success">You won the battle!</h4>
+    {% else %}
+        <h4 class="text-center text-danger">You lost the battle!</h4>
     {% endif %}
     <div class="battle-results d-flex justify-content-evenly mt-5">
         <div class="main-avatar d-flex flex-column justify-content-center align-items-center">
@@ -75,7 +62,7 @@
             {% if secondary_army.user.is_google_user == True %}
                 <img class="avatar" src="{{ secondary_army.user.avatar }}" alt="{{ main_army.name }}"/>
             {% else %}
-                <img class="avatar" src="url_for('static', filename='images/'+secondary_army.user.user.avatar)" alt="{{ main_army.name }}"/>
+                <img class="avatar" src="{{ url_for('static', filename='images/'+secondary_army.user.avatar) }}" alt="{{ main_army.name }}"/>
             {% endif %}
         </div>
     </div>
