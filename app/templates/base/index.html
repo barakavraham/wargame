@@ -3,7 +3,7 @@
 {% block styles %}
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/base.css') }}">
 {% endblock styles %}
-
+{% block title %} <title> Base </title> {% endblock title %}
 {% block content %}
     <h2 class="text-center mt-3 text-white">{{ current_user.army.name }}</h2>
     <div class="text-center text-white">

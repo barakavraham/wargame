@@ -61,14 +61,14 @@ def attack(attacker_army, attacked_army, unit_types=None):
         stronger_army = stronger_army_by_unit(attacker_army, attacked_army, unit_type)
         for weapon in get_weapons_in_unit(unit_type):
             if stronger_army and stronger_army == attacker_army:
-                attacker_chance = uniform(2.0, 3.0)
-                attacked_chance = uniform(1.0, 2.0)
+                attacker_chance = uniform(2.0+0.2, 3.0+0.2)
+                attacked_chance = uniform(1.0+1.5, 2.0+1.5)
             elif stronger_army:
-                attacker_chance = uniform(1.0, 2.0)
-                attacked_chance = uniform(2.0, 3.0)
+                attacker_chance = uniform(2.0+0.2, 3.0+0.2)
+                attacked_chance = uniform(1.0+1.5, 2.0+1.5)
             else:
-                attacker_chance = uniform(1.5, 2.5)
-                attacked_chance = uniform(1.5, 2.5)
+                attacker_chance = uniform(2.0+0.2, 3.0+0.2)
+                attacked_chance = uniform(1.0+1.5, 2.0+1.5)
             result = attack_weapon(attacker_army=attacker_army,
                                    attacker_chance=attacker_chance,
                                    attacked_army=attacked_army,

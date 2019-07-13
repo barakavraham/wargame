@@ -3,7 +3,7 @@
 {% block styles %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/attack.css') }}">
 {% endblock styles %}
-
+{% block title %} <title> Attack </title> {% endblock title %}
 {% block content %}
     <table class="table">
         <thead class="thead-dark">
@@ -30,7 +30,7 @@
                     {% else %}
                         <td>
                             <a class="army-name show-profile text-white"
-                               data-army-email="{{ user.email }}"
+                               data-user-id="{{ user.id }}"
                                data-army-rank="{{ users_lists[page_num-1].index(user) + (page_num-1)*10 + 1 }}"
                                id="five" > 
                                 {{ user.army.name }} 
