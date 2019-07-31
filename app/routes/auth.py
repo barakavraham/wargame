@@ -14,7 +14,7 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         login_user(user, remember=form.remember.data)
-        next_url = request.args.get('next', 'home.index')
+        next_url = request.args.get('next', 'base.index')
         return redirect(url_for(next_url))
     return render_template('home/index.html',
                            login_form=form,

@@ -3,7 +3,7 @@
 {% block styles %}
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/shop.css') }}">
 {% endblock styles %}
-
+{% block title %} <title> Shop </title> {% endblock title %}
 {% block content %}
     <div
         id="user-resources"
@@ -136,5 +136,6 @@
     </div>
 {% endblock content %}
 {% block scripts %}
+    {{ super() }}
     <script src="{{ url_for('static', filename='js/shop.js') }}"></script>
 {% endblock scripts %}

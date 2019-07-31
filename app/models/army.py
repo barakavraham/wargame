@@ -1,8 +1,9 @@
+from datetime import datetime
+from sqlalchemy.orm import backref
+from sqlalchemy_utils.types import JSONType
 from app.models.user import User # DO NOT DELETE
 from app import db
-from sqlalchemy.orm import backref
 from app.utils.shop import TECH_UPGRADES, SHOP_ITEMS
-from sqlalchemy_utils.types import JSONType
 
 
 class Army(db.Model):
@@ -10,7 +11,7 @@ class Army(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    name = db.Column(db.String(20), unique=True)
+    name = db.Column(db.String(16), unique=True)
     coin = db.Column(db.Integer, nullable=False, default=100)
     wood = db.Column(db.Integer, nullable=False, default=100)
     metal = db.Column(db.Integer, nullable=False, default=100)
@@ -92,6 +93,9 @@ class BattleResult(db.Model):
     attacker_result = db.Column(JSONType, nullable=False)
     attacked_result = db.Column(JSONType, nullable=False)
     did_attacker_win = db.Column(db.Boolean)
+    viewed_by_attacker = db.Column(db.Boolean, nullable=False, default=False)
+    viewed_by_attacked = db.Column(db.Boolean, nullable=False, default=False)
+    timestamp = db.Column(db.DateTime(), nullable=False, default=datetime.utcnow)
 
     attacker_army = db.relationship('Army', foreign_keys=[attacker_army_id])
     attacked_army = db.relationship('Army', foreign_keys=[attacked_army_id])

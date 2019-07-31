@@ -88,6 +88,10 @@ button.navbar-toggler.active .hamburger-line:nth-child(3) {
     background-color: #4C4A66 !important;
 }
 
+.th-lg {
+    min-width: 12rem !important;
+}
+
 .footer {
     position: absolute;
     bottom: 0;
@@ -103,3 +107,41 @@ img {
 .justify-content-evenly {
     justify-content: space-evenly;
 }
+
+/* Message popup */
+
+.bg-warning,
+.bg-success {
+    border-radius: 3px;
+}
+
+.purchase-result {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    height: 0;
+    width: 100%;
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.purchase-result.message-showing {
+    height: 100%;
+    opacity: 1;
+    transition: 0.3s;
+}
+
+.purchase-result p {
+    padding: 4px;
+}
+
+.input-group-text {
+    border: none;
+}
+
+/* end */

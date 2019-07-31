@@ -19,8 +19,7 @@
         }
 
         function setCardBody($btn, { added_resources }) {
-            let $card_body = $btn.closest('.card').find('.card-body'),
-                RandomNum;
+            let $card_body = $btn.closest('.card').find('.card-body');
             $card_body.empty();
             if (added_resources['field'])
                 $card_body.append('<h5 class="card-title">Search for field</h5>');

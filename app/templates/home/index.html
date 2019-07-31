@@ -3,7 +3,7 @@
 {% block styles %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
 {%  endblock styles %}
-
+{% block title %} <title> Home </title> {% endblock title %}
 {% block content %}
     <div class="auth-messages text-center mt-4 bg-info">
         {% with messages = get_flashed_messages() %}
@@ -127,5 +127,6 @@
     {% endif %}
 {% endblock content %}
 {% block scripts %}
+    {{ super() }}
     <script src="{{ url_for('static', filename='js/home.js') }}"></script>
 {% endblock scripts %}

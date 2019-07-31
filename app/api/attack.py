@@ -54,7 +54,7 @@ class AttackAPI(Resource):
         attacked = User.query.get_or_404(attacked_user_id)
         if not self.can_attack(attacker.army, weapon_types):
             abort(400, 'You do not have enough turns to attack')
-        battle_result = attack(attacker.army, attacked.army, weapon_types)
+        battle_result = attack(attacker.army, attacked.army, ['ground_weapons'])
         battle_result = BattleResult(attacker_army=attacker.army,
                                      attacked_army=attacked.army,
                                      attacker_result=battle_result.attacker_results,

@@ -41,8 +41,7 @@
                     attacked_user_id: $(this).data('attacked-user-id'),
                     weapon_types: JSON.stringify([])
                 }).done(({ is_winner, url }) => {
-                    console.log(is_winner);
-                    console.log(url);
+                    window.open(url)
                 });
             })
         }

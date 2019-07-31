@@ -6,7 +6,7 @@ from wtforms.validators import DataRequired, Length, ValidationError
 
 class SetArmyNameForm(FlaskForm):
     army_name = StringField('Army name',
-                            validators=[DataRequired(), Length(min=3, max=30)],
+                            validators=[DataRequired(), Length(min=3, max=16)],
                             render_kw={'placeholder': 'Army Name'})
 
     @staticmethod

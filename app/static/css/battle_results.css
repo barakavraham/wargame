@@ -1,14 +1,87 @@
 .battle-results {
-    height: 100%;
     color: #ffe;
 }
 
 img.avatar {
-    height: 200px;
-    width: 200px;
     border-radius: 0 0 100% 100%;
+}
+
+
+.container {
+    padding: 0 !important;
 }
 
 h3 {
     margin: 0;
+}
+
+.left-army-result .right-army-result {
+    padding: 0;
+}
+
+/* Responsive settings */
+
+@media all and (min-width: 1200px) {
+    img.avatar {
+        width: 150px;
+        height: auto;
+    }
+}
+
+@media all and (min-width: 992px) and (max-width: 1200px) {
+    img.avatar {
+        width: 125px;
+        height: auto;
+    }
+}
+
+@media all and (min-width: 768px) and (max-width: 991px) {
+    img.avatar {
+        width: 100px;
+        height: auto;
+    }
+}
+
+@media all and (min-width: 576px) and (max-width: 767px) {
+    img.avatar {
+        width: 100px;
+        height: auto;
+    }
+}
+
+@media all and (min-width: 300px) and (max-width: 575px) {
+    img.avatar {
+        width: 75px;
+        height: auto;
+    }
+    .secondary-army {
+        flex-direction: row-reverse;
+    }
+
+    .army-name {
+        margin: 0 !important;
+    }
+
+    .right-army-result {
+        flex-direction: row-reverse;
+    }
+}
+
+@media all and (min-width: 0px) and (max-width: 400px) {
+    img.avatar {
+        width: 0px;
+        height: auto;
+    }
+    
+    .secondary-army {
+        flex-direction: row-reverse;
+    }
+
+    .army-name {
+        margin: 0 !important;
+    }
+
+    .right-army-result {
+        flex-direction: row-reverse;
+    }
 }
