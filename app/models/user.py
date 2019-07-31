@@ -28,3 +28,17 @@ class User(db.Model, UserMixin):
 
     def __repr__(self):
         return f'<User {self.email}>'
+
+class Mail(db.Model):
+    __tablename__ = 'mails'
+
+    id = db.Column(db.Integer, primary_key=True)
+    author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    recipient_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    title = db.Column(db.String(16))
+    content = db.Column(db.String(256))
+    did_viewed = db.Column(db.Boolean, nullable=False, default=False)
+    timestamp = db.Column(db.DateTime(), nullable=False, default=datetime.utcnow)
+
+    author_user = db.relationship('User', foreign_keys=[author_id])
+    recipient_user = db.relationship('User', foreign_keys=[recipient_id])
